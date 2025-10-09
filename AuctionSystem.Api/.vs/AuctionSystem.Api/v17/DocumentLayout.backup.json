@@ -1,0 +1,244 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\pasin\\Desktop\\acution\\online-auction-website\\AuctionSystem.Api\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{F3CF55C4-86EA-45AE-A750-2522A3049BE8}|AuctionSystem.Api.csproj|c:\\users\\pasin\\desktop\\acution\\online-auction-website\\auctionsystem.api\\migrations\\20251009175654_initialcreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F3CF55C4-86EA-45AE-A750-2522A3049BE8}|AuctionSystem.Api.csproj|solutionrelative:migrations\\20251009175654_initialcreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F3CF55C4-86EA-45AE-A750-2522A3049BE8}|AuctionSystem.Api.csproj|c:\\users\\pasin\\desktop\\acution\\online-auction-website\\auctionsystem.api\\dto\\loginrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F3CF55C4-86EA-45AE-A750-2522A3049BE8}|AuctionSystem.Api.csproj|solutionrelative:dto\\loginrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F3CF55C4-86EA-45AE-A750-2522A3049BE8}|AuctionSystem.Api.csproj|c:\\users\\pasin\\desktop\\acution\\online-auction-website\\auctionsystem.api\\dto\\authresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F3CF55C4-86EA-45AE-A750-2522A3049BE8}|AuctionSystem.Api.csproj|solutionrelative:dto\\authresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F3CF55C4-86EA-45AE-A750-2522A3049BE8}|AuctionSystem.Api.csproj|c:\\users\\pasin\\desktop\\acution\\online-auction-website\\auctionsystem.api\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F3CF55C4-86EA-45AE-A750-2522A3049BE8}|AuctionSystem.Api.csproj|solutionrelative:data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F3CF55C4-86EA-45AE-A750-2522A3049BE8}|AuctionSystem.Api.csproj|c:\\users\\pasin\\desktop\\acution\\online-auction-website\\auctionsystem.api\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F3CF55C4-86EA-45AE-A750-2522A3049BE8}|AuctionSystem.Api.csproj|solutionrelative:controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F3CF55C4-86EA-45AE-A750-2522A3049BE8}|AuctionSystem.Api.csproj|c:\\users\\pasin\\desktop\\acution\\online-auction-website\\auctionsystem.api\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F3CF55C4-86EA-45AE-A750-2522A3049BE8}|AuctionSystem.Api.csproj|solutionrelative:models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F3CF55C4-86EA-45AE-A750-2522A3049BE8}|AuctionSystem.Api.csproj|c:\\users\\pasin\\desktop\\acution\\online-auction-website\\auctionsystem.api\\auctionsystem.api.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{F3CF55C4-86EA-45AE-A750-2522A3049BE8}|AuctionSystem.Api.csproj|solutionrelative:auctionsystem.api.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F3CF55C4-86EA-45AE-A750-2522A3049BE8}|AuctionSystem.Api.csproj|c:\\users\\pasin\\desktop\\acution\\online-auction-website\\auctionsystem.api\\auctionsystem.api.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}",
+      "RelativeMoniker": "D:0:0:{F3CF55C4-86EA-45AE-A750-2522A3049BE8}|AuctionSystem.Api.csproj|solutionrelative:auctionsystem.api.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F3CF55C4-86EA-45AE-A750-2522A3049BE8}|AuctionSystem.Api.csproj|c:\\users\\pasin\\desktop\\acution\\online-auction-website\\auctionsystem.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F3CF55C4-86EA-45AE-A750-2522A3049BE8}|AuctionSystem.Api.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F3CF55C4-86EA-45AE-A750-2522A3049BE8}|AuctionSystem.Api.csproj|c:\\users\\pasin\\desktop\\acution\\online-auction-website\\auctionsystem.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{F3CF55C4-86EA-45AE-A750-2522A3049BE8}|AuctionSystem.Api.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 690,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "20251009175654_InitialCreate.cs",
+              "DocumentMoniker": "C:\\Users\\pasin\\Desktop\\acution\\online-auction-website\\AuctionSystem.Api\\Migrations\\20251009175654_InitialCreate.cs",
+              "RelativeDocumentMoniker": "Migrations\\20251009175654_InitialCreate.cs",
+              "ToolTip": "C:\\Users\\pasin\\Desktop\\acution\\online-auction-website\\AuctionSystem.Api\\Migrations\\20251009175654_InitialCreate.cs",
+              "RelativeToolTip": "Migrations\\20251009175654_InitialCreate.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-09T17:58:23.682Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:10:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "LoginRequest.cs",
+              "DocumentMoniker": "C:\\Users\\pasin\\Desktop\\acution\\online-auction-website\\AuctionSystem.Api\\DTO\\LoginRequest.cs",
+              "RelativeDocumentMoniker": "DTO\\LoginRequest.cs",
+              "ToolTip": "C:\\Users\\pasin\\Desktop\\acution\\online-auction-website\\AuctionSystem.Api\\DTO\\LoginRequest.cs",
+              "RelativeToolTip": "DTO\\LoginRequest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-09T17:43:28.649Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AuthResponse.cs",
+              "DocumentMoniker": "C:\\Users\\pasin\\Desktop\\acution\\online-auction-website\\AuctionSystem.Api\\DTO\\AuthResponse.cs",
+              "RelativeDocumentMoniker": "DTO\\AuthResponse.cs",
+              "ToolTip": "C:\\Users\\pasin\\Desktop\\acution\\online-auction-website\\AuctionSystem.Api\\DTO\\AuthResponse.cs",
+              "RelativeToolTip": "DTO\\AuthResponse.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-09T17:43:29.697Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ApplicationDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\pasin\\Desktop\\acution\\online-auction-website\\AuctionSystem.Api\\Data\\ApplicationDbContext.cs",
+              "RelativeDocumentMoniker": "Data\\ApplicationDbContext.cs",
+              "ToolTip": "C:\\Users\\pasin\\Desktop\\acution\\online-auction-website\\AuctionSystem.Api\\Data\\ApplicationDbContext.cs",
+              "RelativeToolTip": "Data\\ApplicationDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-09T17:43:35.631Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "C:\\Users\\pasin\\Desktop\\acution\\online-auction-website\\AuctionSystem.Api\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "Controllers\\AuthController.cs",
+              "ToolTip": "C:\\Users\\pasin\\Desktop\\acution\\online-auction-website\\AuctionSystem.Api\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "Controllers\\AuthController.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAAwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-09T17:43:38.634Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "User.cs",
+              "DocumentMoniker": "C:\\Users\\pasin\\Desktop\\acution\\online-auction-website\\AuctionSystem.Api\\Models\\User.cs",
+              "RelativeDocumentMoniker": "Models\\User.cs",
+              "ToolTip": "C:\\Users\\pasin\\Desktop\\acution\\online-auction-website\\AuctionSystem.Api\\Models\\User.cs",
+              "RelativeToolTip": "Models\\User.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-09T17:43:25.511Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "AuctionSystem.Api.csproj",
+              "DocumentMoniker": "C:\\Users\\pasin\\Desktop\\acution\\online-auction-website\\AuctionSystem.Api\\AuctionSystem.Api.csproj",
+              "RelativeDocumentMoniker": "AuctionSystem.Api.csproj",
+              "ToolTip": "C:\\Users\\pasin\\Desktop\\acution\\online-auction-website\\AuctionSystem.Api\\AuctionSystem.Api.csproj",
+              "RelativeToolTip": "AuctionSystem.Api.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-10-09T17:27:51.505Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "AuctionSystem.Api.http",
+              "DocumentMoniker": "C:\\Users\\pasin\\Desktop\\acution\\online-auction-website\\AuctionSystem.Api\\AuctionSystem.Api.http",
+              "RelativeDocumentMoniker": "AuctionSystem.Api.http",
+              "ToolTip": "C:\\Users\\pasin\\Desktop\\acution\\online-auction-website\\AuctionSystem.Api\\AuctionSystem.Api.http",
+              "RelativeToolTip": "AuctionSystem.Api.http",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003502|",
+              "WhenOpened": "2025-10-09T17:27:43.588Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\pasin\\Desktop\\acution\\online-auction-website\\AuctionSystem.Api\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\pasin\\Desktop\\acution\\online-auction-website\\AuctionSystem.Api\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-09T17:38:56.529Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\pasin\\Desktop\\acution\\online-auction-website\\AuctionSystem.Api\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "C:\\Users\\pasin\\Desktop\\acution\\online-auction-website\\AuctionSystem.Api\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-10-09T17:27:48.181Z"
+            }
+          ]
+        },
+        {
+          "DockedWidth": 707,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:18:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:17:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            }
+          ]
+        },
+        {
+          "DockedWidth": 224,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:5:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
