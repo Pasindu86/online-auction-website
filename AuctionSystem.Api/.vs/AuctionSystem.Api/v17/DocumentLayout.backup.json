@@ -38,73 +38,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 690,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 10,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "OrdersController.cs",
-              "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\repo-auct\\online-auction-website\\AuctionSystem.Api\\Controllers\\OrdersController.cs",
-              "RelativeDocumentMoniker": "Controllers\\OrdersController.cs",
-              "ToolTip": "C:\\Users\\ASUS\\Desktop\\repo-auct\\online-auction-website\\AuctionSystem.Api\\Controllers\\OrdersController.cs",
-              "RelativeToolTip": "Controllers\\OrdersController.cs",
-              "ViewState": "AgIAAFAAAAAAAAAAAAAAwF8AAAAlAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-09T20:30:37.921Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "BidsController.cs",
-              "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\repo-auct\\online-auction-website\\AuctionSystem.Api\\Controllers\\BidsController.cs",
-              "RelativeDocumentMoniker": "Controllers\\BidsController.cs",
-              "ToolTip": "C:\\Users\\ASUS\\Desktop\\repo-auct\\online-auction-website\\AuctionSystem.Api\\Controllers\\BidsController.cs",
-              "RelativeToolTip": "Controllers\\BidsController.cs",
-              "ViewState": "AgIAABcAAAAAAAAAAAAmwDMAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-09T20:29:13.764Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Order.cs",
-              "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\repo-auct\\online-auction-website\\AuctionSystem.Api\\Models\\Order.cs",
-              "RelativeDocumentMoniker": "Models\\Order.cs",
-              "ToolTip": "C:\\Users\\ASUS\\Desktop\\repo-auct\\online-auction-website\\AuctionSystem.Api\\Models\\Order.cs",
-              "RelativeToolTip": "Models\\Order.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-09T20:21:36.347Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Bid.cs",
-              "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\repo-auct\\online-auction-website\\AuctionSystem.Api\\Models\\Bid.cs",
-              "RelativeDocumentMoniker": "Models\\Bid.cs",
-              "ToolTip": "C:\\Users\\ASUS\\Desktop\\repo-auct\\online-auction-website\\AuctionSystem.Api\\Models\\Bid.cs",
-              "RelativeToolTip": "Models\\Bid.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-09T20:21:00.604Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "ApplicationDbContext.cs",
-              "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\repo-auct\\online-auction-website\\AuctionSystem.Api\\Data\\ApplicationDbContext.cs",
-              "RelativeDocumentMoniker": "Data\\ApplicationDbContext.cs",
-              "ToolTip": "C:\\Users\\ASUS\\Desktop\\repo-auct\\online-auction-website\\AuctionSystem.Api\\Data\\ApplicationDbContext.cs",
-              "RelativeToolTip": "Data\\ApplicationDbContext.cs",
-              "ViewState": "AgIAABsAAAAAAAAAAAAmwCoAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-09T20:19:35.524Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:10:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
@@ -131,10 +66,6 @@
             },
             {
               "$type": "Bookmark",
-              "Name": "ST:59:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
-            },
-            {
-              "$type": "Bookmark",
               "Name": "ST:61:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
             },
             {
@@ -147,7 +78,68 @@
             },
             {
               "$type": "Bookmark",
-              "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "OrdersController.cs",
+              "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\repo-auct\\online-auction-website\\AuctionSystem.Api\\Controllers\\OrdersController.cs",
+              "RelativeDocumentMoniker": "Controllers\\OrdersController.cs",
+              "ToolTip": "C:\\Users\\ASUS\\Desktop\\repo-auct\\online-auction-website\\AuctionSystem.Api\\Controllers\\OrdersController.cs",
+              "RelativeToolTip": "Controllers\\OrdersController.cs",
+              "ViewState": "AgIAAFAAAAAAAAAAAAAAwF8AAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-09T20:30:37.921Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "BidsController.cs",
+              "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\repo-auct\\online-auction-website\\AuctionSystem.Api\\Controllers\\BidsController.cs",
+              "RelativeDocumentMoniker": "Controllers\\BidsController.cs",
+              "ToolTip": "C:\\Users\\ASUS\\Desktop\\repo-auct\\online-auction-website\\AuctionSystem.Api\\Controllers\\BidsController.cs",
+              "RelativeToolTip": "Controllers\\BidsController.cs",
+              "ViewState": "AgIAABcAAAAAAAAAAAAmwDMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-09T20:29:13.764Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Order.cs",
+              "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\repo-auct\\online-auction-website\\AuctionSystem.Api\\Models\\Order.cs",
+              "RelativeDocumentMoniker": "Models\\Order.cs",
+              "ToolTip": "C:\\Users\\ASUS\\Desktop\\repo-auct\\online-auction-website\\AuctionSystem.Api\\Models\\Order.cs",
+              "RelativeToolTip": "Models\\Order.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-09T20:21:36.347Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Bid.cs",
+              "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\repo-auct\\online-auction-website\\AuctionSystem.Api\\Models\\Bid.cs",
+              "RelativeDocumentMoniker": "Models\\Bid.cs",
+              "ToolTip": "C:\\Users\\ASUS\\Desktop\\repo-auct\\online-auction-website\\AuctionSystem.Api\\Models\\Bid.cs",
+              "RelativeToolTip": "Models\\Bid.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-09T20:21:00.604Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ApplicationDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\repo-auct\\online-auction-website\\AuctionSystem.Api\\Data\\ApplicationDbContext.cs",
+              "RelativeDocumentMoniker": "Data\\ApplicationDbContext.cs",
+              "ToolTip": "C:\\Users\\ASUS\\Desktop\\repo-auct\\online-auction-website\\AuctionSystem.Api\\Data\\ApplicationDbContext.cs",
+              "RelativeToolTip": "Data\\ApplicationDbContext.cs",
+              "ViewState": "AgIAABsAAAAAAAAAAAAmwCoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-09T20:19:35.524Z"
             },
             {
               "$type": "Document",
@@ -159,8 +151,7 @@
               "RelativeToolTip": "Controllers\\AuctionsController.cs",
               "ViewState": "AgIAAEoAAAAAAAAAAAAswAcAAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-09T20:13:39.728Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-09T20:13:39.728Z"
             },
             {
               "$type": "Document",
@@ -172,8 +163,7 @@
               "RelativeToolTip": "Models\\Auction.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAyAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-09T20:10:23.279Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-09T20:10:23.279Z"
             }
           ]
         }

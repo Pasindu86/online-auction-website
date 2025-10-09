@@ -38,7 +38,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 690,
-          "SelectedChildIndex": 11,
+          "SelectedChildIndex": 10,
           "Children": [
             {
               "$type": "Bookmark",
@@ -66,10 +66,6 @@
             },
             {
               "$type": "Bookmark",
-              "Name": "ST:59:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
-            },
-            {
-              "$type": "Bookmark",
               "Name": "ST:61:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
             },
             {
@@ -92,7 +88,7 @@
               "RelativeDocumentMoniker": "Controllers\\OrdersController.cs",
               "ToolTip": "C:\\Users\\ASUS\\Desktop\\repo-auct\\online-auction-website\\AuctionSystem.Api\\Controllers\\OrdersController.cs",
               "RelativeToolTip": "Controllers\\OrdersController.cs",
-              "ViewState": "AgIAAFAAAAAAAAAAAAAAwF8AAAAlAAAAAAAAAA==",
+              "ViewState": "AgIAAE0AAAAAAAAAAAAAwF8AAAAlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-09T20:30:37.921Z",
               "EditorCaption": ""
@@ -107,8 +103,7 @@
               "RelativeToolTip": "Controllers\\BidsController.cs",
               "ViewState": "AgIAABcAAAAAAAAAAAAmwDMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-09T20:29:13.764Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-09T20:29:13.764Z"
             },
             {
               "$type": "Document",
@@ -120,8 +115,7 @@
               "RelativeToolTip": "Models\\Order.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-09T20:21:36.347Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-09T20:21:36.347Z"
             },
             {
               "$type": "Document",
@@ -133,8 +127,7 @@
               "RelativeToolTip": "Models\\Bid.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-09T20:21:00.604Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-09T20:21:00.604Z"
             },
             {
               "$type": "Document",
@@ -146,8 +139,7 @@
               "RelativeToolTip": "Data\\ApplicationDbContext.cs",
               "ViewState": "AgIAABsAAAAAAAAAAAAmwCoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-09T20:19:35.524Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-09T20:19:35.524Z"
             },
             {
               "$type": "Document",
@@ -159,8 +151,7 @@
               "RelativeToolTip": "Controllers\\AuctionsController.cs",
               "ViewState": "AgIAAEoAAAAAAAAAAAAswAcAAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-09T20:13:39.728Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-09T20:13:39.728Z"
             },
             {
               "$type": "Document",
@@ -172,8 +163,7 @@
               "RelativeToolTip": "Models\\Auction.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAyAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-09T20:10:23.279Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-09T20:10:23.279Z"
             }
           ]
         }
