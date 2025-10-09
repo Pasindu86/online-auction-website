@@ -5158,23 +5158,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\pasin\\.nuget\\packages\\": {},
+    "C:\\Users\\ASUS\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\pasin\\Desktop\\acution\\online-auction-website\\AuctionSystem.Api\\AuctionSystem.Api.csproj",
+      "projectUniqueName": "C:\\Users\\ASUS\\Desktop\\repo-auct\\online-auction-website\\AuctionSystem.Api\\AuctionSystem.Api.csproj",
       "projectName": "AuctionSystem.Api",
-      "projectPath": "C:\\Users\\pasin\\Desktop\\acution\\online-auction-website\\AuctionSystem.Api\\AuctionSystem.Api.csproj",
-      "packagesPath": "C:\\Users\\pasin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\pasin\\Desktop\\acution\\online-auction-website\\AuctionSystem.Api\\obj\\",
+      "projectPath": "C:\\Users\\ASUS\\Desktop\\repo-auct\\online-auction-website\\AuctionSystem.Api\\AuctionSystem.Api.csproj",
+      "packagesPath": "C:\\Users\\ASUS\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\ASUS\\Desktop\\repo-auct\\online-auction-website\\AuctionSystem.Api\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\pasin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\ASUS\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -5247,7 +5247,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
