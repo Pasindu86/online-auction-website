@@ -341,7 +341,6 @@ C:\Users\ASUS\Desktop\repo-auct\online-auction-website\AuctionSystem.Api\obj\Deb
 C:\Users\ASUS\Desktop\repo-auct\online-auction-website\AuctionSystem.Api\obj\Debug\net8.0\AuctionSystem.Api.pdb
 C:\Users\ASUS\Desktop\repo-auct\online-auction-website\AuctionSystem.Api\obj\Debug\net8.0\AuctionSystem.Api.genruntimeconfig.cache
 C:\Users\ASUS\Desktop\repo-auct\online-auction-website\AuctionSystem.Api\obj\Debug\net8.0\ref\AuctionSystem.Api.dll
-C:\Users\ASUS\Desktop\repo-auct\online-auction-website\AuctionSystem.Api\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 C:\Users\chami\OneDrive\Desktop\pasindu clone\online-auction-website\AuctionSystem.Api\bin\Debug\net8.0\appsettings.Development.json
 C:\Users\chami\OneDrive\Desktop\pasindu clone\online-auction-website\AuctionSystem.Api\bin\Debug\net8.0\appsettings.json
 C:\Users\chami\OneDrive\Desktop\pasindu clone\online-auction-website\AuctionSystem.Api\bin\Debug\net8.0\AuctionSystem.Api.staticwebassets.endpoints.json
