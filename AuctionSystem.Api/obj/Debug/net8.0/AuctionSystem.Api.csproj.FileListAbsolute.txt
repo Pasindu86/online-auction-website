@@ -685,3 +685,5 @@ C:\Users\nipun\Desktop\NSBM\github project\online-auction-website\AuctionSystem.
 C:\Users\nipun\Desktop\NSBM\github project\online-auction-website\AuctionSystem.Api\obj\Debug\net8.0\AuctionSystem.Api.genruntimeconfig.cache
 C:\Users\nipun\Desktop\NSBM\github project\online-auction-website\AuctionSystem.Api\obj\Debug\net8.0\ref\AuctionSystem.Api.dll
 C:\Users\nipun\Desktop\NSBM\github project\online-auction-website\AuctionSystem.Api\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
+C:\Users\ASUS\Desktop\repo-auct\online-auction-website\AuctionSystem.Api\bin\Debug\net8.0\AuctionSystem.Api.staticwebassets.runtime.json
+C:\Users\ASUS\Desktop\repo-auct\online-auction-website\AuctionSystem.Api\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
