@@ -5158,23 +5158,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\chami\\.nuget\\packages\\": {},
+    "C:\\Users\\nipun\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\chami\\OneDrive\\Desktop\\pasindu clone\\online-auction-website\\AuctionSystem.Api\\AuctionSystem.Api.csproj",
+      "projectUniqueName": "C:\\Users\\nipun\\Desktop\\NSBM\\github project\\online-auction-website\\AuctionSystem.Api\\AuctionSystem.Api.csproj",
       "projectName": "AuctionSystem.Api",
-      "projectPath": "C:\\Users\\chami\\OneDrive\\Desktop\\pasindu clone\\online-auction-website\\AuctionSystem.Api\\AuctionSystem.Api.csproj",
-      "packagesPath": "C:\\Users\\chami\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\chami\\OneDrive\\Desktop\\pasindu clone\\online-auction-website\\AuctionSystem.Api\\obj\\",
+      "projectPath": "C:\\Users\\nipun\\Desktop\\NSBM\\github project\\online-auction-website\\AuctionSystem.Api\\AuctionSystem.Api.csproj",
+      "packagesPath": "C:\\Users\\nipun\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\nipun\\Desktop\\NSBM\\github project\\online-auction-website\\AuctionSystem.Api\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\chami\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\nipun\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -5247,7 +5247,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.302/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
