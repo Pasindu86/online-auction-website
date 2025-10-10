@@ -15,11 +15,34 @@ namespace AuctionSystem.Api.Data
         public DbSet<Bid> Bids => Set<Bid>();
         public DbSet<Order> Orders => Set<Order>();
 
+        public DbSet<PaymentTransaction> PaymentTransactions => Set<PaymentTransaction>();
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // User constraints
             modelBuilder.Entity<User>().HasIndex(u => u.Username).IsUnique();
             modelBuilder.Entity<User>().HasIndex(u => u.Email).IsUnique();
+
+            // Decimal precision configurations
+            modelBuilder.Entity<Auction>()
+                .Property(a => a.StartingPrice)
+                .HasPrecision(18, 2);
+
+            modelBuilder.Entity<Auction>()
+                .Property(a => a.CurrentPrice)
+                .HasPrecision(18, 2);
+
+            modelBuilder.Entity<Bid>()
+                .Property(b => b.Amount)
+                .HasPrecision(18, 2);
+
+            modelBuilder.Entity<Order>()
+                .Property(o => o.FinalPrice)
+                .HasPrecision(18, 2);
+
+            modelBuilder.Entity<PaymentTransaction>()
+                .Property(pt => pt.Amount)
+                .HasPrecision(18, 2);
 
             // Auction relationships
             modelBuilder.Entity<Auction>()
@@ -54,7 +77,18 @@ namespace AuctionSystem.Api.Data
                 .HasForeignKey(o => o.WinnerId)
                 .OnDelete(DeleteBehavior.NoAction);
 
+            // PaymentTransaction relationships
+            modelBuilder.Entity<PaymentTransaction>()
+                .HasOne(pt => pt.Order)
+                .WithMany()
+                .HasForeignKey(pt => pt.OrderId)
+                .OnDelete(DeleteBehavior.Cascade);
 
+            modelBuilder.Entity<PaymentTransaction>()
+                .HasOne(pt => pt.User)
+                .WithMany()
+                .HasForeignKey(pt => pt.UserId)
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }
