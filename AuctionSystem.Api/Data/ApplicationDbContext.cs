@@ -15,6 +15,8 @@ namespace AuctionSystem.Api.Data
         public DbSet<Bid> Bids => Set<Bid>();
         public DbSet<Order> Orders => Set<Order>();
 
+        public DbSet<PaymentTransaction> PaymentTransactions => Set<PaymentTransaction>();
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // User constraints
@@ -52,6 +54,19 @@ namespace AuctionSystem.Api.Data
                 .HasOne(o => o.Winner)
                 .WithMany()
                 .HasForeignKey(o => o.WinnerId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            // PaymentTransaction relationships
+            modelBuilder.Entity<PaymentTransaction>()
+                .HasOne(pt => pt.Order)
+                .WithMany()
+                .HasForeignKey(pt => pt.OrderId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<PaymentTransaction>()
+                .HasOne(pt => pt.User)
+                .WithMany()
+                .HasForeignKey(pt => pt.UserId)
                 .OnDelete(DeleteBehavior.NoAction);
 
 

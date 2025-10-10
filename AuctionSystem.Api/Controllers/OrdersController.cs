@@ -93,7 +93,50 @@ namespace AuctionSystem.Api.Controllers
 
             return order == null ? NotFound() : Ok(order);
         }
+
+
         //add pay controller to here 
+        [HttpPost("{orderId}/pay")]
+        public async Task<IActionResult> ProcessPayment(int orderId, [FromBody] PaymentRequest request)
+        {
+            var order = await _db.Orders.FindAsync(orderId);
+            if (order == null) return NotFound();
+            if (order.Status != "Pending") return BadRequest("Payment already processed");
+
+            var transactionId = $"TXN_{DateTime.UtcNow:yyyyMMddHHmmss}_{Random.Shared.Next(1000, 9999)}";
+
+            _db.PaymentTransactions.Add(new PaymentTransaction
+            {
+                OrderId = order.Id,
+                UserId = order.WinnerId,
+                Amount = order.FinalPrice,
+                ProcessedAt = DateTime.UtcNow,
+                Status = "Success",
+                PaymentMethod = request.PaymentMethod,
+                CardLastFour = request.PaymentMethod == "CreditCard" ? request.CardNumber?.TakeLast(4).ToString() : "",
+                TransactionId = transactionId
+            });
+
+            order.Status = "Paid";
+            order.PaymentMethod = request.PaymentMethod;
+            order.PaymentReference = transactionId;
+            order.ShippingAddress = request.ShippingAddress;
+
+            await _db.SaveChangesAsync();
+
+            return Ok(new { success = true, transactionId, message = "Payment processed successfully" });
+        }
+
+        [HttpGet("{orderId}/transactions")]
+        public async Task<IActionResult> GetOrderTransactions(int orderId)
+        {
+            var transactions = await _db.PaymentTransactions
+                .Where(pt => pt.OrderId == orderId)
+                .OrderByDescending(pt => pt.ProcessedAt)
+                .ToListAsync();
+
+            return Ok(transactions);
+        }
     }
 
     public class PaymentRequest

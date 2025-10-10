@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ASUS\\Desktop\\repo-auct\\online-auction-website\\AuctionSystem.Api\\AuctionSystem.Api.csproj": {}
+    "C:\\Users\\chami\\OneDrive\\Desktop\\pasindu clone\\online-auction-website\\AuctionSystem.Api\\AuctionSystem.Api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ASUS\\Desktop\\repo-auct\\online-auction-website\\AuctionSystem.Api\\AuctionSystem.Api.csproj": {
+    "C:\\Users\\chami\\OneDrive\\Desktop\\pasindu clone\\online-auction-website\\AuctionSystem.Api\\AuctionSystem.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ASUS\\Desktop\\repo-auct\\online-auction-website\\AuctionSystem.Api\\AuctionSystem.Api.csproj",
+        "projectUniqueName": "C:\\Users\\chami\\OneDrive\\Desktop\\pasindu clone\\online-auction-website\\AuctionSystem.Api\\AuctionSystem.Api.csproj",
         "projectName": "AuctionSystem.Api",
-        "projectPath": "C:\\Users\\ASUS\\Desktop\\repo-auct\\online-auction-website\\AuctionSystem.Api\\AuctionSystem.Api.csproj",
-        "packagesPath": "C:\\Users\\ASUS\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ASUS\\Desktop\\repo-auct\\online-auction-website\\AuctionSystem.Api\\obj\\",
+        "projectPath": "C:\\Users\\chami\\OneDrive\\Desktop\\pasindu clone\\online-auction-website\\AuctionSystem.Api\\AuctionSystem.Api.csproj",
+        "packagesPath": "C:\\Users\\chami\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\chami\\OneDrive\\Desktop\\pasindu clone\\online-auction-website\\AuctionSystem.Api\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\ASUS\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\chami\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
