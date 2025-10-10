@@ -23,6 +23,27 @@ namespace AuctionSystem.Api.Data
             modelBuilder.Entity<User>().HasIndex(u => u.Username).IsUnique();
             modelBuilder.Entity<User>().HasIndex(u => u.Email).IsUnique();
 
+            // Decimal precision configurations
+            modelBuilder.Entity<Auction>()
+                .Property(a => a.StartingPrice)
+                .HasPrecision(18, 2);
+
+            modelBuilder.Entity<Auction>()
+                .Property(a => a.CurrentPrice)
+                .HasPrecision(18, 2);
+
+            modelBuilder.Entity<Bid>()
+                .Property(b => b.Amount)
+                .HasPrecision(18, 2);
+
+            modelBuilder.Entity<Order>()
+                .Property(o => o.FinalPrice)
+                .HasPrecision(18, 2);
+
+            modelBuilder.Entity<PaymentTransaction>()
+                .Property(pt => pt.Amount)
+                .HasPrecision(18, 2);
+
             // Auction relationships
             modelBuilder.Entity<Auction>()
                 .HasOne<User>()
@@ -68,8 +89,6 @@ namespace AuctionSystem.Api.Data
                 .WithMany()
                 .HasForeignKey(pt => pt.UserId)
                 .OnDelete(DeleteBehavior.NoAction);
-
-
         }
     }
 }

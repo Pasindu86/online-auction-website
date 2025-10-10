@@ -176,6 +176,43 @@
   },
   {
     "ContainingType": "AuctionSystem.Api.Controllers.OrdersController",
+    "Method": "ProcessPayment",
+    "RelativePath": "api/Orders/{orderId}/pay",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "orderId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "AuctionSystem.Api.Controllers.PaymentRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AuctionSystem.Api.Controllers.OrdersController",
+    "Method": "GetOrderTransactions",
+    "RelativePath": "api/Orders/{orderId}/transactions",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "orderId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AuctionSystem.Api.Controllers.OrdersController",
     "Method": "CreateOrderFromAuction",
     "RelativePath": "api/Orders/create-from-auction/{auctionId}",
     "HttpMethod": "POST",
@@ -201,6 +238,38 @@
       {
         "Name": "userId",
         "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AuctionSystem.Api.Controllers.PaymentsController",
+    "Method": "GetPaymentDetails",
+    "RelativePath": "api/Payments/{paymentId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "paymentId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AuctionSystem.Api.Controllers.PaymentsController",
+    "Method": "GetPaymentByTransactionId",
+    "RelativePath": "api/Payments/transaction/{transactionId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "transactionId",
+        "Type": "System.String",
         "IsRequired": true
       }
     ],
