@@ -1,42 +1,50 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\chami\\OneDrive\\Desktop\\pasindu clone\\online-auction-website\\AuctionSystem.Api\\",
+  "WorkspaceRootPath": "C:\\Users\\nipun\\Desktop\\NSBM\\github project\\online-auction-website\\AuctionSystem.Api\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F3CF55C4-86EA-45AE-A750-2522A3049BE8}|AuctionSystem.Api.csproj|c:\\users\\chami\\onedrive\\desktop\\pasindu clone\\online-auction-website\\auctionsystem.api\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{F3CF55C4-86EA-45AE-A750-2522A3049BE8}|AuctionSystem.Api.csproj|c:\\users\\nipun\\desktop\\nsbm\\github project\\online-auction-website\\auctionsystem.api\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F3CF55C4-86EA-45AE-A750-2522A3049BE8}|AuctionSystem.Api.csproj|solutionrelative:controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F3CF55C4-86EA-45AE-A750-2522A3049BE8}|AuctionSystem.Api.csproj|c:\\users\\nipun\\desktop\\nsbm\\github project\\online-auction-website\\auctionsystem.api\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F3CF55C4-86EA-45AE-A750-2522A3049BE8}|AuctionSystem.Api.csproj|solutionrelative:controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F3CF55C4-86EA-45AE-A750-2522A3049BE8}|AuctionSystem.Api.csproj|c:\\users\\nipun\\desktop\\nsbm\\github project\\online-auction-website\\auctionsystem.api\\controllers\\auctionscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F3CF55C4-86EA-45AE-A750-2522A3049BE8}|AuctionSystem.Api.csproj|solutionrelative:controllers\\auctionscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F3CF55C4-86EA-45AE-A750-2522A3049BE8}|AuctionSystem.Api.csproj|c:\\users\\nipun\\desktop\\nsbm\\github project\\online-auction-website\\auctionsystem.api\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F3CF55C4-86EA-45AE-A750-2522A3049BE8}|AuctionSystem.Api.csproj|solutionrelative:data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F3CF55C4-86EA-45AE-A750-2522A3049BE8}|AuctionSystem.Api.csproj|c:\\users\\chami\\onedrive\\desktop\\pasindu clone\\online-auction-website\\auctionsystem.api\\controllers\\paymentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{F3CF55C4-86EA-45AE-A750-2522A3049BE8}|AuctionSystem.Api.csproj|c:\\users\\nipun\\desktop\\nsbm\\github project\\online-auction-website\\auctionsystem.api\\controllers\\paymentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F3CF55C4-86EA-45AE-A750-2522A3049BE8}|AuctionSystem.Api.csproj|solutionrelative:controllers\\paymentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F3CF55C4-86EA-45AE-A750-2522A3049BE8}|AuctionSystem.Api.csproj|c:\\users\\chami\\onedrive\\desktop\\pasindu clone\\online-auction-website\\auctionsystem.api\\controllers\\bidscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{F3CF55C4-86EA-45AE-A750-2522A3049BE8}|AuctionSystem.Api.csproj|c:\\users\\nipun\\desktop\\nsbm\\github project\\online-auction-website\\auctionsystem.api\\controllers\\bidscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F3CF55C4-86EA-45AE-A750-2522A3049BE8}|AuctionSystem.Api.csproj|solutionrelative:controllers\\bidscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F3CF55C4-86EA-45AE-A750-2522A3049BE8}|AuctionSystem.Api.csproj|c:\\users\\chami\\onedrive\\desktop\\pasindu clone\\online-auction-website\\auctionsystem.api\\controllers\\orderscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{F3CF55C4-86EA-45AE-A750-2522A3049BE8}|AuctionSystem.Api.csproj|c:\\users\\nipun\\desktop\\nsbm\\github project\\online-auction-website\\auctionsystem.api\\controllers\\orderscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F3CF55C4-86EA-45AE-A750-2522A3049BE8}|AuctionSystem.Api.csproj|solutionrelative:controllers\\orderscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F3CF55C4-86EA-45AE-A750-2522A3049BE8}|AuctionSystem.Api.csproj|c:\\users\\chami\\onedrive\\desktop\\pasindu clone\\online-auction-website\\auctionsystem.api\\models\\paymenttransaction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{F3CF55C4-86EA-45AE-A750-2522A3049BE8}|AuctionSystem.Api.csproj|c:\\users\\nipun\\desktop\\nsbm\\github project\\online-auction-website\\auctionsystem.api\\models\\paymenttransaction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F3CF55C4-86EA-45AE-A750-2522A3049BE8}|AuctionSystem.Api.csproj|solutionrelative:models\\paymenttransaction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F3CF55C4-86EA-45AE-A750-2522A3049BE8}|AuctionSystem.Api.csproj|c:\\users\\chami\\onedrive\\desktop\\pasindu clone\\online-auction-website\\auctionsystem.api\\models\\auction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{F3CF55C4-86EA-45AE-A750-2522A3049BE8}|AuctionSystem.Api.csproj|c:\\users\\nipun\\desktop\\nsbm\\github project\\online-auction-website\\auctionsystem.api\\models\\auction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F3CF55C4-86EA-45AE-A750-2522A3049BE8}|AuctionSystem.Api.csproj|solutionrelative:models\\auction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F3CF55C4-86EA-45AE-A750-2522A3049BE8}|AuctionSystem.Api.csproj|c:\\users\\chami\\onedrive\\desktop\\pasindu clone\\online-auction-website\\auctionsystem.api\\models\\bid.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{F3CF55C4-86EA-45AE-A750-2522A3049BE8}|AuctionSystem.Api.csproj|c:\\users\\nipun\\desktop\\nsbm\\github project\\online-auction-website\\auctionsystem.api\\models\\bid.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F3CF55C4-86EA-45AE-A750-2522A3049BE8}|AuctionSystem.Api.csproj|solutionrelative:models\\bid.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F3CF55C4-86EA-45AE-A750-2522A3049BE8}|AuctionSystem.Api.csproj|c:\\users\\chami\\onedrive\\desktop\\pasindu clone\\online-auction-website\\auctionsystem.api\\models\\order.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{F3CF55C4-86EA-45AE-A750-2522A3049BE8}|AuctionSystem.Api.csproj|c:\\users\\nipun\\desktop\\nsbm\\github project\\online-auction-website\\auctionsystem.api\\models\\order.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F3CF55C4-86EA-45AE-A750-2522A3049BE8}|AuctionSystem.Api.csproj|solutionrelative:models\\order.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F3CF55C4-86EA-45AE-A750-2522A3049BE8}|AuctionSystem.Api.csproj|c:\\users\\chami\\onedrive\\desktop\\pasindu clone\\online-auction-website\\auctionsystem.api\\controllers\\auctionscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F3CF55C4-86EA-45AE-A750-2522A3049BE8}|AuctionSystem.Api.csproj|solutionrelative:controllers\\auctionscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -46,15 +54,15 @@
       "DocumentGroups": [
         {
           "DockedWidth": 429,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
-              "Name": "ST:10:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
             },
             {
               "$type": "Bookmark",
-              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+              "Name": "ST:10:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
             },
             {
               "$type": "Bookmark",
@@ -66,24 +74,49 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "PaymentsController.cs",
-              "DocumentMoniker": "C:\\Users\\chami\\OneDrive\\Desktop\\pasindu clone\\online-auction-website\\AuctionSystem.Api\\Controllers\\PaymentsController.cs",
-              "RelativeDocumentMoniker": "Controllers\\PaymentsController.cs",
-              "ToolTip": "C:\\Users\\chami\\OneDrive\\Desktop\\pasindu clone\\online-auction-website\\AuctionSystem.Api\\Controllers\\PaymentsController.cs",
-              "RelativeToolTip": "Controllers\\PaymentsController.cs",
-              "ViewState": "AgIAAB8AAAAAAAAAAAAmwDsAAAABAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "AdminController.cs",
+              "DocumentMoniker": "C:\\Users\\nipun\\Desktop\\NSBM\\github project\\online-auction-website\\AuctionSystem.Api\\Controllers\\AdminController.cs",
+              "RelativeDocumentMoniker": "Controllers\\AdminController.cs",
+              "ToolTip": "C:\\Users\\nipun\\Desktop\\NSBM\\github project\\online-auction-website\\AuctionSystem.Api\\Controllers\\AdminController.cs",
+              "RelativeToolTip": "Controllers\\AdminController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-10T07:48:21.652Z",
+              "WhenOpened": "2025-10-10T15:43:27.54Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 1,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "C:\\Users\\nipun\\Desktop\\NSBM\\github project\\online-auction-website\\AuctionSystem.Api\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "Controllers\\AuthController.cs",
+              "ToolTip": "C:\\Users\\nipun\\Desktop\\NSBM\\github project\\online-auction-website\\AuctionSystem.Api\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "Controllers\\AuthController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-10T10:22:06.683Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "PaymentsController.cs",
+              "DocumentMoniker": "C:\\Users\\nipun\\Desktop\\NSBM\\github project\\online-auction-website\\AuctionSystem.Api\\Controllers\\PaymentsController.cs",
+              "RelativeDocumentMoniker": "Controllers\\PaymentsController.cs",
+              "ToolTip": "C:\\Users\\nipun\\Desktop\\NSBM\\github project\\online-auction-website\\AuctionSystem.Api\\Controllers\\PaymentsController.cs",
+              "RelativeToolTip": "Controllers\\PaymentsController.cs",
+              "ViewState": "AgIAAB8AAAAAAAAAAAAmwDsAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-10T07:48:21.652Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "OrdersController.cs",
-              "DocumentMoniker": "C:\\Users\\chami\\OneDrive\\Desktop\\pasindu clone\\online-auction-website\\AuctionSystem.Api\\Controllers\\OrdersController.cs",
+              "DocumentMoniker": "C:\\Users\\nipun\\Desktop\\NSBM\\github project\\online-auction-website\\AuctionSystem.Api\\Controllers\\OrdersController.cs",
               "RelativeDocumentMoniker": "Controllers\\OrdersController.cs",
-              "ToolTip": "C:\\Users\\chami\\OneDrive\\Desktop\\pasindu clone\\online-auction-website\\AuctionSystem.Api\\Controllers\\OrdersController.cs",
+              "ToolTip": "C:\\Users\\nipun\\Desktop\\NSBM\\github project\\online-auction-website\\AuctionSystem.Api\\Controllers\\OrdersController.cs",
               "RelativeToolTip": "Controllers\\OrdersController.cs",
               "ViewState": "AgIAAG4AAAAAAAAAAAAmwIoAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -91,11 +124,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 5,
               "Title": "BidsController.cs",
-              "DocumentMoniker": "C:\\Users\\chami\\OneDrive\\Desktop\\pasindu clone\\online-auction-website\\AuctionSystem.Api\\Controllers\\BidsController.cs",
+              "DocumentMoniker": "C:\\Users\\nipun\\Desktop\\NSBM\\github project\\online-auction-website\\AuctionSystem.Api\\Controllers\\BidsController.cs",
               "RelativeDocumentMoniker": "Controllers\\BidsController.cs",
-              "ToolTip": "C:\\Users\\chami\\OneDrive\\Desktop\\pasindu clone\\online-auction-website\\AuctionSystem.Api\\Controllers\\BidsController.cs",
+              "ToolTip": "C:\\Users\\nipun\\Desktop\\NSBM\\github project\\online-auction-website\\AuctionSystem.Api\\Controllers\\BidsController.cs",
               "RelativeToolTip": "Controllers\\BidsController.cs",
               "ViewState": "AgIAABcAAAAAAAAAAAAmwDMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -103,63 +136,59 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "ApplicationDbContext.cs",
-              "DocumentMoniker": "C:\\Users\\chami\\OneDrive\\Desktop\\pasindu clone\\online-auction-website\\AuctionSystem.Api\\Data\\ApplicationDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\nipun\\Desktop\\NSBM\\github project\\online-auction-website\\AuctionSystem.Api\\Data\\ApplicationDbContext.cs",
               "RelativeDocumentMoniker": "Data\\ApplicationDbContext.cs",
-              "ToolTip": "C:\\Users\\chami\\OneDrive\\Desktop\\pasindu clone\\online-auction-website\\AuctionSystem.Api\\Data\\ApplicationDbContext.cs*",
-              "RelativeToolTip": "Data\\ApplicationDbContext.cs*",
+              "ToolTip": "C:\\Users\\nipun\\Desktop\\NSBM\\github project\\online-auction-website\\AuctionSystem.Api\\Data\\ApplicationDbContext.cs",
+              "RelativeToolTip": "Data\\ApplicationDbContext.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAFsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-09T20:19:35.524Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "PaymentTransaction.cs",
-              "DocumentMoniker": "C:\\Users\\chami\\OneDrive\\Desktop\\pasindu clone\\online-auction-website\\AuctionSystem.Api\\Models\\PaymentTransaction.cs",
-              "RelativeDocumentMoniker": "Models\\PaymentTransaction.cs",
-              "ToolTip": "C:\\Users\\chami\\OneDrive\\Desktop\\pasindu clone\\online-auction-website\\AuctionSystem.Api\\Models\\PaymentTransaction.cs",
-              "RelativeToolTip": "Models\\PaymentTransaction.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-10T07:39:17.361Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-09T20:19:35.524Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 7,
+              "Title": "PaymentTransaction.cs",
+              "DocumentMoniker": "C:\\Users\\nipun\\Desktop\\NSBM\\github project\\online-auction-website\\AuctionSystem.Api\\Models\\PaymentTransaction.cs",
+              "RelativeDocumentMoniker": "Models\\PaymentTransaction.cs",
+              "ToolTip": "C:\\Users\\nipun\\Desktop\\NSBM\\github project\\online-auction-website\\AuctionSystem.Api\\Models\\PaymentTransaction.cs",
+              "RelativeToolTip": "Models\\PaymentTransaction.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-10T07:39:17.361Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
               "Title": "Order.cs",
-              "DocumentMoniker": "C:\\Users\\chami\\OneDrive\\Desktop\\pasindu clone\\online-auction-website\\AuctionSystem.Api\\Models\\Order.cs",
+              "DocumentMoniker": "C:\\Users\\nipun\\Desktop\\NSBM\\github project\\online-auction-website\\AuctionSystem.Api\\Models\\Order.cs",
               "RelativeDocumentMoniker": "Models\\Order.cs",
-              "ToolTip": "C:\\Users\\chami\\OneDrive\\Desktop\\pasindu clone\\online-auction-website\\AuctionSystem.Api\\Models\\Order.cs",
+              "ToolTip": "C:\\Users\\nipun\\Desktop\\NSBM\\github project\\online-auction-website\\AuctionSystem.Api\\Models\\Order.cs",
               "RelativeToolTip": "Models\\Order.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-09T20:21:36.347Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-09T20:21:36.347Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 9,
               "Title": "Bid.cs",
-              "DocumentMoniker": "C:\\Users\\chami\\OneDrive\\Desktop\\pasindu clone\\online-auction-website\\AuctionSystem.Api\\Models\\Bid.cs",
+              "DocumentMoniker": "C:\\Users\\nipun\\Desktop\\NSBM\\github project\\online-auction-website\\AuctionSystem.Api\\Models\\Bid.cs",
               "RelativeDocumentMoniker": "Models\\Bid.cs",
-              "ToolTip": "C:\\Users\\chami\\OneDrive\\Desktop\\pasindu clone\\online-auction-website\\AuctionSystem.Api\\Models\\Bid.cs",
+              "ToolTip": "C:\\Users\\nipun\\Desktop\\NSBM\\github project\\online-auction-website\\AuctionSystem.Api\\Models\\Bid.cs",
               "RelativeToolTip": "Models\\Bid.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-09T20:21:00.604Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-09T20:21:00.604Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 2,
               "Title": "AuctionsController.cs",
-              "DocumentMoniker": "C:\\Users\\chami\\OneDrive\\Desktop\\pasindu clone\\online-auction-website\\AuctionSystem.Api\\Controllers\\AuctionsController.cs",
+              "DocumentMoniker": "C:\\Users\\nipun\\Desktop\\NSBM\\github project\\online-auction-website\\AuctionSystem.Api\\Controllers\\AuctionsController.cs",
               "RelativeDocumentMoniker": "Controllers\\AuctionsController.cs",
-              "ToolTip": "C:\\Users\\chami\\OneDrive\\Desktop\\pasindu clone\\online-auction-website\\AuctionSystem.Api\\Controllers\\AuctionsController.cs",
+              "ToolTip": "C:\\Users\\nipun\\Desktop\\NSBM\\github project\\online-auction-website\\AuctionSystem.Api\\Controllers\\AuctionsController.cs",
               "RelativeToolTip": "Controllers\\AuctionsController.cs",
               "ViewState": "AgIAAEoAAAAAAAAAAAAswAcAAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -167,16 +196,15 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 8,
               "Title": "Auction.cs",
-              "DocumentMoniker": "C:\\Users\\chami\\OneDrive\\Desktop\\pasindu clone\\online-auction-website\\AuctionSystem.Api\\Models\\Auction.cs",
+              "DocumentMoniker": "C:\\Users\\nipun\\Desktop\\NSBM\\github project\\online-auction-website\\AuctionSystem.Api\\Models\\Auction.cs",
               "RelativeDocumentMoniker": "Models\\Auction.cs",
-              "ToolTip": "C:\\Users\\chami\\OneDrive\\Desktop\\pasindu clone\\online-auction-website\\AuctionSystem.Api\\Models\\Auction.cs",
+              "ToolTip": "C:\\Users\\nipun\\Desktop\\NSBM\\github project\\online-auction-website\\AuctionSystem.Api\\Models\\Auction.cs",
               "RelativeToolTip": "Models\\Auction.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAyAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-09T20:10:23.279Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-09T20:10:23.279Z"
             }
           ]
         },
@@ -186,11 +214,21 @@
           "Children": [
             {
               "$type": "Bookmark",
-              "Name": "ST:1:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
             },
             {
               "$type": "Bookmark",
-              "Name": "ST:5:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+              "Name": "ST:1:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            }
+          ]
+        },
+        {
+          "DockedWidth": 203,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
             }
           ]
         }
