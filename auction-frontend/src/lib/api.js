@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://localhost:7001/api';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:7001/api';
 
 const api = axios.create({
   baseURL: API_BASE_URL,
@@ -41,9 +41,19 @@ api.interceptors.response.use(
 // Register user - sends User object to /api/auth/register
 export const registerUser = async (userData) => {
   try {
+    console.log('Attempting registration with data:', userData);
+    console.log('API URL:', API_BASE_URL);
+    
     const response = await api.post('/auth/register', userData);
+    console.log('Registration successful:', response.data);
     return response.data; // Returns AuthResponse
   } catch (error) {
+    console.error('Registration API error:', {
+      message: error.message,
+      code: error.code,
+      response: error.response?.data,
+      status: error.response?.status
+    });
     throw error;
   }
 };

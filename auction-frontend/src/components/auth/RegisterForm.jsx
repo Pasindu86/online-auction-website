@@ -66,11 +66,24 @@ const RegisterForm = () => {
       
     } catch (error) {
       console.error('Registration error:', error);
-      setSubmitError(
-        error.response?.data?.message || 
-        error.response?.data || 
-        'Registration failed. Please try again.'
-      );
+      
+      // More detailed error handling
+      let errorMessage = 'Registration failed. Please try again.';
+      
+      if (error.code === 'ECONNREFUSED' || error.code === 'ERR_NETWORK') {
+        errorMessage = 'Cannot connect to server. Please ensure the backend is running on port 7001.';
+      } else if (error.response) {
+        // Server responded with error status
+        errorMessage = error.response.data?.message || 
+                      error.response.data?.title ||
+                      error.response.data ||
+                      `Server error: ${error.response.status}`;
+      } else if (error.request) {
+        // Request was made but no response received
+        errorMessage = 'No response from server. Please check your connection.';
+      }
+      
+      setSubmitError(errorMessage);
     } finally {
       setIsLoading(false);
     }
