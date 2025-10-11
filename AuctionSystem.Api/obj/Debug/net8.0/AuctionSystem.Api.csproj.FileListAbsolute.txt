@@ -169,7 +169,6 @@ C:\Users\pasin\Desktop\acution\online-auction-website\AuctionSystem.Api\obj\Debu
 C:\Users\pasin\Desktop\acution\online-auction-website\AuctionSystem.Api\obj\Debug\net8.0\AuctionSystem.Api.pdb
 C:\Users\pasin\Desktop\acution\online-auction-website\AuctionSystem.Api\obj\Debug\net8.0\AuctionSystem.Api.genruntimeconfig.cache
 C:\Users\pasin\Desktop\acution\online-auction-website\AuctionSystem.Api\obj\Debug\net8.0\ref\AuctionSystem.Api.dll
-C:\Users\pasin\Desktop\acution\online-auction-website\AuctionSystem.Api\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 C:\Users\ASUS\Desktop\repo-auct\online-auction-website\AuctionSystem.Api\bin\Debug\net8.0\appsettings.Development.json
 C:\Users\ASUS\Desktop\repo-auct\online-auction-website\AuctionSystem.Api\bin\Debug\net8.0\appsettings.json
 C:\Users\ASUS\Desktop\repo-auct\online-auction-website\AuctionSystem.Api\bin\Debug\net8.0\AuctionSystem.Api.staticwebassets.endpoints.json
@@ -860,3 +859,4 @@ C:\Users\ASUS\Desktop\repo -acurion\online-auction-website\AuctionSystem.Api\obj
 C:\Users\ASUS\Desktop\repo -acurion\online-auction-website\AuctionSystem.Api\obj\Debug\net8.0\AuctionSystem.Api.genruntimeconfig.cache
 C:\Users\ASUS\Desktop\repo -acurion\online-auction-website\AuctionSystem.Api\obj\Debug\net8.0\ref\AuctionSystem.Api.dll
 C:\Users\ASUS\Desktop\repo -acurion\online-auction-website\AuctionSystem.Api\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
+C:\Users\pasin\Desktop\acution\online-auction-website\AuctionSystem.Api\bin\Debug\net8.0\AuctionSystem.Api.staticwebassets.runtime.json

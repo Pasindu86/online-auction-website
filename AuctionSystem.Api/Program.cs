@@ -62,6 +62,8 @@ namespace AuctionSystem.Api
 
             app.UseHttpsRedirection();
 
+            app.UseCors(DevCors); // enable dev CORS policy so the frontend can call the API
+
             app.UseAuthorization();
 
             app.MapControllers();
