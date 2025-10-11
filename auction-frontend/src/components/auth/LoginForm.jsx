@@ -51,8 +51,8 @@ const LoginForm = () => {
     try {
       const response = await loginUser(formData);
       
-      // Success - redirect to dashboard
-      router.push('/dashboard');
+      // Success - redirect to main dashboard
+      router.push('/main/dashboard');
       
     } catch (error) {
       console.error('Login error:', error);

@@ -70,10 +70,22 @@ export const loginUser = async (credentials) => {
     
     // Store user data if successful
     if (response.data && response.data.id) {
+      // Store individual fields for easy access
       localStorage.setItem('userId', response.data.id.toString());
       localStorage.setItem('userEmail', response.data.email);
       localStorage.setItem('userName', response.data.username);
       localStorage.setItem('userRole', response.data.role);
+      localStorage.setItem('authToken', 'logged-in-' + Date.now());
+      
+      // Also store complete user object for dashboard
+      const userObject = {
+        id: response.data.id,
+        email: response.data.email,
+        firstName: response.data.username || response.data.email.split('@')[0],
+        username: response.data.username,
+        role: response.data.role
+      };
+      localStorage.setItem('user', JSON.stringify(userObject));
     }
     
     return response.data; // Returns AuthResponse
@@ -89,6 +101,8 @@ export const logoutUser = () => {
     localStorage.removeItem('userEmail');
     localStorage.removeItem('userName');
     localStorage.removeItem('userRole');
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('user');
   }
 };
 
