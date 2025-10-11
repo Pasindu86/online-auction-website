@@ -10,10 +10,12 @@ namespace AuctionSystem.Api.Controllers
         { ".jpg", ".jpeg", ".png", ".gif", ".webp" };
 
         private readonly IWebHostEnvironment _env;
+        private readonly ILogger<UploadsController> _logger;
 
-        public UploadsController(IWebHostEnvironment env)
+        public UploadsController(IWebHostEnvironment env, ILogger<UploadsController> logger)
         {
             _env = env;
+            _logger = logger;
         }
 
         [HttpPost]
