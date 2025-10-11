@@ -9,6 +9,12 @@ namespace AuctionSystem.Api
     {
         public static void Main(string[] args)
         {
+            var app = CreateWebApplication(args);
+            app.Run();
+        }
+
+        public static WebApplication CreateWebApplication(string[] args)
+        {
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
@@ -60,7 +66,7 @@ namespace AuctionSystem.Api
 
             app.MapControllers();
 
-            app.Run();
+            return app;
         }
     }
 }
