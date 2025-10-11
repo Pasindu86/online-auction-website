@@ -22,7 +22,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 429,
-          "SelectedChildIndex": 11,
+          "SelectedChildIndex": 9,
           "Children": [
             {
               "$type": "Bookmark",
@@ -50,14 +50,6 @@
             },
             {
               "$type": "Bookmark",
-              "Name": "ST:61:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:62:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
-            },
-            {
-              "$type": "Bookmark",
               "Name": "ST:63:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
             },
             {
@@ -74,8 +66,7 @@
               "RelativeToolTip": "Controllers\\UploadsController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAC8AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-10T17:24:02.04Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-10T17:24:02.04Z"
             },
             {
               "$type": "Document",
@@ -83,8 +74,8 @@
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\repo-auct\\online-auction-website\\AuctionSystem.Api\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "C:\\Users\\ASUS\\Desktop\\repo-auct\\online-auction-website\\AuctionSystem.Api\\Program.cs*",
-              "RelativeToolTip": "Program.cs*",
+              "ToolTip": "C:\\Users\\ASUS\\Desktop\\repo-auct\\online-auction-website\\AuctionSystem.Api\\Program.cs",
+              "RelativeToolTip": "Program.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-10T17:04:30.758Z",
