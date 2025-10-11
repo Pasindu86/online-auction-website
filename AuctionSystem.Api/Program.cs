@@ -9,6 +9,12 @@ namespace AuctionSystem.Api
     {
         public static void Main(string[] args)
         {
+            var app = CreateWebApplication(args);
+            app.Run();
+        }
+
+        public static WebApplication CreateWebApplication(string[] args)
+        {
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
@@ -32,9 +38,11 @@ namespace AuctionSystem.Api
                         .WithOrigins(
                             "http://localhost:5500",
                             "http://127.0.0.1:5500",
-                            "http://localhost:3000")
+                            "http://localhost:3000",
+                            "https://localhost:3000")
                         .AllowAnyHeader()
-                        .AllowAnyMethod();
+                        .AllowAnyMethod()
+                        .AllowCredentials();
                 });
             });
 
@@ -54,13 +62,16 @@ namespace AuctionSystem.Api
                 app.UseSwaggerUI();
             }
 
-            app.UseHttpsRedirection();
+            // Comment out HTTPS redirection for development to avoid SSL issues
+            // app.UseHttpsRedirection();
+
+            app.UseCors(DevCors); // enable dev CORS policy so the frontend can call the API
 
             app.UseAuthorization();
 
             app.MapControllers();
 
-            app.Run();
+            return app;
         }
     }
 }
