@@ -202,4 +202,32 @@ export const uploadAuctionImage = async (file, auctionId) => {
   }
 };
 
+// Place a bid on an auction
+export const placeBid = async (bidData) => {
+  try {
+    console.log('Placing bid with data:', bidData);
+    console.log('API URL:', `${API_BASE_URL}/bids`);
+    
+    const response = await api.post('/bids', bidData);
+    console.log('Bid placed successfully:', response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Place bid error:', error);
+    console.error('Error response:', error.response?.data);
+    console.error('Error status:', error.response?.status);
+    throw error;
+  }
+};
+
+// Get all bids for an auction
+export const getBidsForAuction = async (auctionId) => {
+  try {
+    const response = await api.get(`/bids/auction/${auctionId}`);
+    return response.data;
+  } catch (error) {
+    console.error('Get bids error:', error);
+    throw error;
+  }
+};
+
 export default api;
