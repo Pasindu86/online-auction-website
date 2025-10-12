@@ -244,7 +244,15 @@ export default function AuctionsPage() {
 
                 <div className="flex gap-2">
                   {!auction.isClosed && (
-                    <Button variant="primary" size="small" className="flex-1">
+                    <Button 
+                      variant="primary" 
+                      size="small" 
+                      className="flex-1"
+                      onClick={() => {
+                        console.log('Place Bid clicked for auction:', auction.id);
+                        router.push(`/bid?auctionId=${auction.id}`);
+                      }}
+                    >
                       <Gavel size={16} />
                       Place Bid
                     </Button>
