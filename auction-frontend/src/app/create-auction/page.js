@@ -16,7 +16,9 @@ export default function CreateAuction() {
     title: '',
     description: '',
     startingPrice: '',
-    imageFile: null
+    imageFile: null,
+    startTime: '',
+    endTime: ''
   });
 
   const [errors, setErrors] = useState({});
@@ -88,6 +90,32 @@ export default function CreateAuction() {
     if (!formData.startingPrice || parseFloat(formData.startingPrice) < 0) {
       newErrors.startingPrice = 'Starting price must be a positive number';
     }
+
+    if (!formData.startTime) {
+      newErrors.startTime = 'Start time is required';
+    } else {
+      const startDate = new Date(formData.startTime);
+      const now = new Date();
+      if (startDate <= now) {
+        newErrors.startTime = 'Start time must be in the future';
+      }
+    }
+
+    if (!formData.endTime) {
+      newErrors.endTime = 'End time is required';
+    } else if (formData.startTime) {
+      const startDate = new Date(formData.startTime);
+      const endDate = new Date(formData.endTime);
+      if (endDate <= startDate) {
+        newErrors.endTime = 'End time must be after start time';
+      }
+      
+      // Check minimum duration (e.g., at least 1 hour)
+      const minDuration = 60 * 60 * 1000; // 1 hour in milliseconds
+      if (endDate - startDate < minDuration) {
+        newErrors.endTime = 'Auction must run for at least 1 hour';
+      }
+    }
     
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -106,7 +134,8 @@ export default function CreateAuction() {
       });
 
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        const errorText = await response.text();
+        throw new Error(errorText || `HTTP error! status: ${response.status}`);
       }
 
       const result = await response.json();
@@ -173,16 +202,18 @@ export default function CreateAuction() {
         }
       }
 
-      // Prepare auction data with image URL
+      // Prepare auction data with image URL and times
       const auctionData = {
         title: formData.title.trim(),
         description: formData.description.trim(),
         startingPrice: parseFloat(formData.startingPrice),
         ownerId: currentUser.id,
-        imageUrl: imageUrl // Include the uploaded image URL
+        imageUrl: imageUrl,
+        startTime: new Date(formData.startTime).toISOString(),
+        endTime: new Date(formData.endTime).toISOString()
       };
 
-      // Create auction with image URL
+      // Create auction with image URL and times
       const createdAuction = await createAuction(auctionData);
 
       setSuccess(true);
@@ -194,10 +225,17 @@ export default function CreateAuction() {
 
     } catch (error) {
       console.error('Error creating auction:', error);
-      setError('Failed to create auction. Please try again.');
+      setError(`Failed to create auction: ${error.message}`);
     } finally {
       setIsLoading(false);
     }
+  };
+
+  // Get current date-time in local timezone for min attribute
+  const getCurrentDateTime = () => {
+    const now = new Date();
+    now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+    return now.toISOString().slice(0, 16);
   };
 
   if (success) {
@@ -293,6 +331,62 @@ export default function CreateAuction() {
               min="0"
               step="0.01"
             />
+
+            {/* Start Time */}
+            <div className="space-y-2">
+              <label htmlFor="startTime" className="block text-sm font-medium text-gray-700">
+                Auction Start Time <span className="text-red-500 ml-1">*</span>
+              </label>
+              <input
+                id="startTime"
+                name="startTime"
+                type="datetime-local"
+                value={formData.startTime}
+                onChange={handleInputChange}
+                min={getCurrentDateTime()}
+                className={`w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 ${
+                  errors.startTime ? 'border-red-300' : 'border-gray-300'
+                }`}
+                required
+              />
+              {errors.startTime && (
+                <p className="text-red-600 text-sm flex items-center">
+                  <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  {errors.startTime}
+                </p>
+              )}
+              <p className="text-xs text-gray-500">When should the auction begin?</p>
+            </div>
+
+            {/* End Time */}
+            <div className="space-y-2">
+              <label htmlFor="endTime" className="block text-sm font-medium text-gray-700">
+                Auction End Time <span className="text-red-500 ml-1">*</span>
+              </label>
+              <input
+                id="endTime"
+                name="endTime"
+                type="datetime-local"
+                value={formData.endTime}
+                onChange={handleInputChange}
+                min={formData.startTime || getCurrentDateTime()}
+                className={`w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 ${
+                  errors.endTime ? 'border-red-300' : 'border-gray-300'
+                }`}
+                required
+              />
+              {errors.endTime && (
+                <p className="text-red-600 text-sm flex items-center">
+                  <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  {errors.endTime}
+                </p>
+              )}
+              <p className="text-xs text-gray-500">When should the auction end? (Minimum 1 hour duration)</p>
+            </div>
 
             {/* Image Upload */}
             <div className="space-y-2">

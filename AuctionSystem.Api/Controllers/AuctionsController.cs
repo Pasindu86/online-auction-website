@@ -20,6 +20,48 @@ namespace AuctionSystem.Api.Controllers
         public async Task<IActionResult> GetAll() =>
             Ok(await _db.Auctions.AsNoTracking().ToListAsync());
 
+        [HttpGet("active")]
+        public async Task<IActionResult> GetActive()
+        {
+            // First update any expired auctions
+            await UpdateExpiredAuctionsAsync();
+            
+            var now = DateTime.UtcNow;
+            var activeAuctions = await _db.Auctions
+                .Where(a => a.StartTime <= now && a.EndTime > now && !a.IsClosed)
+                .OrderBy(a => a.EndTime)
+                .AsNoTracking()
+                .ToListAsync();
+            
+            return Ok(activeAuctions);
+        }
+
+        [HttpGet("upcoming")]
+        public async Task<IActionResult> GetUpcoming()
+        {
+            var now = DateTime.UtcNow;
+            var upcomingAuctions = await _db.Auctions
+                .Where(a => a.StartTime > now && !a.IsClosed)
+                .OrderBy(a => a.StartTime)
+                .AsNoTracking()
+                .ToListAsync();
+            
+            return Ok(upcomingAuctions);
+        }
+
+        [HttpGet("ended")]
+        public async Task<IActionResult> GetEnded()
+        {
+            var now = DateTime.UtcNow;
+            var endedAuctions = await _db.Auctions
+                .Where(a => a.EndTime <= now || a.IsClosed)
+                .OrderByDescending(a => a.EndTime)
+                .AsNoTracking()
+                .ToListAsync();
+            
+            return Ok(endedAuctions);
+        }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -28,28 +70,94 @@ namespace AuctionSystem.Api.Controllers
             return Ok(auction);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Create([FromBody] Auction auction)
+        [HttpGet("{id}/time-remaining")]
+        public async Task<IActionResult> GetTimeRemaining(int id)
         {
-            if (auction.StartingPrice < 0) return BadRequest("Starting price must be >= 0");
-            auction.CurrentPrice = auction.StartingPrice;
-            auction.IsClosed = false;
-            _db.Auctions.Add(auction);
-            await _db.SaveChangesAsync();
-            return Ok(auction);
+            var auction = await _db.Auctions.FindAsync(id);
+            if (auction == null) return NotFound();
+            
+            var now = DateTime.UtcNow;
+            if (now > auction.EndTime)
+            {
+                return Ok(new { hasEnded = true, timeRemaining = (TimeSpan?)null });
+            }
+            
+            var timeRemaining = auction.EndTime - now;
+            return Ok(new 
+            { 
+                hasEnded = false, 
+                timeRemaining = timeRemaining,
+                totalSeconds = timeRemaining.TotalSeconds,
+                formatted = FormatTimeSpan(timeRemaining)
+            });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody] CreateAuctionRequest request)
+        {
+            try
+            {
+                if (request.StartingPrice < 0) 
+                    return BadRequest("Starting price must be >= 0");
+
+                // Validate timing
+                if (request.StartTime < DateTime.UtcNow)
+                    return BadRequest("Start time cannot be in the past");
+                
+                if (request.EndTime <= request.StartTime)
+                    return BadRequest("End time must be after start time");
+
+                var auction = new Auction
+                {
+                    Title = request.Title,
+                    Description = request.Description,
+                    StartingPrice = request.StartingPrice,
+                    CurrentPrice = request.StartingPrice, // Set current price equal to starting price
+                    OwnerId = request.OwnerId,
+                    ImageUrl = request.ImageUrl,
+                    StartTime = request.StartTime,
+                    EndTime = request.EndTime,
+                    CreatedAt = DateTime.UtcNow,
+                    IsClosed = false
+                };
+
+                _db.Auctions.Add(auction);
+                await _db.SaveChangesAsync();
+                return Ok(auction);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Error creating auction: {ex.Message}");
+            }
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] Auction updated)
+        public async Task<IActionResult> Update(int id, [FromBody] UpdateAuctionRequest request)
         {
             var auction = await _db.Auctions.FindAsync(id);
             if (auction == null) return NotFound();
             if (auction.IsClosed) return BadRequest("Closed auctions cannot be updated");
 
-            auction.Title = updated.Title;
-            auction.Description = updated.Description;
-            auction.StartingPrice = updated.StartingPrice;
-            auction.ImageUrl = updated.ImageUrl; // Update image URL
+            // Only allow updates if auction hasn't started yet
+            var now = DateTime.UtcNow;
+            if (now >= auction.StartTime)
+                return BadRequest("Cannot update auction that has already started");
+
+            // Validate new timing
+            if (request.StartTime < DateTime.UtcNow)
+                return BadRequest("Start time cannot be in the past");
+            
+            if (request.EndTime <= request.StartTime)
+                return BadRequest("End time must be after start time");
+
+            auction.Title = request.Title;
+            auction.Description = request.Description;
+            auction.StartingPrice = request.StartingPrice;
+            auction.CurrentPrice = request.StartingPrice; // Reset current price if starting price changes
+            auction.ImageUrl = request.ImageUrl;
+            auction.StartTime = request.StartTime;
+            auction.EndTime = request.EndTime;
+
             await _db.SaveChangesAsync();
             return Ok(auction);
         }
@@ -157,5 +265,81 @@ namespace AuctionSystem.Api.Controllers
 
             return Ok(new { message = "Auction deleted successfully" });
         }
+
+        // Helper method to update expired auctions (replaces service functionality)
+        private async Task UpdateExpiredAuctionsAsync()
+        {
+            var now = DateTime.UtcNow;
+            var expiredAuctions = await _db.Auctions
+                .Where(a => a.EndTime <= now && !a.IsClosed)
+                .ToListAsync();
+
+            foreach (var auction in expiredAuctions)
+            {
+                auction.IsClosed = true;
+                
+                // Create order for highest bidder if there are bids
+                var topBid = await _db.Bids
+                    .Where(b => b.AuctionId == auction.Id)
+                    .OrderByDescending(b => b.Amount)
+                    .ThenByDescending(b => b.PlacedAt)
+                    .FirstOrDefaultAsync();
+
+                if (topBid != null)
+                {
+                    var existingOrder = await _db.Orders
+                        .FirstOrDefaultAsync(o => o.AuctionId == auction.Id);
+                        
+                    if (existingOrder == null)
+                    {
+                        var order = new Order
+                        {
+                            AuctionId = auction.Id,
+                            WinnerId = topBid.UserId,
+                            FinalPrice = topBid.Amount,
+                            OrderDate = DateTime.UtcNow,
+                            Status = "Pending"
+                        };
+                        _db.Orders.Add(order);
+                    }
+                }
+            }
+
+            if (expiredAuctions.Any())
+            {
+                await _db.SaveChangesAsync();
+            }
+        }
+
+        private static string FormatTimeSpan(TimeSpan timeSpan)
+        {
+            if (timeSpan.TotalDays >= 1)
+                return $"{(int)timeSpan.TotalDays}d {timeSpan.Hours}h {timeSpan.Minutes}m";
+            else if (timeSpan.TotalHours >= 1)
+                return $"{timeSpan.Hours}h {timeSpan.Minutes}m";
+            else
+                return $"{timeSpan.Minutes}m {timeSpan.Seconds}s";
+        }
+    }
+
+    public class CreateAuctionRequest
+    {
+        public string Title { get; set; } = default!;
+        public string Description { get; set; } = default!;
+        public decimal StartingPrice { get; set; }
+        public int OwnerId { get; set; }
+        public string? ImageUrl { get; set; }
+        public DateTime StartTime { get; set; }
+        public DateTime EndTime { get; set; }
+    }
+
+    public class UpdateAuctionRequest
+    {
+        public string Title { get; set; } = default!;
+        public string Description { get; set; } = default!;
+        public decimal StartingPrice { get; set; }
+        public string? ImageUrl { get; set; }
+        public DateTime StartTime { get; set; }
+        public DateTime EndTime { get; set; }
     }
 }
