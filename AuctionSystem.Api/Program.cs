@@ -39,6 +39,7 @@ namespace AuctionSystem.Api
                             "http://localhost:5500",
                             "http://127.0.0.1:5500",
                             "http://localhost:3000",
+                            "http://localhost:3001",
                             "https://localhost:3000")
                         .AllowAnyHeader()
                         .AllowAnyMethod()
@@ -66,6 +67,9 @@ namespace AuctionSystem.Api
             // app.UseHttpsRedirection();
 
             app.UseCors(DevCors); // enable dev CORS policy so the frontend can call the API
+
+            // Enable static file serving for uploaded images
+            app.UseStaticFiles();
 
             app.UseAuthorization();
 

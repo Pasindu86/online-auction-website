@@ -62,19 +62,21 @@ const Navbar = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            {user && (
-              <Link href="/main/dashboard" className="text-gray-700 hover:text-red-800 font-medium transition-colors">
-                Dashboard
-              </Link>
-            )}
             <Link href="/main/auctions" className="text-gray-700 hover:text-red-800 font-medium transition-colors">
               Auctions
             </Link>
+            {user && (
+              <Link href="/create-auction" className="text-gray-700 hover:text-red-800 font-medium transition-colors">
+                Create Auction
+              </Link>
+            )}
+            {user && (
+              <Link href="/my-auctions" className="text-gray-700 hover:text-red-800 font-medium transition-colors">
+                My Auctions
+              </Link>
+            )}
             <Link href="/categories" className="text-gray-700 hover:text-red-800 font-medium transition-colors">
               Categories
-            </Link>
-            <Link href="/how-it-works" className="text-gray-700 hover:text-red-800 font-medium transition-colors">
-              How It Works
             </Link>
             <Link href="/about" className="text-gray-700 hover:text-red-800 font-medium transition-colors">
               About
@@ -164,15 +166,6 @@ const Navbar = () => {
               </div>
 
               {/* Mobile Menu Items */}
-              {user && (
-                <Link 
-                  href="/main/dashboard" 
-                  className="block px-3 py-2 text-gray-700 hover:text-red-800 hover:bg-gray-50 rounded-md transition-colors"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Dashboard
-                </Link>
-              )}
               <Link 
                 href="/main/auctions" 
                 className="block px-3 py-2 text-gray-700 hover:text-red-800 hover:bg-gray-50 rounded-md transition-colors"
@@ -180,19 +173,30 @@ const Navbar = () => {
               >
                 Auctions
               </Link>
+              {user && (
+                <Link 
+                  href="/create-auction" 
+                  className="block px-3 py-2 text-gray-700 hover:text-red-800 hover:bg-gray-50 rounded-md transition-colors"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Create Auction
+                </Link>
+              )}
+              {user && (
+                <Link 
+                  href="/my-auctions" 
+                  className="block px-3 py-2 text-gray-700 hover:text-red-800 hover:bg-gray-50 rounded-md transition-colors"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  My Auctions
+                </Link>
+              )}
               <Link 
                 href="/categories" 
                 className="block px-3 py-2 text-gray-700 hover:text-red-800 hover:bg-gray-50 rounded-md transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Categories
-              </Link>
-              <Link 
-                href="/how-it-works" 
-                className="block px-3 py-2 text-gray-700 hover:text-red-800 hover:bg-gray-50 rounded-md transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                How It Works
               </Link>
               <Link 
                 href="/about" 

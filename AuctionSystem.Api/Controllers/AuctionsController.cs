@@ -137,5 +137,25 @@ namespace AuctionSystem.Api.Controllers
                 auctionTitle = auction.Title
             });
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var auction = await _db.Auctions.FindAsync(id);
+            if (auction == null) return NotFound();
+
+            // Check if auction has any bids
+            var hasBids = await _db.Bids.AnyAsync(b => b.AuctionId == id);
+            if (hasBids)
+            {
+                return BadRequest("Cannot delete auction with existing bids");
+            }
+
+            // Delete the auction
+            _db.Auctions.Remove(auction);
+            await _db.SaveChangesAsync();
+
+            return Ok(new { message = "Auction deleted successfully" });
+        }
     }
 }

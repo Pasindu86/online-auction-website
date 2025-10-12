@@ -51,8 +51,8 @@ const LoginForm = () => {
     try {
       const response = await loginUser(formData);
       
-      // Success - redirect to main dashboard
-      router.push('/main/dashboard');
+      // Success - redirect to main auctions page
+      router.push('/main/auctions');
       
     } catch (error) {
       console.error('Login error:', error);
