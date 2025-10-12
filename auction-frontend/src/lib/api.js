@@ -77,7 +77,7 @@ export const loginUser = async (credentials) => {
       localStorage.setItem('userRole', response.data.role);
       localStorage.setItem('authToken', 'logged-in-' + Date.now());
       
-      // Also store complete user object for dashboard
+      // Also store complete user object for application use
       const userObject = {
         id: response.data.id,
         email: response.data.email,
@@ -124,6 +124,82 @@ export const getCurrentUser = () => {
     }
   }
   return null;
+};
+
+// AUCTION API FUNCTIONS
+
+// Create auction
+export const createAuction = async (auctionData) => {
+  try {
+    const response = await api.post('/auctions', auctionData);
+    return response.data;
+  } catch (error) {
+    console.error('Create auction error:', error);
+    throw error;
+  }
+};
+
+// Get all auctions
+export const getAllAuctions = async () => {
+  try {
+    const response = await api.get('/auctions');
+    return response.data;
+  } catch (error) {
+    console.error('Get auctions error:', error);
+    throw error;
+  }
+};
+
+// Get auction by ID
+export const getAuctionById = async (id) => {
+  try {
+    const response = await api.get(`/auctions/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error('Get auction error:', error);
+    throw error;
+  }
+};
+
+// Update auction
+export const updateAuction = async (id, auctionData) => {
+  try {
+    const response = await api.put(`/auctions/${id}`, auctionData);
+    return response.data;
+  } catch (error) {
+    console.error('Update auction error:', error);
+    throw error;
+  }
+};
+
+// Delete auction
+export const deleteAuction = async (id) => {
+  try {
+    const response = await api.delete(`/auctions/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error('Delete auction error:', error);
+    throw error;
+  }
+};
+
+// Upload image for auction
+export const uploadAuctionImage = async (file, auctionId) => {
+  try {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('auctionId', auctionId.toString());
+
+    const response = await api.post('/uploads', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Upload image error:', error);
+    throw error;
+  }
 };
 
 export default api;

@@ -15,5 +15,5 @@ export default function MainLayout({ children }) {
 
 export const metadata = {
   title: 'Main - Online Auction System',
-  description: 'Auction management and user dashboard',
+  description: 'Auction management and bidding platform',
 };
