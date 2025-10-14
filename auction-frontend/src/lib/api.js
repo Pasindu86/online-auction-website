@@ -135,4 +135,33 @@ export const getCurrentUser = () => {
   return null;
 };
 
+// Auction APIs
+export const getAllAuctions = async () => {
+  const response = await api.get('/auctions');
+  return response.data;
+};
+
+export const getAuctionById = async (auctionId) => {
+  if (!auctionId) throw new Error('Auction ID is required');
+  const response = await api.get(`/auctions/${auctionId}`);
+  return response.data;
+};
+
+export const deleteAuction = async (auctionId) => {
+  if (!auctionId) throw new Error('Auction ID is required');
+  await api.delete(`/auctions/${auctionId}`);
+};
+
+// Bid APIs
+export const placeBid = async (bidData) => {
+  const response = await api.post('/bids', bidData);
+  return response.data;
+};
+
+export const getBidsForAuction = async (auctionId) => {
+  if (!auctionId) throw new Error('Auction ID is required');
+  const response = await api.get(`/bids/auction/${auctionId}`);
+  return response.data;
+};
+
 export default api;
