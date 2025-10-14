@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://localhost:7001/api';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:7001/api';
 
-const api = axios.create({
+const api = axios.create({  
   baseURL: API_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
@@ -84,10 +84,18 @@ export const loginUser = async (credentials) => {
     
     // Store user data
     if (response.data && response.data.id) {
-      localStorage.setItem('userId', response.data.id.toString());
-      localStorage.setItem('userEmail', response.data.email);
-      localStorage.setItem('userName', response.data.username);
-      localStorage.setItem('userRole', response.data.role);
+      const normalizedUser = {
+        id: response.data.id,
+        email: response.data.email,
+        username: response.data.username,   
+        role: response.data.role,
+      };
+
+      localStorage.setItem('userId', normalizedUser.id.toString());
+      localStorage.setItem('userEmail', normalizedUser.email);
+      localStorage.setItem('userName', normalizedUser.username);
+      localStorage.setItem('userRole', normalizedUser.role ?? 'user');
+      localStorage.setItem('user', JSON.stringify(normalizedUser));
     }
     
     return response.data;
@@ -103,6 +111,7 @@ export const logoutUser = () => {
     localStorage.removeItem('userEmail');
     localStorage.removeItem('userName');
     localStorage.removeItem('userRole');
+    localStorage.removeItem('user');
   }
 };
 
