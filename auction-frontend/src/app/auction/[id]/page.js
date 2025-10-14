@@ -346,6 +346,18 @@ export default function AuctionDetailPage() {
               </div>
             )}
 
+            {auction.isClosed && (
+              <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                <h3 className="text-lg font-semibold text-yellow-800 mb-2">Auction Finished</h3>
+                <p className="text-yellow-700 text-sm mb-4">
+                  This auction is closed. If you were the highest bidder, please proceed to the payment section to finalize your order.
+                </p>
+                <Button className="w-full" onClick={() => router.push(`/payment?auctionId=${auction.id}`)}>
+                  Go to Payment
+                </Button>
+              </div>
+            )}
+
             {/* Recent Bids Display */}
             <div className="bg-white rounded-lg border border-gray-200 p-4">
               <h3 className="text-lg font-semibold text-gray-900 mb-3 flex items-center">

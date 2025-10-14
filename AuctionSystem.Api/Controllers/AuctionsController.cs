@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using AuctionSystem.Api.Data;
 using AuctionSystem.Api.Models;
+using online_auction_website.Services;
 
 namespace AuctionSystem.Api.Controllers
 {
@@ -10,10 +11,12 @@ namespace AuctionSystem.Api.Controllers
     public class AuctionsController : ControllerBase
     {
         private readonly ApplicationDbContext _db;
+        private readonly IEmailService _emailService;
 
-        public AuctionsController(ApplicationDbContext db)
+        public AuctionsController(ApplicationDbContext db, IEmailService emailService)
         {
             _db = db;
+            _emailService = emailService;
         }
 
         [HttpGet]
@@ -181,6 +184,7 @@ namespace AuctionSystem.Api.Controllers
                     .ThenByDescending(b => b.PlacedAt)
                     .FirstOrDefaultAsync();
 
+                Bid? winningBid = null;
                 if (topBid != null)
                 {
                     // Create order for winner
@@ -196,10 +200,20 @@ namespace AuctionSystem.Api.Controllers
                             Status = "Pending"
                         };
                         _db.Orders.Add(order);
+                        winningBid = topBid;
+                    }
+                    else
+                    {
+                        winningBid = topBid;
                     }
                 }
 
                 await _db.SaveChangesAsync();
+
+                if (winningBid != null)
+                {
+                    await NotifyWinnerAsync(auction, winningBid);
+                }
 
                 return Ok(new
                 {
@@ -274,6 +288,8 @@ namespace AuctionSystem.Api.Controllers
                 .Where(a => a.EndTime <= now && !a.IsClosed)
                 .ToListAsync();
 
+            var winnersToNotify = new List<(Auction auction, Bid bid)>();
+
             foreach (var auction in expiredAuctions)
             {
                 auction.IsClosed = true;
@@ -301,6 +317,7 @@ namespace AuctionSystem.Api.Controllers
                             Status = "Pending"
                         };
                         _db.Orders.Add(order);
+                        winnersToNotify.Add((auction, topBid));
                     }
                 }
             }
@@ -308,6 +325,34 @@ namespace AuctionSystem.Api.Controllers
             if (expiredAuctions.Any())
             {
                 await _db.SaveChangesAsync();
+            }
+
+            foreach (var (auction, bid) in winnersToNotify)
+            {
+                await NotifyWinnerAsync(auction, bid);
+            }
+        }
+
+        private async Task NotifyWinnerAsync(Auction auction, Bid topBid)
+        {
+            try
+            {
+                var winner = await _db.Users.FindAsync(topBid.UserId);
+                if (winner == null)
+                {
+                    return;
+                }
+
+                await _emailService.SendAuctionWonEmailAsync(
+                    winner.Email,
+                    winner.Username,
+                    auction.Title,
+                    topBid.Amount,
+                    auction.Id);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Failed to send auction won email: {ex.Message}");
             }
         }
 

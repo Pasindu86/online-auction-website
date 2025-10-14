@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using System.Net.Mail;
 using Microsoft.Extensions.Configuration;
+using System.Globalization;
 
 namespace online_auction_website.Services
 {
@@ -98,6 +99,50 @@ namespace online_auction_website.Services
                             <p>We received a request to reset your password.</p>
                             <a href='{resetUrl}' class='button'>Reset Password</a>
                             <p><strong>This link will expire in 1 hour.</strong></p>
+                        </div>
+                    </div>
+                </body>
+                </html>
+            ";
+
+            await SendEmailAsync(toEmail, subject, body);
+        }
+
+        public async Task SendAuctionWonEmailAsync(string toEmail, string userName, string auctionTitle, decimal winningAmount, int auctionId)
+        {
+            var subject = "You Won an Auction - Online Auction System";
+            var formattedAmount = winningAmount.ToString("C2", CultureInfo.GetCultureInfo("en-US"));
+            var effectivePaymentUrl = $"{_frontendUrl}/payment?auctionId={auctionId}";
+
+            var body = $@"
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <style>
+                        body {{ font-family: Arial, sans-serif; line-height: 1.6; color: #333; }}
+                        .container {{ max-width: 600px; margin: 0 auto; padding: 20px; }}
+                        .header {{ background-color: #8B0000; color: white; padding: 20px; text-align: center; border-radius: 5px 5px 0 0; }}
+                        .content {{ background-color: #f9f9f9; padding: 30px; border-radius: 0 0 5px 5px; }}
+                        .button {{ display: inline-block; padding: 12px 30px; background-color: #8B0000; color: white; text-decoration: none; border-radius: 5px; margin: 20px 0; }}
+                        .footer {{ text-align: center; margin-top: 20px; color: #777; font-size: 12px; }}
+                    </style>
+                </head>
+                <body>
+                    <div class='container'>
+                        <div class='header'>
+                            <h1>Congratulations, {userName}!</h1>
+                        </div>
+                        <div class='content'>
+                            <h2>You won the auction: {auctionTitle}</h2>
+                            <p>Great news! You placed the highest bid and won the auction.</p>
+                            <p><strong>Winning Amount:</strong> {formattedAmount}</p>
+                            <p>Please proceed to the payment section to complete your purchase.</p>
+                            <a href='{effectivePaymentUrl}' class='button'>Go to Payment</a>
+                            <p>If the button above does not work, copy and paste this link into your browser:</p>
+                            <p style='word-break: break-all; color: #8B0000;'>{effectivePaymentUrl}</p>
+                        </div>
+                        <div class='footer'>
+                            <p>&copy; 2025 Online Auction System. All rights reserved.</p>
                         </div>
                     </div>
                 </body>
