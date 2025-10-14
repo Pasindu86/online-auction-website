@@ -136,21 +136,57 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Auction"
+                "$ref": "#/components/schemas/CreateAuctionRequest"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/Auction"
+                "$ref": "#/components/schemas/CreateAuctionRequest"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/Auction"
+                "$ref": "#/components/schemas/CreateAuctionRequest"
               }
             }
           }
         },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Auctions/active": {
+      "get": {
+        "tags": [
+          "Auctions"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Auctions/upcoming": {
+      "get": {
+        "tags": [
+          "Auctions"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Auctions/ended": {
+      "get": {
+        "tags": [
+          "Auctions"
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -199,21 +235,65 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Auction"
+                "$ref": "#/components/schemas/UpdateAuctionRequest"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/Auction"
+                "$ref": "#/components/schemas/UpdateAuctionRequest"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/Auction"
+                "$ref": "#/components/schemas/UpdateAuctionRequest"
               }
             }
           }
         },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Auctions"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Auctions/{id}/time-remaining": {
+      "get": {
+        "tags": [
+          "Auctions"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -632,43 +712,6 @@
   },
   "components": {
     "schemas": {
-      "Auction": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "title": {
-            "type": "string",
-            "nullable": true
-          },
-          "description": {
-            "type": "string",
-            "nullable": true
-          },
-          "startingPrice": {
-            "type": "number",
-            "format": "double"
-          },
-          "currentPrice": {
-            "type": "number",
-            "format": "double"
-          },
-          "isClosed": {
-            "type": "boolean"
-          },
-          "ownerId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "imageUrl": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
       "Bid": {
         "type": "object",
         "properties": {
@@ -689,6 +732,40 @@
             "format": "double"
           },
           "placedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateAuctionRequest": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "startingPrice": {
+            "type": "number",
+            "format": "double"
+          },
+          "ownerId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "imageUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "startTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endTime": {
             "type": "string",
             "format": "date-time"
           }
@@ -723,6 +800,36 @@
           "shippingAddress": {
             "type": "string",
             "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateAuctionRequest": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "startingPrice": {
+            "type": "number",
+            "format": "double"
+          },
+          "imageUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "startTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endTime": {
+            "type": "string",
+            "format": "date-time"
           }
         },
         "additionalProperties": false

@@ -101,8 +101,8 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "auction",
-        "Type": "AuctionSystem.Api.Models.Auction",
+        "Name": "request",
+        "Type": "AuctionSystem.Api.Controllers.CreateAuctionRequest",
         "IsRequired": true
       }
     ],
@@ -138,8 +138,24 @@
         "IsRequired": true
       },
       {
-        "Name": "updated",
-        "Type": "AuctionSystem.Api.Models.Auction",
+        "Name": "request",
+        "Type": "AuctionSystem.Api.Controllers.UpdateAuctionRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AuctionSystem.Api.Controllers.AuctionsController",
+    "Method": "Delete",
+    "RelativePath": "api/Auctions/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
         "IsRequired": true
       }
     ],
@@ -150,6 +166,22 @@
     "Method": "Close",
     "RelativePath": "api/Auctions/{id}/close",
     "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AuctionSystem.Api.Controllers.AuctionsController",
+    "Method": "GetTimeRemaining",
+    "RelativePath": "api/Auctions/{id}/time-remaining",
+    "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
@@ -175,6 +207,36 @@
         "IsRequired": true
       }
     ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AuctionSystem.Api.Controllers.AuctionsController",
+    "Method": "GetActive",
+    "RelativePath": "api/Auctions/active",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AuctionSystem.Api.Controllers.AuctionsController",
+    "Method": "GetEnded",
+    "RelativePath": "api/Auctions/ended",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AuctionSystem.Api.Controllers.AuctionsController",
+    "Method": "GetUpcoming",
+    "RelativePath": "api/Auctions/upcoming",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": []
   },
   {
