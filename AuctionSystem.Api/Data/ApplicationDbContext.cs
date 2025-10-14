@@ -1,6 +1,7 @@
 ﻿using AuctionSystem.Api.Models;
 
 using Microsoft.EntityFrameworkCore;
+using online_auction_website.Models;
 using System.Security.Cryptography;
 
 namespace AuctionSystem.Api.Data
