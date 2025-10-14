@@ -240,7 +240,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "AuctionSystem.Api.Controllers.AuthController",
+    "ContainingType": "online_auction_website.Controllers.AuthController",
     "Method": "Login",
     "RelativePath": "api/Auth/login",
     "HttpMethod": "POST",
@@ -248,15 +248,15 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "request",
-        "Type": "AuctionSystem.Api.DTOs.LoginRequest",
+        "Name": "loginRequest",
+        "Type": "online_auction_website.Controllers.LoginRequest",
         "IsRequired": true
       }
     ],
     "ReturnTypes": []
   },
   {
-    "ContainingType": "AuctionSystem.Api.Controllers.AuthController",
+    "ContainingType": "online_auction_website.Controllers.AuthController",
     "Method": "Register",
     "RelativePath": "api/Auth/register",
     "HttpMethod": "POST",
@@ -265,7 +265,39 @@
     "Parameters": [
       {
         "Name": "user",
-        "Type": "AuctionSystem.Api.Models.User",
+        "Type": "online_auction_website.Models.User",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "online_auction_website.Controllers.AuthController",
+    "Method": "ResendVerification",
+    "RelativePath": "api/Auth/resend-verification",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "online_auction_website.Controllers.ResendVerificationRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "online_auction_website.Controllers.AuthController",
+    "Method": "VerifyEmail",
+    "RelativePath": "api/Auth/verify-email",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "online_auction_website.Controllers.VerifyEmailRequest",
         "IsRequired": true
       }
     ],

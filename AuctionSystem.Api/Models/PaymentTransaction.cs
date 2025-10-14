@@ -1,4 +1,5 @@
-﻿namespace AuctionSystem.Api.Models
+﻿using online_auction_website.Models;
+namespace AuctionSystem.Api.Models
 {
     public class PaymentTransaction
     {
