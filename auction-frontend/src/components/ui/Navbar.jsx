@@ -25,12 +25,14 @@ const Navbar = () => {
         const userId = localStorage.getItem('userId');
         const userEmail = localStorage.getItem('userEmail');
         const userName = localStorage.getItem('userName');
+        const userRole = localStorage.getItem('userRole');
         
         if (userId && userEmail) {
           setUser({
             id: userId,
             email: userEmail,
-            name: userName
+            name: userName,
+            role: userRole || 'user'
           });
         }
       }
@@ -47,6 +49,8 @@ const Navbar = () => {
     setUser(null);
     router.push('/');
   };
+
+  const isAdmin = user?.role === 'admin';
 
   return (
     <nav className="bg-white shadow-lg border-b border-gray-200 sticky top-0 z-50">
@@ -75,6 +79,11 @@ const Navbar = () => {
                 My Auctions
               </Link>
             )}
+            {isAdmin && (
+              <Link href="/admin/dashboard" className="text-gray-700 hover:text-red-800 font-medium transition-colors">
+                Admin
+              </Link>
+            )}
             <Link href="/categories" className="text-gray-700 hover:text-red-800 font-medium transition-colors">
               Categories
             </Link>
@@ -90,6 +99,7 @@ const Navbar = () => {
                 type="text"
                 placeholder="Search auctions..."
                 className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                suppressHydrationWarning
               />
               <Search className="absolute left-3 top-2.5 text-gray-400" size={20} />
             </div>
@@ -97,17 +107,23 @@ const Navbar = () => {
 
           {/* Desktop Actions */}
           <div className="hidden md:flex items-center space-x-4">
-            <button className="p-2 text-gray-600 hover:text-red-800 transition-colors">
+            <button
+              suppressHydrationWarning
+              className="p-2 text-gray-600 hover:text-red-800 transition-colors"
+            >
               <Bell size={20} />
             </button>
             
             {user ? (
               // Logged in user menu
               <>
-                <button className="p-2 text-gray-600 hover:text-red-800 transition-colors">
+                <button
+                  suppressHydrationWarning
+                  className="p-2 text-gray-600 hover:text-red-800 transition-colors"
+                >
                   <User size={20} />
                 </button>
-                <span className="text-sm text-gray-700">Welcome, {user.name || user.email}</span>
+                <span className="text-sm text-gray-700">Welcome, {user.username || user.name || user.email}</span>
                 <Button
                   variant="ghost"
                   size="small"
@@ -143,6 +159,7 @@ const Navbar = () => {
           {/* Mobile menu button */}
           <div className="md:hidden">
             <button
+              suppressHydrationWarning
               onClick={toggleMenu}
               className="p-2 rounded-md text-gray-600 hover:text-red-800 hover:bg-gray-100 transition-colors"
             >
@@ -161,6 +178,7 @@ const Navbar = () => {
                   type="text"
                   placeholder="Search auctions..."
                   className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                  suppressHydrationWarning
                 />
                 <Search className="absolute left-3 top-2.5 text-gray-400" size={20} />
               </div>
@@ -191,6 +209,15 @@ const Navbar = () => {
                   My Auctions
                 </Link>
               )}
+              {isAdmin && (
+                <Link 
+                  href="/admin/dashboard" 
+                  className="block px-3 py-2 text-gray-700 hover:text-red-800 hover:bg-gray-50 rounded-md transition-colors"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Admin Dashboard
+                </Link>
+              )}
               <Link 
                 href="/categories" 
                 className="block px-3 py-2 text-gray-700 hover:text-red-800 hover:bg-gray-50 rounded-md transition-colors"
@@ -212,7 +239,7 @@ const Navbar = () => {
                   // Logged in user mobile menu
                   <>
                     <div className="px-3 py-2 text-sm text-gray-700 bg-gray-50 rounded-md">
-                      Welcome, {user.name || user.email}
+                      Welcome, {user.username || user.name || user.email}
                     </div>
                     <Button
                       variant="ghost"

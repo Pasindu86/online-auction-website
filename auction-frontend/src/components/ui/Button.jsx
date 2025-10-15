@@ -28,6 +28,7 @@ const Button = ({
       type={type}
       disabled={disabled || loading}
       onClick={onClick}
+      suppressHydrationWarning
       className={`${baseStyles} ${variants[variant]} ${sizes[size]} ${disabled ? 'opacity-50 cursor-not-allowed' : ''} ${className}`}
       {...props}
     >
