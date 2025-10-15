@@ -1375,3 +1375,4 @@ C:\Users\nipun\Desktop\pasindu github\online-auction-website\AuctionSystem.Api\o
 C:\Users\nipun\Desktop\pasindu github\online-auction-website\AuctionSystem.Api\obj\Debug\net8.0\AuctionSystem.Api.pdb
 C:\Users\nipun\Desktop\pasindu github\online-auction-website\AuctionSystem.Api\obj\Debug\net8.0\AuctionSystem.Api.genruntimeconfig.cache
 C:\Users\nipun\Desktop\pasindu github\online-auction-website\AuctionSystem.Api\obj\Debug\net8.0\ref\AuctionSystem.Api.dll
+C:\Users\ASUS\Desktop\repo aut\online-auction-website\AuctionSystem.Api\bin\Debug\net8.0\package-lock.json
