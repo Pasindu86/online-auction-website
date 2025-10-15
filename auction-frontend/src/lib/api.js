@@ -135,4 +135,65 @@ export const getCurrentUser = () => {
   return null;
 };
 
+// AUCTION API FUNCTIONS
+
+export const getAuctionById = async (id) => {
+  const response = await api.get(`/auctions/${id}`);
+  return response.data;
+};
+
+export const getAllAuctions = async () => {
+  const response = await api.get('/auctions');
+  return response.data;
+};
+
+export const getBidsForAuction = async (auctionId) => {
+  const response = await api.get(`/bids/auction/${auctionId}`);
+  return response.data;
+};
+
+export const placeBid = async (bidData) => {
+  const response = await api.post('/bids', bidData);
+  return response.data;
+};
+
+// ADMIN API FUNCTIONS
+
+export const getAdminDashboard = async () => {
+  const response = await api.get('/admin/dashboard');
+  return response.data;
+};
+
+export const getAdminAuctions = async () => {
+  const response = await api.get('/admin/auctions');
+  return response.data;
+};
+
+export const closeAuctionAsAdmin = async (auctionId) => {
+  const response = await api.post(`/admin/auctions/${auctionId}/close`);
+  return response.data;
+};
+
+export const deleteAuctionAsAdmin = async (auctionId) => {
+  await api.delete(`/admin/auctions/${auctionId}`);
+  return true;
+};
+
+export const getAdminUsers = async () => {
+  const response = await api.get('/admin/users');
+  return response.data;
+};
+
+export const updateUserRole = async (userId, role) => {
+  const response = await api.post(`/admin/users/${userId}/role`, null, {
+    params: { role }
+  });
+  return response.data;
+};
+
+export const deleteUserAsAdmin = async (userId) => {
+  await api.delete(`/admin/users/${userId}`);
+  return true;
+};
+
 export default api;
