@@ -196,4 +196,41 @@ export const deleteUserAsAdmin = async (userId) => {
   return true;
 };
 
+// ORDERS AND PAYMENTS API FUNCTIONS
+
+export const createOrderFromAuction = async (auctionId) => {
+  const response = await api.post(`/orders/create-from-auction/${auctionId}`);
+  return response.data;
+};
+
+export const getUserOrders = async (userId) => {
+  const response = await api.get(`/orders/user/${userId}`);
+  return response.data;
+};
+
+export const getOrder = async (orderId) => {
+  const response = await api.get(`/orders/${orderId}`);
+  return response.data;
+};
+
+export const processPayment = async (orderId, paymentData) => {
+  const response = await api.post(`/orders/${orderId}/pay`, paymentData);
+  return response.data;
+};
+
+export const getPaymentDetails = async (paymentId) => {
+  const response = await api.get(`/payments/${paymentId}`);
+  return response.data;
+};
+
+export const getPaymentByTransactionId = async (transactionId) => {
+  const response = await api.get(`/payments/transaction/${transactionId}`);
+  return response.data;
+};
+
+export const getOrderTransactions = async (orderId) => {
+  const response = await api.get(`/orders/${orderId}/transactions`);
+  return response.data;
+};
+
 export default api;
