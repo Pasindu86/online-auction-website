@@ -3,9 +3,10 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Menu, X, Gavel, Search, User, Bell, LogOut } from 'lucide-react';
+import { Menu, X, Gavel, Search, User, LogOut } from 'lucide-react';
 import { logoutUser } from '../../lib/api';
 import Button from './Button';
+import NotificationDropdown from './NotificationDropdown';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -107,12 +108,7 @@ const Navbar = () => {
 
           {/* Desktop Actions */}
           <div className="hidden md:flex items-center space-x-4">
-            <button
-              suppressHydrationWarning
-              className="p-2 text-gray-600 hover:text-red-800 transition-colors"
-            >
-              <Bell size={20} />
-            </button>
+            {user && <NotificationDropdown userId={user.id} />}
             
             {user ? (
               // Logged in user menu
