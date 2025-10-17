@@ -3,54 +3,49 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Menu, X, Gavel, Search, User, Bell, LogOut } from 'lucide-react';
+import { Menu, X, Gavel, Search, Home, Hammer, LayoutDashboard, PlusCircle, Package, ChevronDown, LogOut } from 'lucide-react';
 import { logoutUser } from '../../lib/api';
 import Button from './Button';
+import NotificationDropdown from './NotificationDropdown';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [showUserMenu, setShowUserMenu] = useState(false);
   const [user, setUser] = useState(null);
   const router = useRouter();
 
-  // Check for logged in user
   useEffect(() => {
     const userData = localStorage.getItem('user');
     if (userData) {
       try {
-        const user = JSON.parse(userData);
-        setUser(user);
-      } catch (error) {
-        console.error('Error parsing user data:', error);
-        // Fallback to individual keys for backward compatibility
+        setUser(JSON.parse(userData));
+      } catch {
         const userId = localStorage.getItem('userId');
         const userEmail = localStorage.getItem('userEmail');
-        const userName = localStorage.getItem('userName');
-        const userRole = localStorage.getItem('userRole');
-        
         if (userId && userEmail) {
           setUser({
             id: userId,
             email: userEmail,
-            name: userName,
-            role: userRole || 'user'
+            name: localStorage.getItem('userName'),
+            role: localStorage.getItem('userRole') || 'user'
           });
         }
       }
     }
   }, []);
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
-
   const handleLogout = () => {
-    // Use centralized logout function
     logoutUser();
     setUser(null);
     router.push('/');
   };
 
-  const isAdmin = user?.role === 'admin';
+  const NavLink = ({ href, icon: Icon, children, onClick }) => (
+    <Link href={href} onClick={onClick} className="flex items-center gap-2 text-gray-700 hover:text-red-800 font-medium transition-colors">
+      {Icon && <Icon size={18} />}
+      {children}
+    </Link>
+  );
 
   return (
     <nav className="bg-white shadow-lg border-b border-gray-200 sticky top-0 z-50">
@@ -65,104 +60,51 @@ const Navbar = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            <Link href="/main/auctions" className="text-gray-700 hover:text-red-800 font-medium transition-colors">
-              Auctions
-            </Link>
-            {user && (
-              <Link href="/create-auction" className="text-gray-700 hover:text-red-800 font-medium transition-colors">
-                Create Auction
-              </Link>
-            )}
-            {user && (
-              <Link href="/my-auctions" className="text-gray-700 hover:text-red-800 font-medium transition-colors">
-                My Auctions
-              </Link>
-            )}
-            {isAdmin && (
-              <Link href="/admin/dashboard" className="text-gray-700 hover:text-red-800 font-medium transition-colors">
-                Admin
-              </Link>
-            )}
-            <Link href="/categories" className="text-gray-700 hover:text-red-800 font-medium transition-colors">
-              Categories
-            </Link>
-            <Link href="/about" className="text-gray-700 hover:text-red-800 font-medium transition-colors">
-              About
-            </Link>
+          <div className="hidden md:flex items-center space-x-8 ml-12">
+            <NavLink href="/" icon={Home}>Home</NavLink>
+            <NavLink href="/main/auctions" icon={Hammer}>Live Auctions</NavLink>
+            {user && <NavLink href="/my-auctions" icon={LayoutDashboard}>My Listings</NavLink>}
+            {user && <NavLink href="/create-auction" icon={PlusCircle}>Sell Item</NavLink>}
+            {user?.role === 'admin' && <NavLink href="/admin/dashboard" icon={Package}>Admin</NavLink>}
           </div>
 
           {/* Search Bar */}
           <div className="hidden lg:flex items-center flex-1 max-w-md mx-8">
             <div className="relative w-full">
-              <input
-                type="text"
-                placeholder="Search auctions..."
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
-                suppressHydrationWarning
-              />
+              <input type="text" placeholder="Search auctions..." className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent" suppressHydrationWarning />
               <Search className="absolute left-3 top-2.5 text-gray-400" size={20} />
             </div>
           </div>
 
           {/* Desktop Actions */}
           <div className="hidden md:flex items-center space-x-4">
-            <button
-              suppressHydrationWarning
-              className="p-2 text-gray-600 hover:text-red-800 transition-colors"
-            >
-              <Bell size={20} />
-            </button>
-            
+            {user && <NotificationDropdown userId={user.id} />}
             {user ? (
-              // Logged in user menu
-              <>
-                <button
-                  suppressHydrationWarning
-                  className="p-2 text-gray-600 hover:text-red-800 transition-colors"
-                >
-                  <User size={20} />
+              <div className="relative">
+                <button onClick={() => setShowUserMenu(!showUserMenu)} className="flex items-center gap-2 text-gray-700 hover:text-red-800 font-medium transition-colors">
+                  <span className="text-sm">Welcome, {user.username || user.name || user.email}</span>
+                  <ChevronDown size={16} />
                 </button>
-                <span className="text-sm text-gray-700">Welcome, {user.username || user.name || user.email}</span>
-                <Button
-                  variant="ghost"
-                  size="small"
-                  onClick={handleLogout}
-                  className="text-gray-700 hover:text-red-800"
-                >
-                  <LogOut size={16} />
-                  Sign Out
-                </Button>
-              </>
+                {showUserMenu && (
+                  <div className="absolute right-0 top-full mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2">
+                    <button onClick={() => { handleLogout(); setShowUserMenu(false); }} className="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-red-800 flex items-center gap-2">
+                      <LogOut size={16} />
+                      Sign Out
+                    </button>
+                  </div>
+                )}
+              </div>
             ) : (
-              // Guest user menu
               <>
-                <Button
-                  variant="ghost"
-                  size="small"
-                  onClick={() => router.push('/login')}
-                  className="text-gray-700 hover:text-red-800"
-                >
-                  Sign In
-                </Button>
-                <Button
-                  variant="primary"
-                  size="small"
-                  onClick={() => router.push('/register')}
-                >
-                  Get Started
-                </Button>
+                <Button variant="ghost" size="small" onClick={() => router.push('/login')} className="text-gray-700 hover:text-red-800">Sign In</Button>
+                <Button variant="primary" size="small" onClick={() => router.push('/register')}>Get Started</Button>
               </>
             )}
           </div>
 
           {/* Mobile menu button */}
           <div className="md:hidden">
-            <button
-              suppressHydrationWarning
-              onClick={toggleMenu}
-              className="p-2 rounded-md text-gray-600 hover:text-red-800 hover:bg-gray-100 transition-colors"
-            >
+            <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="p-2 rounded-md text-gray-600 hover:text-red-800 hover:bg-gray-100 transition-colors" suppressHydrationWarning>
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
           </div>
@@ -170,115 +112,45 @@ const Navbar = () => {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1 border-t border-gray-200">
-              {/* Mobile Search */}
+          <div className="md:hidden border-t border-gray-200">
+            <div className="px-2 pt-2 pb-3 space-y-1">
               <div className="relative mb-4">
-                <input
-                  type="text"
-                  placeholder="Search auctions..."
-                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
-                  suppressHydrationWarning
-                />
+                <input type="text" placeholder="Search..." className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent" suppressHydrationWarning />
                 <Search className="absolute left-3 top-2.5 text-gray-400" size={20} />
               </div>
-
-              {/* Mobile Menu Items */}
-              <Link 
-                href="/main/auctions" 
-                className="block px-3 py-2 text-gray-700 hover:text-red-800 hover:bg-gray-50 rounded-md transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Auctions
+              <Link href="/" onClick={() => setIsMenuOpen(false)} className="flex items-center gap-2 px-3 py-2 text-gray-700 hover:text-red-800 hover:bg-gray-50 rounded-md">
+                <Home size={18} />Home
+              </Link>
+              <Link href="/main/auctions" onClick={() => setIsMenuOpen(false)} className="flex items-center gap-2 px-3 py-2 text-gray-700 hover:text-red-800 hover:bg-gray-50 rounded-md">
+                <Hammer size={18} />Live Auctions
               </Link>
               {user && (
-                <Link 
-                  href="/create-auction" 
-                  className="block px-3 py-2 text-gray-700 hover:text-red-800 hover:bg-gray-50 rounded-md transition-colors"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Create Auction
+                <>
+                  <Link href="/my-auctions" onClick={() => setIsMenuOpen(false)} className="flex items-center gap-2 px-3 py-2 text-gray-700 hover:text-red-800 hover:bg-gray-50 rounded-md">
+                    <LayoutDashboard size={18} />My Listings
+                  </Link>
+                  <Link href="/create-auction" onClick={() => setIsMenuOpen(false)} className="flex items-center gap-2 px-3 py-2 text-gray-700 hover:text-red-800 hover:bg-gray-50 rounded-md">
+                    <PlusCircle size={18} />Sell Item
+                  </Link>
+                </>
+              )}
+              {user?.role === 'admin' && (
+                <Link href="/admin/dashboard" onClick={() => setIsMenuOpen(false)} className="flex items-center gap-2 px-3 py-2 text-gray-700 hover:text-red-800 hover:bg-gray-50 rounded-md">
+                  <Package size={18} />Admin
                 </Link>
               )}
-              {user && (
-                <Link 
-                  href="/my-auctions" 
-                  className="block px-3 py-2 text-gray-700 hover:text-red-800 hover:bg-gray-50 rounded-md transition-colors"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  My Auctions
-                </Link>
-              )}
-              {isAdmin && (
-                <Link 
-                  href="/admin/dashboard" 
-                  className="block px-3 py-2 text-gray-700 hover:text-red-800 hover:bg-gray-50 rounded-md transition-colors"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Admin Dashboard
-                </Link>
-              )}
-              <Link 
-                href="/categories" 
-                className="block px-3 py-2 text-gray-700 hover:text-red-800 hover:bg-gray-50 rounded-md transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Categories
-              </Link>
-              <Link 
-                href="/about" 
-                className="block px-3 py-2 text-gray-700 hover:text-red-800 hover:bg-gray-50 rounded-md transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                About
-              </Link>
-              
-              {/* Mobile Actions */}
               <div className="border-t border-gray-200 pt-4 mt-4 space-y-3">
                 {user ? (
-                  // Logged in user mobile menu
                   <>
-                    <div className="px-3 py-2 text-sm text-gray-700 bg-gray-50 rounded-md">
-                      Welcome, {user.username || user.name || user.email}
-                    </div>
-                    <Button
-                      variant="ghost"
-                      size="small"
-                      onClick={() => {
-                        handleLogout();
-                        setIsMenuOpen(false);
-                      }}
-                      className="w-full justify-center text-gray-700 hover:text-red-800"
-                    >
-                      <LogOut size={16} />
-                      Sign Out
+                    <div className="px-3 py-2 text-sm text-gray-700 bg-gray-50 rounded-md">Welcome, {user.username || user.name || user.email}</div>
+                    <Button variant="ghost" size="small" onClick={() => { handleLogout(); setIsMenuOpen(false); }} className="w-full justify-center text-gray-700 hover:text-red-800">
+                      <LogOut size={16} />Sign Out
                     </Button>
                   </>
                 ) : (
-                  // Guest user mobile menu
                   <>
-                    <Button
-                      variant="ghost"
-                      size="small"
-                      onClick={() => {
-                        router.push('/login');
-                        setIsMenuOpen(false);
-                      }}
-                      className="w-full justify-center text-gray-700 hover:text-red-800"
-                    >
-                      Sign In
-                    </Button>
-                    <Button
-                      variant="primary"
-                      size="small"
-                      onClick={() => {
-                        router.push('/register');
-                        setIsMenuOpen(false);
-                      }}
-                      className="w-full justify-center"
-                    >
-                      Get Started
-                    </Button>
+                    <Button variant="ghost" size="small" onClick={() => { router.push('/login'); setIsMenuOpen(false); }} className="w-full justify-center text-gray-700 hover:text-red-800">Sign In</Button>
+                    <Button variant="primary" size="small" onClick={() => { router.push('/register'); setIsMenuOpen(false); }} className="w-full justify-center">Get Started</Button>
                   </>
                 )}
               </div>

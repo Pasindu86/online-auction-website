@@ -233,4 +233,21 @@ export const getOrderTransactions = async (orderId) => {
   return response.data;
 };
 
+// NOTIFICATIONS API FUNCTIONS
+
+export const getUserNotifications = async (userId) => {
+  const response = await api.get(`/notifications/user/${userId}`);
+  return response.data;
+};
+
+export const getUnreadNotificationsCount = async (userId) => {
+  const response = await api.get(`/notifications/user/${userId}/unread-count`);
+  return response.data;
+};
+
+export const markNotificationAsViewed = async (orderId) => {
+  const response = await api.post(`/notifications/${orderId}/mark-viewed`);
+  return response.data;
+};
+
 export default api;
