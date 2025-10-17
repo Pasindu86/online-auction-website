@@ -135,4 +135,119 @@ export const getCurrentUser = () => {
   return null;
 };
 
+// AUCTION API FUNCTIONS
+
+export const getAuctionById = async (id) => {
+  const response = await api.get(`/auctions/${id}`);
+  return response.data;
+};
+
+export const getAllAuctions = async () => {
+  const response = await api.get('/auctions');
+  return response.data;
+};
+
+export const getBidsForAuction = async (auctionId) => {
+  const response = await api.get(`/bids/auction/${auctionId}`);
+  return response.data;
+};
+
+export const placeBid = async (bidData) => {
+  const response = await api.post('/bids', bidData);
+  return response.data;
+};
+
+// ADMIN API FUNCTIONS
+
+export const getAdminDashboard = async () => {
+  const response = await api.get('/admin/dashboard');
+  return response.data;
+};
+
+export const getAdminAuctions = async () => {
+  const response = await api.get('/admin/auctions');
+  return response.data;
+};
+
+export const closeAuctionAsAdmin = async (auctionId) => {
+  const response = await api.post(`/admin/auctions/${auctionId}/close`);
+  return response.data;
+};
+
+export const deleteAuctionAsAdmin = async (auctionId) => {
+  await api.delete(`/admin/auctions/${auctionId}`);
+  return true;
+};
+
+export const getAdminUsers = async () => {
+  const response = await api.get('/admin/users');
+  return response.data;
+};
+
+export const updateUserRole = async (userId, role) => {
+  const response = await api.post(`/admin/users/${userId}/role`, null, {
+    params: { role }
+  });
+  return response.data;
+};
+
+export const deleteUserAsAdmin = async (userId) => {
+  await api.delete(`/admin/users/${userId}`);
+  return true;
+};
+
+// ORDERS AND PAYMENTS API FUNCTIONS
+
+export const createOrderFromAuction = async (auctionId) => {
+  const response = await api.post(`/orders/create-from-auction/${auctionId}`);
+  return response.data;
+};
+
+export const getUserOrders = async (userId) => {
+  const response = await api.get(`/orders/user/${userId}`);
+  return response.data;
+};
+
+export const getOrder = async (orderId) => {
+  const response = await api.get(`/orders/${orderId}`);
+  return response.data;
+};
+
+export const processPayment = async (orderId, paymentData) => {
+  const response = await api.post(`/orders/${orderId}/pay`, paymentData);
+  return response.data;
+};
+
+export const getPaymentDetails = async (paymentId) => {
+  const response = await api.get(`/payments/${paymentId}`);
+  return response.data;
+};
+
+export const getPaymentByTransactionId = async (transactionId) => {
+  const response = await api.get(`/payments/transaction/${transactionId}`);
+  return response.data;
+};
+
+export const getOrderTransactions = async (orderId) => {
+  const response = await api.get(`/orders/${orderId}/transactions`);
+  return response.data;
+};
+
+// NOTIFICATIONS API FUNCTIONS
+
+export const getUserNotifications = async (userId) => {
+  const response = await api.get(`/notifications/user/${userId}`);
+  return response.data;
+};
+
+export const getUnreadNotificationsCount = async (userId) => {
+  const response = await api.get(`/notifications/user/${userId}/unread-count`);
+  return response.data;
+};
+
+export const markNotificationAsViewed = async (orderId) => {
+  const response = await api.post(`/notifications/${orderId}/mark-viewed`);
+  return response.data;
+};
+
 export default api;

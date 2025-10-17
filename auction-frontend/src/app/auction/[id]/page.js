@@ -2,9 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { ArrowLeft, Heart, Share2, Flag, Gavel, Clock, User, Eye, TrendingUp } from 'lucide-react';
+import { ArrowLeft, Gavel, User, CreditCard } from 'lucide-react';
 import Button from '../../../components/ui/Button';
-import { getAuctionById, getCurrentUser, placeBid, getBidsForAuction } from '../../../lib/api';
+import { getAuctionById, getCurrentUser, placeBid, getBidsForAuction, getUserOrders } from '../../../lib/api';
 
 export default function AuctionDetailPage() {
   const params = useParams();
@@ -17,19 +17,78 @@ export default function AuctionDetailPage() {
   const [placingBid, setPlacingBid] = useState(false);
   const [bidSuccess, setBidSuccess] = useState('');
   const [recentBids, setRecentBids] = useState([]);
+  const [isWinner, setIsWinner] = useState(false);
+  const [hasExistingOrder, setHasExistingOrder] = useState(false);
+  const [existingOrder, setExistingOrder] = useState(null);
 
   useEffect(() => {
     const currentUser = getCurrentUser();
-    console.log('Current user:', currentUser); // Debug log
     setUser(currentUser);
     
-    if (params.id) {
-      console.log('Fetching auction with ID:', params.id); // Debug log
-      fetchAuction(params.id);
+    if (params.id && currentUser) {
+      fetchAuction(params.id, currentUser);
+    } else if (params.id) {
+      // If no user, still fetch auction but without winner checking
+      fetchAuctionWithoutUser(params.id);
     }
   }, [params.id]);
 
-  const fetchAuction = async (id) => {
+  // Re-check winner status if user state changes and auction is already loaded
+  useEffect(() => {
+    if (auction && user && auction.isClosed && recentBids.length > 0) {
+      const isUserWinner = recentBids[0].userId === parseInt(user.id);
+      setIsWinner(isUserWinner);
+      
+      if (isUserWinner) {
+        // Check for existing orders
+        getUserOrders(user.id)
+          .then(userOrders => {
+            const existingAuctionOrder = userOrders.find(order => order.auctionId === parseInt(params.id));
+            if (existingAuctionOrder) {
+              setHasExistingOrder(true);
+              setExistingOrder(existingAuctionOrder);
+            } else {
+              setHasExistingOrder(false);
+              setExistingOrder(null);
+            }
+          })
+          .catch(orderError => {
+            console.error('Error checking existing orders:', orderError);
+            setHasExistingOrder(false);
+            setExistingOrder(null);
+          });
+      } else {
+        setHasExistingOrder(false);
+        setExistingOrder(null);
+      }
+    }
+  }, [user, auction, recentBids, params.id]);
+
+  const fetchAuctionWithoutUser = async (id) => {
+    try {
+      setLoading(true);
+      const [auctionResponse, bidsResponse] = await Promise.all([
+        getAuctionById(id),
+        getBidsForAuction(id)
+      ]);
+      
+      setAuction(auctionResponse);
+      setBidAmount((auctionResponse.currentPrice + 1).toString());
+      setRecentBids(bidsResponse.slice(0, 3));
+      setIsWinner(false);
+      setHasExistingOrder(false);
+      setExistingOrder(null);
+      setError('');
+    } catch (error) {
+      console.error('Error fetching auction:', error);
+      setError('Failed to load auction details.');
+      setRecentBids([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchAuction = async (id, currentUser) => {
     try {
       setLoading(true);
       const [auctionResponse, bidsResponse] = await Promise.all([
@@ -40,6 +99,39 @@ export default function AuctionDetailPage() {
       setAuction(auctionResponse);
       setBidAmount((auctionResponse.currentPrice + 1).toString());
       setRecentBids(bidsResponse.slice(0, 3)); // Get last 3 bids
+      
+      // Check if current user is the winner (highest bidder when auction is closed)
+      if (auctionResponse.isClosed && bidsResponse.length > 0 && currentUser) {
+        const isUserWinner = bidsResponse[0].userId === parseInt(currentUser.id);
+        setIsWinner(isUserWinner);
+        
+        // If winner, check if they already have an order for this auction
+        if (isUserWinner) {
+          try {
+            const userOrders = await getUserOrders(currentUser.id);
+            const existingAuctionOrder = userOrders.find(order => order.auctionId === parseInt(id));
+            if (existingAuctionOrder) {
+              setHasExistingOrder(true);
+              setExistingOrder(existingAuctionOrder);
+            } else {
+              setHasExistingOrder(false);
+              setExistingOrder(null);
+            }
+          } catch (orderError) {
+            console.error('Error checking existing orders:', orderError);
+            setHasExistingOrder(false);
+            setExistingOrder(null);
+          }
+        } else {
+          setHasExistingOrder(false);
+          setExistingOrder(null);
+        }
+      } else {
+        setIsWinner(false);
+        setHasExistingOrder(false);
+        setExistingOrder(null);
+      }
+      
       setError('');
     } catch (error) {
       console.error('Error fetching auction:', error);
@@ -108,23 +200,20 @@ export default function AuctionDetailPage() {
         amount: parseFloat(bidAmount)
       };
 
-      console.log('Placing bid:', bidData); // Debug log
-
       await placeBid(bidData);
       setBidSuccess('Bid placed successfully!');
       setBidAmount(''); // Clear the input
       
       // Refresh auction data and bids to show updated current price
-      await fetchAuction(params.id);
+      if (user) {
+        await fetchAuction(params.id, user);
+      } else {
+        await fetchAuctionWithoutUser(params.id);
+      }
       
     } catch (error) {
       console.error('Error placing bid:', error);
-      setError(
-        error.response?.data?.message || 
-        error.response?.data || 
-        error.message ||
-        'Failed to place bid'
-      );
+      setError(error.response?.data?.message || error.message || 'Failed to place bid');
     } finally {
       setPlacingBid(false);
     }
@@ -208,29 +297,14 @@ export default function AuctionDetailPage() {
         <div className="space-y-6">
           {/* Auction Header */}
           <div className="bg-white rounded-lg border border-gray-200 p-6">
-            <div className="flex items-start justify-between mb-4">
+            <div className="mb-4">
               <h1 className="text-2xl font-bold text-gray-900">{auction.title}</h1>
-              <div className="flex items-center gap-2">
-                <button className="p-2 text-gray-400 hover:text-red-500 transition-colors">
-                  <Heart size={20} />
-                </button>
-                <button className="p-2 text-gray-400 hover:text-gray-600 transition-colors">
-                  <Share2 size={20} />
-                </button>
-                <button className="p-2 text-gray-400 hover:text-gray-600 transition-colors">
-                  <Flag size={20} />
-                </button>
-              </div>
             </div>
 
-            <div className="flex items-center gap-4 text-sm text-gray-600 mb-6">
+            <div className="flex items-center text-sm text-gray-600 mb-6">
               <span className="flex items-center gap-1">
                 <User size={16} />
                 Auction ID: {auction.id}
-              </span>
-              <span className="flex items-center gap-1">
-                <Eye size={16} />
-                Owner ID: {auction.ownerId}
               </span>
             </div>
 
@@ -331,25 +405,13 @@ export default function AuctionDetailPage() {
                     )}
                   </Button>
                 </form>
-
-                {/* Advanced Bidding Link */}
-                <div className="mt-4 pt-4 border-t border-gray-200">
-                  <Button 
-                    variant="ghost" 
-                    onClick={() => router.push(`/bid?auctionId=${params.id}`)}
-                    className="w-full"
-                  >
-                    <TrendingUp size={20} className="mr-2" />
-                    View Bid History & Advanced Bidding
-                  </Button>
-                </div>
               </div>
             )}
 
             {/* Recent Bids Display */}
             <div className="bg-white rounded-lg border border-gray-200 p-4">
               <h3 className="text-lg font-semibold text-gray-900 mb-3 flex items-center">
-                <TrendingUp className="mr-2 text-blue-600" size={20} />
+                <Gavel className="mr-2 text-blue-600" size={20} />
                 Recent Bids
               </h3>
               
@@ -396,18 +458,6 @@ export default function AuctionDetailPage() {
                   <p className="text-gray-400 text-xs mt-1">Be the first to bid!</p>
                 </div>
               )}
-              
-              {/* View All Bids Link */}
-              <div className="mt-3 pt-3 border-t border-gray-200">
-                <Button 
-                  variant="ghost" 
-                  size="small"
-                  onClick={() => router.push(`/bid?auctionId=${params.id}`)}
-                  className="w-full text-sm"
-                >
-                  View All Bids & Advanced Bidding
-                </Button>
-              </div>
             </div>
 
             {/* Login Required Message */}
@@ -420,8 +470,8 @@ export default function AuctionDetailPage() {
               </div>
             )}
 
-            {/* Closed Auction Message */}
-            {auction.isClosed && (
+            {/* Closed Auction Message for Non-Winners */}
+            {auction.isClosed && user && !isWinner && (
               <div className="text-center p-4 bg-red-50 rounded-lg">
                 <p className="text-red-700 font-medium">This auction has ended</p>
                 <p className="text-sm text-red-600 mt-1">
@@ -429,26 +479,81 @@ export default function AuctionDetailPage() {
                 </p>
               </div>
             )}
+
+            {/* Login Message for Closed Auction */}
+            {auction.isClosed && !user && (
+              <div className="text-center p-4 bg-gray-50 rounded-lg">
+                <p className="text-gray-600 mb-3">Please log in to check if you won this auction</p>
+                <Button onClick={() => router.push('/login')} className="w-full">
+                  Login to Check Status
+                </Button>
+              </div>
+            )}
+
+            {/* Winner Payment Section */}
+            {auction.isClosed && isWinner && (
+              <div className="text-center p-6 bg-green-50 rounded-lg border border-green-200">
+                <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                  <Gavel className="h-6 w-6 text-green-600" />
+                </div>
+                <p className="text-green-800 font-bold text-lg mb-2">Congratulations! You won this auction!</p>
+                <p className="text-sm text-green-700 mb-4">
+                  Final price: {formatPrice(auction.currentPrice)}
+                </p>
+                
+                {/* Show different content based on purchase status */}
+                {hasExistingOrder ? (
+                  existingOrder.status === 'Paid' ? (
+                    // Already paid
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <p className="text-blue-800 font-medium mb-2">✅ Payment Completed</p>
+                      <p className="text-sm text-blue-700 mb-3">
+                        Order #{existingOrder.id} • Paid on {new Date(existingOrder.orderDate).toLocaleDateString()}
+                      </p>
+                      <Button 
+                        variant="ghost"
+                        onClick={() => router.push('/my-auctions')}
+                        className="w-full text-blue-700 border-blue-300"
+                      >
+                        View Order Details
+                      </Button>
+                    </div>
+                  ) : (
+                    // Has order but not paid yet
+                    <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-4">
+                      <p className="text-yellow-800 font-medium mb-2">⏳ Payment Pending</p>
+                      <p className="text-sm text-yellow-700 mb-3">
+                        Order #{existingOrder.id} • Complete your payment to secure your item
+                      </p>
+                      <Button 
+                        onClick={() => router.push(`/payment?orderId=${existingOrder.id}`)}
+                        className="w-full bg-yellow-600 hover:bg-yellow-700"
+                      >
+                        <CreditCard size={20} className="mr-2" />
+                        Complete Payment
+                      </Button>
+                    </div>
+                  )
+                ) : (
+                  // No order yet - can create one
+                  <>
+                    <Button 
+                      onClick={() => router.push(`/payment?auctionId=${params.id}`)}
+                      className="w-full bg-green-600 hover:bg-green-700"
+                    >
+                      <CreditCard size={20} className="mr-2" />
+                      Proceed to Payment
+                    </Button>
+                    <p className="text-xs text-green-600 mt-2">
+                      Complete your payment to secure your item
+                    </p>
+                  </>
+                )}
+              </div>
+            )}
           </div>
 
-          {/* Quick Actions */}
-          <div className="bg-white rounded-lg border border-gray-200 p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h3>
-            <div className="space-y-3">
-              <Button variant="ghost" className="w-full justify-start">
-                <Heart size={20} className="mr-2" />
-                Add to Watchlist
-              </Button>
-              <Button variant="ghost" className="w-full justify-start">
-                <Share2 size={20} className="mr-2" />
-                Share Auction
-              </Button>
-              <Button variant="ghost" className="w-full justify-start">
-                <Flag size={20} className="mr-2" />
-                Report Issue
-              </Button>
-            </div>
-          </div>
+
         </div>
       </div>
 

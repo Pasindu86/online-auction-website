@@ -39,6 +39,10 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseCors("AllowFrontend");
+
+// Add static files middleware to serve uploaded images
+app.UseStaticFiles();
+
 app.UseAuthorization();
 app.MapControllers();
 

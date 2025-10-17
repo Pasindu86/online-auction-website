@@ -249,8 +249,7 @@ export default function AuctionsPage() {
                       size="small" 
                       className="flex-1"
                       onClick={() => {
-                        console.log('Place Bid clicked for auction:', auction.id);
-                        router.push(`/bid?auctionId=${auction.id}`);
+                        router.push(`/auction/${auction.id}`);
                       }}
                     >
                       <Gavel size={16} />
