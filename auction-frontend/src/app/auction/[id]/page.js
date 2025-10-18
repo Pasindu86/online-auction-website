@@ -235,13 +235,36 @@ export default function AuctionDetailPage() {
   if (error || !auction) {
     return (
       <div className="container mx-auto px-4 py-8">
-        <div className="text-center py-12">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Auction Not Found</h2>
-          <p className="text-gray-600 mb-6">{error || 'The auction you are looking for does not exist.'}</p>
-          <Button onClick={() => router.push('/main/auctions')}>
-            <ArrowLeft size={20} className="mr-2" />
-            Back to Auctions
-          </Button>
+        <div className="max-w-2xl mx-auto text-center py-12">
+          <div className="mb-6">
+            <Gavel className="mx-auto text-slate-300" size={80} />
+          </div>
+          <h2 className="text-3xl font-bold text-slate-900 mb-4">Unable to Load Auction</h2>
+          <p className="text-slate-600 mb-2 text-lg">{error || 'The auction you are looking for cannot be loaded at this time.'}</p>
+          <p className="text-sm text-slate-500 mb-8">This might be because the auction doesn't exist or the server is unavailable.</p>
+          <div className="flex gap-4 justify-center">
+            <Button 
+              onClick={() => router.push('/main/auctions')}
+              className="bg-gradient-to-r from-blue-800 via-indigo-950 to-blue-700 hover:from-blue-900 hover:via-indigo-950 hover:to-blue-800 text-white px-8 py-3 rounded-full font-bold shadow-lg"
+            >
+              <ArrowLeft size={20} className="mr-2" />
+              Back to Auctions
+            </Button>
+            <Button 
+              onClick={() => {
+                setError('');
+                setLoading(true);
+                if (user) {
+                  fetchAuction(params.id, user);
+                } else {
+                  fetchAuctionWithoutUser(params.id);
+                }
+              }}
+              className="bg-white border-2 border-slate-300 text-slate-700 hover:bg-slate-50 px-8 py-3 rounded-full font-bold"
+            >
+              Try Again
+            </Button>
+          </div>
         </div>
       </div>
     );
