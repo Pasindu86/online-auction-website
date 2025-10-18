@@ -11,11 +11,11 @@ export default function AboutPage() {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="pt-32 pb-20 bg-gradient-to-br from-indigo-900 via-purple-900 to-blue-900 text-white relative overflow-hidden">
+      <section className="pt-32 pb-20 bg-gradient-to-br from-blue-800 via-indigo-950 to-blue-500 text-white relative overflow-hidden">
         {/* Decorative background */}
         <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-0 left-0 w-96 h-96 bg-purple-500 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-500 rounded-full blur-3xl"></div>
+          <div className="absolute top-0 left-0 w-96 h-96 bg-blue-500 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 right-0 w-96 h-96 bg-indigo-500 rounded-full blur-3xl"></div>
         </div>
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -25,7 +25,7 @@ export default function AboutPage() {
             </div>
             <h1 className="text-6xl md:text-7xl font-extrabold mb-6 leading-tight">
               Your Trusted Online
-              <span className="block mt-2 bg-gradient-to-r from-yellow-300 to-pink-300 bg-clip-text text-transparent">
+              <span className="block mt-2 bg-gradient-to-r from-blue-300 to-purple-300 bg-clip-text text-transparent">
                 Auction Marketplace
               </span>
             </h1>
@@ -88,27 +88,27 @@ export default function AboutPage() {
 
             {/* Right Content - Stats */}
             <div className="grid grid-cols-2 gap-6">
-              <div className="bg-gradient-to-br from-purple-50 to-blue-50 p-8 rounded-2xl border border-purple-200">
-                <Users className="text-purple-600 mb-4" size={40} />
-                <div className="text-5xl font-extrabold text-purple-700 mb-3">50K+</div>
+              <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-8 rounded-2xl border border-blue-200">
+                <Users className="text-blue-600 mb-4" size={40} />
+                <div className="text-5xl font-extrabold text-blue-700 mb-3">50K+</div>
                 <div className="text-lg font-semibold text-slate-800 mb-2">Active Users</div>
                 <p className="text-slate-600 text-sm">Worldwide community</p>
               </div>
-              <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-8 rounded-2xl border border-blue-200">
-                <Clock className="text-blue-600 mb-4" size={40} />
-                <div className="text-5xl font-extrabold text-blue-700 mb-3">10K+</div>
+              <div className="bg-gradient-to-br from-indigo-50 to-blue-50 p-8 rounded-2xl border border-indigo-200">
+                <Clock className="text-indigo-600 mb-4" size={40} />
+                <div className="text-5xl font-extrabold text-indigo-700 mb-3">10K+</div>
                 <div className="text-lg font-semibold text-slate-800 mb-2">Live Auctions</div>
                 <p className="text-slate-600 text-sm">Every single day</p>
               </div>
-              <div className="bg-gradient-to-br from-pink-50 to-purple-50 p-8 rounded-2xl border border-pink-200">
-                <Target className="text-pink-600 mb-4" size={40} />
-                <div className="text-5xl font-extrabold text-pink-700 mb-3">$2M+</div>
+              <div className="bg-gradient-to-br from-blue-100 to-indigo-100 p-8 rounded-2xl border border-blue-300">
+                <Target className="text-blue-700 mb-4" size={40} />
+                <div className="text-5xl font-extrabold text-blue-800 mb-3">$2M+</div>
                 <div className="text-lg font-semibold text-slate-800 mb-2">Items Sold</div>
                 <p className="text-slate-600 text-sm">Successfully traded</p>
               </div>
-              <div className="bg-gradient-to-br from-green-50 to-emerald-50 p-8 rounded-2xl border border-green-200">
-                <Award className="text-green-600 mb-4" size={40} />
-                <div className="text-5xl font-extrabold text-green-700 mb-3">99%</div>
+              <div className="bg-gradient-to-br from-indigo-100 to-blue-100 p-8 rounded-2xl border border-indigo-300">
+                <Award className="text-indigo-700 mb-4" size={40} />
+                <div className="text-5xl font-extrabold text-indigo-800 mb-3">99%</div>
                 <div className="text-lg font-semibold text-slate-800 mb-2">Satisfaction</div>
                 <p className="text-slate-600 text-sm">Happy customers</p>
               </div>
@@ -131,8 +131,8 @@ export default function AboutPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="bg-white p-8 rounded-2xl shadow-lg border border-slate-200 hover:shadow-xl transition-all duration-300">
-              <div className="w-16 h-16 bg-gradient-to-br from-yellow-100 to-yellow-200 rounded-xl flex items-center justify-center mb-6">
-                <Award className="text-yellow-600" size={32} />
+              <div className="w-16 h-16 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-xl flex items-center justify-center mb-6">
+                <Award className="text-blue-600" size={32} />
               </div>
               <h3 className="text-xl font-bold text-slate-900 mb-3">Verified Sellers</h3>
               <p className="text-slate-600 leading-relaxed">
@@ -141,8 +141,8 @@ export default function AboutPage() {
             </div>
 
             <div className="bg-white p-8 rounded-2xl shadow-lg border border-slate-200 hover:shadow-xl transition-all duration-300">
-              <div className="w-16 h-16 bg-gradient-to-br from-green-100 to-green-200 rounded-xl flex items-center justify-center mb-6">
-                <Shield className="text-green-600" size={32} />
+              <div className="w-16 h-16 bg-gradient-to-br from-indigo-100 to-blue-100 rounded-xl flex items-center justify-center mb-6">
+                <Shield className="text-indigo-600" size={32} />
               </div>
               <h3 className="text-xl font-bold text-slate-900 mb-3">Buyer Protection</h3>
               <p className="text-slate-600 leading-relaxed">
@@ -151,8 +151,8 @@ export default function AboutPage() {
             </div>
 
             <div className="bg-white p-8 rounded-2xl shadow-lg border border-slate-200 hover:shadow-xl transition-all duration-300">
-              <div className="w-16 h-16 bg-gradient-to-br from-blue-100 to-blue-200 rounded-xl flex items-center justify-center mb-6">
-                <TrendingUp className="text-blue-600" size={32} />
+              <div className="w-16 h-16 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-xl flex items-center justify-center mb-6">
+                <TrendingUp className="text-blue-700" size={32} />
               </div>
               <h3 className="text-xl font-bold text-slate-900 mb-3">Real-time Bidding</h3>
               <p className="text-slate-600 leading-relaxed">
@@ -161,8 +161,8 @@ export default function AboutPage() {
             </div>
 
             <div className="bg-white p-8 rounded-2xl shadow-lg border border-slate-200 hover:shadow-xl transition-all duration-300">
-              <div className="w-16 h-16 bg-gradient-to-br from-pink-100 to-pink-200 rounded-xl flex items-center justify-center mb-6">
-                <Heart className="text-pink-600" size={32} />
+              <div className="w-16 h-16 bg-gradient-to-br from-indigo-100 to-blue-100 rounded-xl flex items-center justify-center mb-6">
+                <Heart className="text-indigo-700" size={32} />
               </div>
               <h3 className="text-xl font-bold text-slate-900 mb-3">24/7 Support</h3>
               <p className="text-slate-600 leading-relaxed">
@@ -174,7 +174,7 @@ export default function AboutPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-br from-purple-600 via-blue-600 to-indigo-600 text-white">
+      <section className="py-20 bg-gradient-to-br from-blue-800 via-indigo-950 to-blue-600 text-white">
         <div className="max-w-5xl mx-auto text-center px-4 sm:px-6 lg:px-8">
           <h2 className="text-5xl md:text-6xl font-extrabold mb-6">
             Ready to Join AuctionHub?
@@ -184,13 +184,13 @@ export default function AboutPage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
             <Link href="/main/auctions">
-              <Button className="bg-white text-purple-700 hover:bg-purple-50 px-10 py-4 rounded-full font-bold text-lg shadow-xl transform hover:scale-105 transition-all duration-300">
+              <Button className="bg-white text-blue-900 hover:bg-slate-50 px-10 py-4 rounded-full font-bold text-lg shadow-xl transform hover:scale-105 transition-all duration-300">
                 Browse Auctions
                 <ArrowRight size={22} className="ml-2" />
               </Button>
             </Link>
             <Link href="/register">
-              <Button className="bg-purple-900 hover:bg-purple-800 text-white px-10 py-4 rounded-full font-bold text-lg shadow-xl border-2 border-white transform hover:scale-105 transition-all duration-300">
+              <Button className="bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white px-10 py-4 rounded-full font-bold text-lg shadow-xl border-2 border-white/30 transform hover:scale-105 transition-all duration-300">
                 Sign Up Now
               </Button>
             </Link>
