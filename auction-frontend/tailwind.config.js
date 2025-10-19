@@ -41,8 +41,9 @@ module.exports = {
         'status-info': '#0284c7',
       },
       fontFamily: {
-        'primary': ['Inter', 'sans-serif'],
-        'secondary': ['Poppins', 'sans-serif'],
+        'primary': ['var(--font-inter)', 'Inter', 'sans-serif'],
+        'secondary': ['var(--font-poppins)', 'Poppins', 'sans-serif'],
+        'sans': ['var(--font-inter)', 'Inter', 'system-ui', 'sans-serif'],
       },
       boxShadow: {
         'card': '0 2px 8px rgba(0, 0, 0, 0.08)',
