@@ -8,6 +8,28 @@ import { logoutUser } from '../../lib/api';
 import Button from './Button';
 import NotificationDropdown from './NotificationDropdown';
 
+// LogoImage: attempts to load an image from the public folder (/bid-logo.png).
+// If the image fails to load, renders a simple fallback badge with the text "BID".
+const LogoImage = () => {
+  const [errored, setErrored] = useState(false);
+  return (
+    <>
+      {!errored ? (
+        <img
+          src="/logo.png"
+          alt="BID logo"
+          onError={() => setErrored(true)}
+          className="w-12 h-12 object-cover rounded-xl"
+        />
+      ) : (
+        <div className="w-10 h-10 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center border border-white/30 shadow-lg text-white font-bold">
+          BID
+        </div>
+      )}
+    </>
+  );
+};
+
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
@@ -53,9 +75,7 @@ const Navbar = () => {
         <div className="flex justify-between items-center h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center border border-white/30 shadow-lg">
-              <Gavel className="text-white" size={24} />
-            </div>
+            <LogoImage />
             <span className="text-2xl font-bold text-white drop-shadow-lg">AuctionHub</span>
           </Link>
 

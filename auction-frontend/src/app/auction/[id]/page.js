@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { ArrowLeft, Gavel, User, CreditCard, Clock, Eye, Tag, TrendingUp } from 'lucide-react';
+import { ArrowLeft, Gavel, User, CreditCard, Clock, Eye, Tag, TrendingUp, Check } from 'lucide-react';
 import Button from '../../../components/ui/Button';
 import Navbar from '../../../components/ui/Navbar';
 import Footer from '../../../components/ui/Footer';
@@ -31,6 +31,27 @@ export default function AuctionDetailPage() {
       fetchAuction(params.id, currentUser);
     }
   }, [params.id]);
+
+  // Refresh order status when page regains focus (e.g., returning from payment)
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (!document.hidden && user && auction && isWinner) {
+        // Refresh order status when page becomes visible
+        getUserOrders(user.id)
+          .then(userOrders => {
+            const existingAuctionOrder = userOrders.find(order => order.auctionId === parseInt(params.id));
+            if (existingAuctionOrder) {
+              setHasExistingOrder(true);
+              setExistingOrder(existingAuctionOrder);
+            }
+          })
+          .catch(error => console.error('Error refreshing order status:', error));
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
+  }, [user, auction, isWinner, params.id]);
 
   // Re-check winner status if user state changes and auction is already loaded
   useEffect(() => {
@@ -370,6 +391,83 @@ export default function AuctionDetailPage() {
                         <TrendingUp size={20} />
                         🎉 You Won This Auction!
                       </p>
+                    </div>
+                  )}
+
+                  {/* Winner Payment Section */}
+                  {isWinner && !hasExistingOrder && (
+                    <div className="p-6 border-b border-gray-100">
+                      <h3 className="text-lg font-bold text-gray-900 mb-4">Complete Your Purchase</h3>
+                      <div className="space-y-4">
+                        <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
+                          <div className="flex justify-between items-center mb-2">
+                            <span className="text-sm font-medium text-gray-700">Winning Bid:</span>
+                            <span className="text-xl font-bold text-blue-600">{formatPrice(auction.currentPrice)}</span>
+                          </div>
+                          <p className="text-xs text-gray-600">Congratulations! Proceed to payment to claim your item.</p>
+                        </div>
+                        
+                        <Button
+                          onClick={() => router.push(`/payment?auctionId=${auction.id}`)}
+                          className="w-full bg-green-600 hover:bg-green-700 text-white px-6 py-4 rounded-xl font-bold text-base shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2"
+                        >
+                          <CreditCard size={20} />
+                          Proceed to Payment
+                        </Button>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Order Already Exists Message */}
+                  {isWinner && hasExistingOrder && existingOrder && (
+                    <div className="p-6 border-b border-gray-100">
+                      <h3 className="text-lg font-bold text-gray-900 mb-4">Order Status</h3>
+                      <div className="space-y-4">
+                        <div className="bg-green-50 border border-green-200 rounded-xl p-4">
+                          <p className="text-sm font-medium text-green-800 mb-2">✓ Order Created</p>
+                          <div className="text-xs text-gray-600 space-y-1">
+                            <p>Order ID: #{existingOrder.id}</p>
+                            <p>Amount: {formatPrice(existingOrder.totalPrice)}</p>
+                            <p>Status: <span className="font-semibold capitalize">{existingOrder.status}</span></p>
+                          </div>
+                        </div>
+                        
+                        {existingOrder.status === 'Pending' && (
+                          <Button
+                            onClick={() => router.push(`/payment?orderId=${existingOrder.id}`)}
+                            className="w-full bg-blue-600 hover:bg-blue-700 text-white px-6 py-4 rounded-xl font-bold text-base shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2"
+                          >
+                            <CreditCard size={20} />
+                            Complete Payment
+                          </Button>
+                        )}
+                        
+                        {existingOrder.status === 'Paid' && (
+                          <div className="bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-300 rounded-xl p-6 text-center">
+                            <div className="flex justify-center mb-3">
+                              <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center">
+                                <Check size={32} className="text-white" />
+                              </div>
+                            </div>
+                            <h4 className="text-lg font-bold text-green-800 mb-2">Payment Completed!</h4>
+                            <p className="text-sm text-green-700 mb-3">
+                              Your payment has been processed successfully. Thank you for your purchase!
+                            </p>
+                            <div className="text-xs text-gray-600 space-y-1 bg-white rounded-lg p-3">
+                              <p><span className="font-semibold">Order ID:</span> #{existingOrder.id}</p>
+                              <p><span className="font-semibold">Amount Paid:</span> {formatPrice(existingOrder.totalPrice)}</p>
+                            </div>
+                          </div>
+                        )}
+
+                        {existingOrder.status !== 'Paid' && existingOrder.status !== 'Pending' && (
+                          <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-4 text-center">
+                            <p className="text-sm text-yellow-800">
+                              <span className="font-semibold">Order Status:</span> {existingOrder.status}
+                            </p>
+                          </div>
+                        )}
+                      </div>
                     </div>
                   )}
 
