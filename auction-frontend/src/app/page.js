@@ -100,13 +100,13 @@ export default function HomePage() {
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <Link href="/main/auctions">
-                <Button className="bg-white hover:bg-slate-50 text-black px-10 py-4 rounded-xl font-bold text-lg shadow-2xl transform hover:scale-105 transition-all duration-300 border-2 border-white/20">
+                <Button className="bg-white hover:bg-slate-50 !text-black px-10 py-4 rounded-xl font-bold text-lg shadow-2xl transform hover:scale-105 transition-all duration-300 border-2 border-white/20">
   Browse Auctions
-                  <ArrowRight size={22} className="ml-2" />
+                  <ArrowRight size={22} className="ml-2 !text-black" />
                 </Button>
               </Link>
               <Link href="/create-auction">
-                <Button className="bg-white hover:bg-slate-50 text-black px-10 py-4 rounded-xl font-bold text-lg shadow-2xl transform hover:scale-105 transition-all duration-300 border-2 border-white/20">
+                <Button className="bg-white hover:bg-slate-50 !text-black px-10 py-4 rounded-xl font-bold text-lg shadow-2xl transform hover:scale-105 transition-all duration-300 border-2 border-white/20">
  Start Selling
                 </Button>
               </Link>
