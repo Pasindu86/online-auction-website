@@ -19,6 +19,7 @@ export default function AuctionDetailPage() {
   const [placingBid, setPlacingBid] = useState(false);
   const [bidSuccess, setBidSuccess] = useState('');
   const [recentBids, setRecentBids] = useState([]);
+  const [totalBidsCount, setTotalBidsCount] = useState(0);
   const [isWinner, setIsWinner] = useState(false);
   const [hasExistingOrder, setHasExistingOrder] = useState(false);
   const [existingOrder, setExistingOrder] = useState(null);
@@ -92,9 +93,13 @@ export default function AuctionDetailPage() {
         getBidsForAuction(id)
       ]);
       
+      console.log('Fetched auction:', auctionResponse);
+      console.log('Fetched bids:', bidsResponse);
+      
       setAuction(auctionResponse);
       setBidAmount((auctionResponse.currentPrice + 1).toString());
-      setRecentBids(bidsResponse.slice(0, 3)); // Get last 3 bids
+      setTotalBidsCount(bidsResponse.length); // Store total count
+      setRecentBids(bidsResponse.slice(0, 3)); // Get last 3 bids for display
       
       // Check if current user is the winner (highest bidder when auction is closed)
       if (auctionResponse.isClosed && bidsResponse.length > 0 && currentUser) {
@@ -131,8 +136,10 @@ export default function AuctionDetailPage() {
       setError('');
     } catch (error) {
       console.error('Error fetching auction:', error);
+      console.error('Error details:', error.response?.data);
       setError('Failed to load auction details.');
       setRecentBids([]);
+      setTotalBidsCount(0);
     } finally {
       setLoading(false);
     }
@@ -351,7 +358,7 @@ export default function AuctionDetailPage() {
 
                   {/* Bids Count */}
                   <div className="flex items-center justify-between text-sm text-gray-600 mb-4">
-                    <span className="font-medium">{recentBids.length} {recentBids.length === 1 ? 'bid' : 'bids'}</span>
+                    <span className="font-medium">{totalBidsCount} {totalBidsCount === 1 ? 'bid' : 'bids'}</span>
                     <span className="text-xs text-gray-500">Auction ID: #{auction.id}</span>
                   </div>
 
@@ -530,7 +537,7 @@ export default function AuctionDetailPage() {
                       </div>
                       <div className="flex justify-between items-center py-2 border-b border-gray-100">
                         <span className="text-gray-600">Total Bids</span>
-                        <span className="font-bold text-gray-900">{recentBids.length}</span>
+                        <span className="font-bold text-gray-900">{totalBidsCount}</span>
                       </div>
                       <div className="flex justify-between items-center py-2">
                         <span className="text-gray-600">Status</span>
@@ -542,9 +549,9 @@ export default function AuctionDetailPage() {
                   </div>
 
                   {/* Bid History - Compact */}
-                  {recentBids.length > 0 && (
-                    <div className="p-6">
-                      <h3 className="text-base font-bold text-gray-900 mb-3">Recent Bids</h3>
+                  <div className="p-6">
+                    <h3 className="text-base font-bold text-gray-900 mb-3">Recent Bids</h3>
+                    {recentBids.length > 0 ? (
                       <div className="space-y-2 max-h-[300px] overflow-y-auto pr-2">
                         {recentBids.map((bid, index) => (
                           <div 
@@ -563,15 +570,20 @@ export default function AuctionDetailPage() {
                               </div>
                               <div>
                                 <p className="text-sm font-bold text-gray-900">{formatPrice(bid.amount)}</p>
-                                <p className="text-xs text-gray-500">{formatDate(bid.timestamp)}</p>
                               </div>
                             </div>
                             <User size={16} className="text-gray-400" />
                           </div>
                         ))}
                       </div>
-                    </div>
-                  )}
+                    ) : (
+                      <div className="text-center py-8 bg-gray-50 rounded-xl border border-gray-200">
+                        <Gavel className="mx-auto text-gray-300 mb-2" size={32} />
+                        <p className="text-sm text-gray-500">No bids placed yet</p>
+                        <p className="text-xs text-gray-400 mt-1">Be the first to bid!</p>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
