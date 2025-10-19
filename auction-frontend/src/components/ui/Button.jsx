@@ -12,7 +12,7 @@ const Button = ({
   const baseStyles = 'font-semibold border-none cursor-pointer transition-all duration-200 inline-flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-offset-2';
   
   const variants = {
-    primary: 'bg-red-800 text-white hover:bg-red-900 focus:ring-red-500 disabled:bg-gray-400',
+    primary: 'bg-white-800 text-white hover:bg-red-900 focus:ring-red-500 disabled:bg-gray-400',
     secondary: 'bg-white text-gray-900 border-2 border-gray-900 hover:bg-gray-900 hover:text-white focus:ring-gray-500',
     ghost: 'bg-transparent text-gray-600 hover:bg-gray-100 hover:text-gray-900 focus:ring-gray-500'
   };
