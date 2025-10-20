@@ -147,6 +147,11 @@ export const getAllAuctions = async () => {
   return response.data;
 };
 
+export const getActiveAuctions = async () => {
+  const response = await api.get('/auctions/active');
+  return response.data;
+};
+
 export const getBidsForAuction = async (auctionId) => {
   const response = await api.get(`/bids/auction/${auctionId}`);
   return response.data;

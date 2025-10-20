@@ -6,7 +6,7 @@ import { ArrowRight, Shield, Zap, Users, Trophy, Search, Clock, Award, Target, H
 import Navbar from '../components/ui/Navbar';
 import Footer from '../components/ui/Footer';
 import Button from '../components/ui/Button';
-import { getAllAuctions } from '../lib/api';
+import { getActiveAuctions } from '../lib/api';
 
 export default function HomePage() {
   const [liveAuctions, setLiveAuctions] = useState([]);
@@ -19,27 +19,10 @@ export default function HomePage() {
 
   const fetchLiveAuctions = async () => {
     try {
-      const auctions = await getAllAuctions();
-      console.log('📦 All fetched auctions:', auctions);
-      
-      const now = new Date();
-      
-      // Filter ONLY live/active auctions (not ended, not closed)
-      const liveAuctionsFiltered = auctions.filter(auction => {
-        const endTime = new Date(auction.endTime);
-        const isLive = endTime > now;
-        const isNotClosed = !auction.isClosed;
-        
-        const auctionId = auction.id || auction.auctionId;
-        console.log(`Auction ${auctionId}: endTime=${endTime}, now=${now}, isLive=${isLive}, isClosed=${auction.isClosed}`);
-        
-        return isLive && isNotClosed;
-      });
-      
-      console.log('🔴 Filtered LIVE auctions:', liveAuctionsFiltered);
-      
-      // Sort by most recent and get top 3
-      const recentLiveAuctions = liveAuctionsFiltered
+      const auctions = await getActiveAuctions();
+      console.log('📦 Active auctions:', auctions);
+
+      const recentLiveAuctions = auctions
         .sort((a, b) => {
           const dateA = new Date(a.createdAt || a.startTime || a.endTime);
           const dateB = new Date(b.createdAt || b.startTime || b.endTime);
@@ -64,7 +47,7 @@ export default function HomePage() {
     const end = new Date(endTime);
     const diff = end - now;
 
-    if (diff <= 0) return 'Ended';
+    if (diff <= 0) return null;
 
     const days = Math.floor(diff / (1000 * 60 * 60 * 24));
     const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -221,6 +204,7 @@ export default function HomePage() {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-10">
                 {liveAuctions.map((auction) => {
                   const auctionId = auction.id || auction.auctionId;
+                  const timeRemaining = getTimeRemaining(auction.endTime);
                   return (
                   <div key={auctionId} className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-slate-200 hover:border-indigo-400 transform hover:-translate-y-2">
                     <Link href={`/auction/${auctionId}`} className="block">
@@ -260,10 +244,12 @@ export default function HomePage() {
                           LIVE
                         </div>
                         {/* Time Remaining */}
-                        <div className="absolute bottom-4 left-4 px-3 py-1 bg-black/70 backdrop-blur-sm text-white text-sm font-semibold rounded-lg flex items-center gap-2">
-                          <Clock size={16} />
-                          {getTimeRemaining(auction.endTime)}
-                        </div>
+                        {timeRemaining && (
+                          <div className="absolute bottom-4 left-4 px-3 py-1 bg-black/70 backdrop-blur-sm text-white text-sm font-semibold rounded-lg flex items-center gap-2">
+                            <Clock size={16} />
+                            {timeRemaining}
+                          </div>
+                        )}
                       </div>
 
                       {/* Auction Details */}
