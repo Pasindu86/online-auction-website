@@ -80,7 +80,7 @@ const RegisterForm = () => {
                 <CheckCircle className="text-white" size={64} />
               </div>
               <h1 className="text-5xl md:text-6xl font-extrabold text-white mb-4 leading-tight">
-                You're Almost There!
+                You&apos;re Almost There!
               </h1>
               <p className="text-xl text-white/80 max-w-2xl mx-auto leading-relaxed">
                 One more step to start your auction journey
@@ -113,7 +113,7 @@ const RegisterForm = () => {
               </h2>
               
               <p className="text-slate-600 text-lg mb-4">
-                We've sent a verification email to:
+                We&apos;ve sent a verification email to:
               </p>
               
               <div className="p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl mb-6">
@@ -144,7 +144,7 @@ const RegisterForm = () => {
                   onClick={() => setRegistrationSuccess(false)}
                   className="w-full py-3 text-slate-600 hover:text-slate-900 text-sm font-medium transition-colors"
                 >
-                  Didn't receive the email? Try registering again
+                  Didn&apos;t receive the email? Try registering again
                 </button>
               </div>
             </div>

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter, usePathname } from 'next/navigation';
 import { Menu, X, Gavel, Search, Home, Hammer, LayoutDashboard, PlusCircle, Package, ChevronDown, LogOut } from 'lucide-react';
 import { logoutUser } from '../../lib/api';
@@ -13,20 +14,23 @@ import NotificationDropdown from './NotificationDropdown';
 const LogoImage = () => {
   const [errored, setErrored] = useState(false);
   return (
-    <>
+    <div className="relative h-12 w-12">
       {!errored ? (
-        <img
+        <Image
           src="/logo.png"
           alt="BID logo"
+          fill
+          priority
+          sizes="48px"
+          className="rounded-xl object-cover"
           onError={() => setErrored(true)}
-          className="w-12 h-12 object-cover rounded-xl"
         />
       ) : (
-        <div className="w-10 h-10 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center border border-white/30 shadow-lg text-white font-bold">
+        <div className="flex h-full w-full items-center justify-center rounded-xl border border-white/30 bg-white/20 text-sm font-bold text-white shadow-lg backdrop-blur-md">
           BID
         </div>
       )}
-    </>
+    </div>
   );
 };
 

@@ -50,7 +50,18 @@ const AdminDashboardPage = () => {
         getAdminUsers()
       ]);
       setSummary(dashboardData);
-      setAuctions(auctionsData);
+      
+      // Sort auctions: Active auctions first, then closed auctions
+      const sortedAuctions = auctionsData.sort((a, b) => {
+        // If one is closed and the other isn't, put the active one first
+        if (a.isClosed !== b.isClosed) {
+          return a.isClosed ? 1 : -1;
+        }
+        // If both have the same status, sort by end time (newest first for active, newest first for closed)
+        return new Date(b.endTime) - new Date(a.endTime);
+      });
+      
+      setAuctions(sortedAuctions);
       setUsers(usersData);
       setError('');
     } catch (err) {

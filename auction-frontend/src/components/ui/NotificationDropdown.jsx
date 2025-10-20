@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { Bell, BellDot, Trophy, X, DollarSign } from 'lucide-react';
 import { getUserNotifications, getUnreadNotificationsCount } from '../../lib/api';
@@ -31,7 +31,7 @@ const NotificationDropdown = ({ userId }) => {
   }, [isOpen]);
 
   // Fetch notifications and unread count
-  const fetchNotifications = async () => {
+  const fetchNotifications = useCallback(async () => {
     if (!userId) return;
     
     try {
@@ -48,7 +48,7 @@ const NotificationDropdown = ({ userId }) => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [userId]);
 
   // Fetch on mount and set up polling
   useEffect(() => {
@@ -76,12 +76,12 @@ const NotificationDropdown = ({ userId }) => {
         window.removeEventListener('orderCreated', handleOrderCreated);
       };
     }
-  }, [userId, isOpen]);
+  }, [userId, isOpen, fetchNotifications]);
 
   const handleNotificationClick = (notification) => {
-    // Navigate to payment page for the won auction
+    // Navigate to payment page for the won auction using the shared query-based route
     setIsOpen(false);
-    router.push(`/payment/${notification.id}`);
+    router.push(`/payment?orderId=${notification.id}`);
   };
 
   const toggleDropdown = () => {
@@ -151,7 +151,7 @@ const NotificationDropdown = ({ userId }) => {
               <div className="p-8 text-center text-gray-500">
                 <Bell size={48} className="mx-auto mb-3 text-blue-200" />
                 <p className="text-sm font-medium">No notifications yet</p>
-                <p className="text-xs mt-1 text-gray-400">You'll be notified when you win an auction</p>
+                <p className="text-xs mt-1 text-gray-400">You&apos;ll be notified when you win an auction</p>
               </div>
             ) : (
               <div className="divide-y divide-gray-100">

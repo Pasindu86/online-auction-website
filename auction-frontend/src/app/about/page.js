@@ -51,7 +51,7 @@ export default function AboutPage() {
                 user-friendly design to create an unparalleled bidding experience.
               </p>
               <p className="text-lg text-slate-600 mb-8 leading-relaxed">
-                Whether you're a seasoned collector or a first-time bidder, AuctionHub is your gateway to extraordinary finds. 
+                Whether you&apos;re a seasoned collector or a first-time bidder, AuctionHub is your gateway to extraordinary finds. 
                 Our platform ensures every transaction is secure, transparent, and fair for all parties involved.
               </p>
               
@@ -125,7 +125,7 @@ export default function AboutPage() {
               Why Choose AuctionHub?
             </h2>
             <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-              We're committed to providing the best auction experience with top-tier features and support
+              We&apos;re committed to providing the best auction experience with top-tier features and support
             </p>
           </div>
 
