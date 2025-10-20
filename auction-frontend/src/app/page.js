@@ -145,7 +145,7 @@ export default function HomePage() {
               </div>
               <h3 className="text-2xl font-bold text-slate-900 mb-4">Create Account</h3>
               <p className="text-slate-600 text-lg leading-relaxed">
-                Sign up in seconds with your email. Verify your account and you're ready to start bidding on amazing items.
+                Sign up in seconds with your email. Verify your account and you&apos;re ready to start bidding on amazing items.
               </p>
             </div>
             
@@ -225,22 +225,35 @@ export default function HomePage() {
                   <div key={auctionId} className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-slate-200 hover:border-indigo-400 transform hover:-translate-y-2">
                     <Link href={`/auction/${auctionId}`} className="block">
                       {/* Auction Image */}
-                      <div className="relative h-64 bg-gradient-to-br from-blue-100 via-indigo-100 to-purple-100 overflow-hidden">
+                      <div
+                        className="relative h-64 bg-gradient-to-br from-blue-100 via-indigo-100 to-purple-100 overflow-hidden"
+                        data-image-container
+                      >
                         {auction.imageUrl ? (
-                          <img
+                          <Image
                             src={auction.imageUrl.startsWith('http') ? auction.imageUrl : `http://localhost:7001${auction.imageUrl}`}
-                            alt={auction.title}
-                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                            onError={(e) => {
-                              e.target.style.display = 'none';
-                              e.target.parentElement.innerHTML = '<div class="w-full h-full flex items-center justify-center"><svg class="text-indigo-300" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 6.5l11 11m-11 0l11-11M21 3l-6 6m-10 4l4 4m-7 4l6-6"/></svg></div>';
+                            alt={auction.title || 'Auction image'}
+                            fill
+                            unoptimized
+                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                            className="object-cover group-hover:scale-110 transition-transform duration-300"
+                            onError={(event) => {
+                              const img = event.currentTarget;
+                              img.style.display = 'none';
+                              const container = img.closest('[data-image-container]');
+                              const fallback = container?.querySelector('[data-fallback]');
+                              if (fallback) {
+                                fallback.classList.remove('hidden');
+                              }
                             }}
                           />
-                        ) : (
-                          <div className="w-full h-full flex items-center justify-center">
-                            <Gavel className="text-indigo-300" size={80} />
-                          </div>
-                        )}
+                        ) : null}
+                        <div
+                          data-fallback
+                          className={`flex w-full h-full items-center justify-center ${auction.imageUrl ? 'hidden' : ''}`}
+                        >
+                          <Gavel className="text-indigo-300" size={80} />
+                        </div>
                         {/* Status Badge */}
                         <div className="absolute top-4 right-4 px-3 py-1 bg-gradient-to-r from-green-500 to-emerald-600 text-white text-xs font-bold rounded-full flex items-center gap-1 shadow-lg">
                           <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>

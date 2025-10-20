@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
+import Image from 'next/image';
 import { useParams, useRouter } from 'next/navigation';
 import { ArrowLeft, Gavel, User, CreditCard, Clock, Eye, Tag, TrendingUp, Check } from 'lucide-react';
 import Button from '../../../components/ui/Button';
@@ -23,6 +24,68 @@ export default function AuctionDetailPage() {
   const [isWinner, setIsWinner] = useState(false);
   const [hasExistingOrder, setHasExistingOrder] = useState(false);
   const [existingOrder, setExistingOrder] = useState(null);
+  const [imageError, setImageError] = useState(false);
+
+  const fetchAuction = useCallback(async (id, currentUser) => {
+    try {
+      setLoading(true);
+      const [auctionResponse, bidsResponse] = await Promise.all([
+        getAuctionById(id),
+        getBidsForAuction(id)
+      ]);
+      
+      console.log('Fetched auction:', auctionResponse);
+      console.log('Fetched bids:', bidsResponse);
+      
+      setAuction(auctionResponse);
+      setImageError(false);
+      setBidAmount((auctionResponse.currentPrice + 1).toString());
+      setTotalBidsCount(bidsResponse.length); // Store total count
+      setRecentBids(bidsResponse.slice(0, 3)); // Get last 3 bids for display
+      
+      // Check if current user is the winner (highest bidder when auction is closed)
+      if (auctionResponse.isClosed && bidsResponse.length > 0 && currentUser) {
+        const isUserWinner = bidsResponse[0].userId === parseInt(currentUser.id);
+        setIsWinner(isUserWinner);
+        
+        // If winner, check if they already have an order for this auction
+        if (isUserWinner) {
+          try {
+            const userOrders = await getUserOrders(currentUser.id);
+            const existingAuctionOrder = userOrders.find(order => order.auctionId === parseInt(id));
+            if (existingAuctionOrder) {
+              setHasExistingOrder(true);
+              setExistingOrder(existingAuctionOrder);
+            } else {
+              setHasExistingOrder(false);
+              setExistingOrder(null);
+            }
+          } catch (orderError) {
+            console.error('Error checking existing orders:', orderError);
+            setHasExistingOrder(false);
+            setExistingOrder(null);
+          }
+        } else {
+          setHasExistingOrder(false);
+          setExistingOrder(null);
+        }
+      } else {
+        setIsWinner(false);
+        setHasExistingOrder(false);
+        setExistingOrder(null);
+      }
+      
+      setError('');
+    } catch (error) {
+      console.error('Error fetching auction:', error);
+      console.error('Error details:', error.response?.data);
+      setError('Failed to load auction details.');
+      setRecentBids([]);
+      setTotalBidsCount(0);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
 
   useEffect(() => {
     const currentUser = getCurrentUser();
@@ -31,7 +94,7 @@ export default function AuctionDetailPage() {
     if (params.id) {
       fetchAuction(params.id, currentUser);
     }
-  }, [params.id]);
+  }, [params.id, fetchAuction]);
 
   // Refresh order status when page regains focus (e.g., returning from payment)
   useEffect(() => {
@@ -45,7 +108,7 @@ export default function AuctionDetailPage() {
 
     document.addEventListener('visibilitychange', handleVisibilityChange);
     return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
-  }, [user, auction, isWinner, params.id]);
+  }, [user, auction, isWinner, params.id, fetchAuction]);
 
   // Poll for order updates every 5 seconds when user is winner but hasn't paid yet
   useEffect(() => {
@@ -97,66 +160,6 @@ export default function AuctionDetailPage() {
       }
     }
   }, [user, auction, recentBids, params.id]);
-
-  const fetchAuction = async (id, currentUser) => {
-    try {
-      setLoading(true);
-      const [auctionResponse, bidsResponse] = await Promise.all([
-        getAuctionById(id),
-        getBidsForAuction(id)
-      ]);
-      
-      console.log('Fetched auction:', auctionResponse);
-      console.log('Fetched bids:', bidsResponse);
-      
-      setAuction(auctionResponse);
-      setBidAmount((auctionResponse.currentPrice + 1).toString());
-      setTotalBidsCount(bidsResponse.length); // Store total count
-      setRecentBids(bidsResponse.slice(0, 3)); // Get last 3 bids for display
-      
-      // Check if current user is the winner (highest bidder when auction is closed)
-      if (auctionResponse.isClosed && bidsResponse.length > 0 && currentUser) {
-        const isUserWinner = bidsResponse[0].userId === parseInt(currentUser.id);
-        setIsWinner(isUserWinner);
-        
-        // If winner, check if they already have an order for this auction
-        if (isUserWinner) {
-          try {
-            const userOrders = await getUserOrders(currentUser.id);
-            const existingAuctionOrder = userOrders.find(order => order.auctionId === parseInt(id));
-            if (existingAuctionOrder) {
-              setHasExistingOrder(true);
-              setExistingOrder(existingAuctionOrder);
-            } else {
-              setHasExistingOrder(false);
-              setExistingOrder(null);
-            }
-          } catch (orderError) {
-            console.error('Error checking existing orders:', orderError);
-            setHasExistingOrder(false);
-            setExistingOrder(null);
-          }
-        } else {
-          setHasExistingOrder(false);
-          setExistingOrder(null);
-        }
-      } else {
-        setIsWinner(false);
-        setHasExistingOrder(false);
-        setExistingOrder(null);
-      }
-      
-      setError('');
-    } catch (error) {
-      console.error('Error fetching auction:', error);
-      console.error('Error details:', error.response?.data);
-      setError('Failed to load auction details.');
-      setRecentBids([]);
-      setTotalBidsCount(0);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const formatPrice = (price) => {
     return new Intl.NumberFormat('en-US', {
@@ -255,7 +258,7 @@ export default function AuctionDetailPage() {
           </div>
           <h2 className="text-3xl font-bold text-slate-900 mb-4">Unable to Load Auction</h2>
           <p className="text-slate-600 mb-2 text-lg">{error || 'The auction you are looking for cannot be loaded at this time.'}</p>
-          <p className="text-sm text-slate-500 mb-8">This might be because the auction doesn't exist or the server is unavailable.</p>
+          <p className="text-sm text-slate-500 mb-8">This might be because the auction doesn&apos;t exist or the server is unavailable.</p>
           <div className="flex gap-4 justify-center">
             <Button 
               onClick={() => router.push('/main/auctions')}
@@ -316,18 +319,18 @@ export default function AuctionDetailPage() {
                 
                 {/* Image Section with Status Badge */}
                 <div className="relative bg-gradient-to-br from-gray-50 to-gray-100 aspect-video flex items-center justify-center">
-                  {auction.imageUrl ? (
-                    <img 
-                      src={getImageUrl(auction.imageUrl)} 
+                  {auction.imageUrl && !imageError ? (
+                    <Image
+                      src={getImageUrl(auction.imageUrl)}
                       alt={auction.title}
-                      className="w-full h-full object-cover"
-                      onError={(e) => {
-                        e.target.style.display = 'none';
-                        e.target.nextSibling.style.display = 'flex';
-                      }}
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 60vw"
+                      className="object-cover"
+                      onError={() => setImageError(true)}
+                      priority
                     />
                   ) : null}
-                  <div className={`${auction.imageUrl ? 'hidden' : 'flex'} absolute inset-0 items-center justify-center`}>
+                  <div className={`${auction.imageUrl && !imageError ? 'hidden' : 'flex'} absolute inset-0 items-center justify-center`}>
                     <Gavel size={48} className="text-gray-300" />
                   </div>
                   
