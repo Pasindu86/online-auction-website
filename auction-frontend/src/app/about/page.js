@@ -184,15 +184,10 @@ export default function AboutPage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
             <Link href="/main/auctions">
-              <Button className="bg-white text-blue-900 hover:bg-slate-50 px-10 py-4 rounded-full font-bold text-lg shadow-xl transform hover:scale-105 transition-all duration-300">
+              <button className="bg-white !text-blue-700 hover:bg-blue-50 hover:!text-blue-800 px-10 py-4 rounded-full font-bold text-lg shadow-xl transform hover:scale-105 transition-all duration-300 inline-flex items-center justify-center">
                 Browse Auctions
                 <ArrowRight size={22} className="ml-2" />
-              </Button>
-            </Link>
-            <Link href="/register">
-              <Button className="bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white px-10 py-4 rounded-full font-bold text-lg shadow-xl border-2 border-white/30 transform hover:scale-105 transition-all duration-300">
-                Sign Up Now
-              </Button>
+              </button>
             </Link>
           </div>
         </div>

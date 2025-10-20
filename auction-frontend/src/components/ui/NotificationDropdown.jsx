@@ -55,12 +55,28 @@ const NotificationDropdown = ({ userId }) => {
     if (userId) {
       fetchNotifications();
       
-      // Poll for new notifications every 30 seconds
-      const interval = setInterval(fetchNotifications, 30000);
+      // Listen for order creation events to immediately refresh
+      const handleOrderCreated = () => {
+        console.log('Order created event received, refreshing notifications...');
+        fetchNotifications();
+      };
       
-      return () => clearInterval(interval);
+      window.addEventListener('orderCreated', handleOrderCreated);
+      
+      // Poll for new notifications every 10 seconds for faster updates
+      const interval = setInterval(() => {
+        // Only fetch if dropdown is not open to avoid flickering
+        if (!isOpen) {
+          fetchNotifications();
+        }
+      }, 10000);
+      
+      return () => {
+        clearInterval(interval);
+        window.removeEventListener('orderCreated', handleOrderCreated);
+      };
     }
-  }, [userId]);
+  }, [userId, isOpen]);
 
   const handleNotificationClick = (notification) => {
     // Navigate to payment page for the won auction

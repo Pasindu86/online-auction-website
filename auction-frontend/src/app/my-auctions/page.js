@@ -24,6 +24,24 @@ export default function MyAuctionsPage() {
     }
     fetchMyAuctions(currentUser);
     fetchMyOrders(currentUser);
+
+    // Listen for order creation events to immediately refresh
+    const handleOrderCreated = () => {
+      console.log('Order created event received, refreshing won auctions...');
+      fetchMyOrders(currentUser);
+    };
+    
+    window.addEventListener('orderCreated', handleOrderCreated);
+
+    // Poll for new orders every 10 seconds
+    const interval = setInterval(() => {
+      fetchMyOrders(currentUser);
+    }, 10000);
+
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener('orderCreated', handleOrderCreated);
+    };
   }, [router]);
 
   const fetchMyAuctions = async (currentUser) => {
@@ -47,6 +65,17 @@ export default function MyAuctionsPage() {
       setOrders(response);
     } catch (error) {
       console.error('Error fetching orders:', error);
+    }
+  };
+
+  const handleTabChange = (tab) => {
+    setActiveTab(tab);
+    // Refresh data when switching to won auctions tab
+    if (tab === 'won') {
+      const currentUser = getCurrentUser();
+      if (currentUser) {
+        fetchMyOrders(currentUser);
+      }
     }
   };
 
@@ -165,7 +194,7 @@ export default function MyAuctionsPage() {
           <div className="mb-8">
             <nav className="flex space-x-2 bg-white rounded-xl p-2 shadow-md">
               <button
-                onClick={() => setActiveTab('created')}
+                onClick={() => handleTabChange('created')}
                 className={`flex-1 py-3 px-4 rounded-lg font-semibold text-sm transition-all ${
                   activeTab === 'created'
                     ? 'bg-gradient-to-r from-blue-800 via-indigo-950 to-blue-600 text-white shadow-lg'
@@ -176,7 +205,7 @@ export default function MyAuctionsPage() {
                 My Created Auctions ({auctions.length})
               </button>
               <button
-                onClick={() => setActiveTab('won')}
+                onClick={() => handleTabChange('won')}
                 className={`flex-1 py-3 px-4 rounded-lg font-semibold text-sm transition-all ${
                   activeTab === 'won'
                     ? 'bg-gradient-to-r from-blue-800 via-indigo-950 to-blue-600 text-white shadow-lg'

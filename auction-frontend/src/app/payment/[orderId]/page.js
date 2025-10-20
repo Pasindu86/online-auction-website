@@ -120,7 +120,7 @@ export default function PaymentPage({ params }) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-800 mx-auto"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
           <p className="mt-4 text-gray-600">Loading payment details...</p>
         </div>
       </div>
@@ -226,7 +226,7 @@ export default function PaymentPage({ params }) {
                           value={cardNumber}
                           onChange={handleCardNumberChange}
                           placeholder="1234 5678 9012 3456"
-                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                           maxLength="19"
                         />
                       </div>
@@ -237,7 +237,7 @@ export default function PaymentPage({ params }) {
                           value={cardExpiry}
                           onChange={handleExpiryChange}
                           placeholder="MM/YY"
-                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                           maxLength="5"
                         />
                       </div>
@@ -248,7 +248,7 @@ export default function PaymentPage({ params }) {
                           value={cardCVC}
                           onChange={(e) => setCardCVC(e.target.value.replace(/\D/g, '').slice(0, 4))}
                           placeholder="123"
-                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                           maxLength="4"
                         />
                       </div>
@@ -259,7 +259,7 @@ export default function PaymentPage({ params }) {
                           value={cardName}
                           onChange={(e) => setCardName(e.target.value)}
                           placeholder="John Doe"
-                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
                       </div>
                     </div>
@@ -288,7 +288,7 @@ export default function PaymentPage({ params }) {
                   onChange={(e) => setShippingAddress(e.target.value)}
                   placeholder="Enter your complete shipping address..."
                   rows="4"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   required
                 />
               </div>
@@ -299,9 +299,13 @@ export default function PaymentPage({ params }) {
                 </div>
               )}
 
-              <Button type="submit" disabled={processing} className="w-full py-3 text-lg">
+              <button 
+                type="submit" 
+                disabled={processing} 
+                className="w-full py-3 text-lg !bg-blue-600 hover:!bg-blue-700 !text-white font-semibold rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
                 {processing ? 'Processing Payment...' : `Pay $${order?.finalPrice?.toFixed(2)}`}
-              </Button>
+              </button>
 
               <div className="flex items-center justify-center text-sm text-gray-500">
                 <Shield className="w-4 h-4 mr-1" />
@@ -342,7 +346,7 @@ export default function PaymentPage({ params }) {
                     <div className="border-t pt-3 mt-3">
                       <div className="flex justify-between items-center">
                         <span className="text-lg font-semibold text-gray-900">Total</span>
-                        <span className="text-xl font-bold text-red-800">
+                        <span className="text-xl font-bold text-blue-600">
                           ${order.finalPrice?.toFixed(2)}
                         </span>
                       </div>

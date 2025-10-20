@@ -6,7 +6,7 @@ import { ArrowLeft, Gavel, User, CreditCard, Clock, Eye, Tag, TrendingUp, Check 
 import Button from '../../../components/ui/Button';
 import Navbar from '../../../components/ui/Navbar';
 import Footer from '../../../components/ui/Footer';
-import { getAuctionById, getCurrentUser, placeBid, getBidsForAuction, getUserOrders } from '../../../lib/api';
+import { getAuctionById, getCurrentUser, placeBid, getBidsForAuction, getUserOrders, createOrderFromAuction } from '../../../lib/api';
 
 export default function AuctionDetailPage() {
   const params = useParams();
@@ -37,22 +37,35 @@ export default function AuctionDetailPage() {
   useEffect(() => {
     const handleVisibilityChange = () => {
       if (!document.hidden && user && auction && isWinner) {
-        // Refresh order status when page becomes visible
-        getUserOrders(user.id)
-          .then(userOrders => {
-            const existingAuctionOrder = userOrders.find(order => order.auctionId === parseInt(params.id));
-            if (existingAuctionOrder) {
-              setHasExistingOrder(true);
-              setExistingOrder(existingAuctionOrder);
-            }
-          })
-          .catch(error => console.error('Error refreshing order status:', error));
+        // Refresh order status and auction data when page becomes visible
+        console.log('Page became visible, refreshing order status...');
+        fetchAuction(params.id, user);
       }
     };
 
     document.addEventListener('visibilitychange', handleVisibilityChange);
     return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
   }, [user, auction, isWinner, params.id]);
+
+  // Poll for order updates every 5 seconds when user is winner but hasn't paid yet
+  useEffect(() => {
+    if (isWinner && user && !hasExistingOrder) {
+      const interval = setInterval(() => {
+        getUserOrders(user.id)
+          .then(userOrders => {
+            const existingAuctionOrder = userOrders.find(order => order.auctionId === parseInt(params.id));
+            if (existingAuctionOrder) {
+              console.log('Order found for this auction:', existingAuctionOrder);
+              setHasExistingOrder(true);
+              setExistingOrder(existingAuctionOrder);
+            }
+          })
+          .catch(error => console.error('Error polling order status:', error));
+      }, 5000);
+
+      return () => clearInterval(interval);
+    }
+  }, [isWinner, user, hasExistingOrder, params.id]);
 
   // Re-check winner status if user state changes and auction is already loaded
   useEffect(() => {
@@ -415,7 +428,23 @@ export default function AuctionDetailPage() {
                         </div>
                         
                         <Button
-                          onClick={() => router.push(`/payment?auctionId=${auction.id}`)}
+                          onClick={async () => {
+                            try {
+                              // Create order first, then navigate with orderId
+                              const order = await createOrderFromAuction(auction.id);
+                              console.log('Order created:', order);
+                              setHasExistingOrder(true);
+                              setExistingOrder(order);
+                              
+                              // Dispatch event to trigger immediate notification refresh
+                              window.dispatchEvent(new CustomEvent('orderCreated', { detail: order }));
+                              
+                              router.push(`/payment?orderId=${order.id}`);
+                            } catch (error) {
+                              console.error('Error creating order:', error);
+                              setError('Failed to create order. Please try again.');
+                            }
+                          }}
                           className="w-full bg-green-600 hover:bg-green-700 text-white px-6 py-4 rounded-xl font-bold text-base shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2"
                         >
                           <CreditCard size={20} />
