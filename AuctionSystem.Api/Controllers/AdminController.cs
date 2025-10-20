@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AuctionSystem.Api.Data;
+using AuctionSystem.Api.Models;
 
 namespace AuctionSystem.Api.Controllers
 {
@@ -123,6 +124,38 @@ namespace AuctionSystem.Api.Controllers
 
             auction.IsClosed = true;
             await _db.SaveChangesAsync();
+
+            // Automatically create an order for the winner
+            var winningBid = await _db.Bids
+                .Where(b => b.AuctionId == id)
+                .OrderByDescending(b => b.Amount)
+                .ThenByDescending(b => b.PlacedAt)
+                .FirstOrDefaultAsync();
+
+            if (winningBid != null)
+            {
+                // Check if order already exists
+                var existingOrder = await _db.Orders.FirstOrDefaultAsync(o => o.AuctionId == id);
+                
+                if (existingOrder == null)
+                {
+                    // Create new order for the winner
+                    var order = new Order
+                    {
+                        AuctionId = id,
+                        WinnerId = winningBid.UserId,
+                        FinalPrice = winningBid.Amount,
+                        OrderDate = DateTime.UtcNow,
+                        Status = "Pending"
+                    };
+
+                    _db.Orders.Add(order);
+                    await _db.SaveChangesAsync();
+                    
+                    Console.WriteLine($"Order created for winner (UserId: {winningBid.UserId}) of auction {id}");
+                }
+            }
+
             return Ok(auction);
         }
 
