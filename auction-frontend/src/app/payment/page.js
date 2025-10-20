@@ -334,9 +334,13 @@ export default function PaymentPage() {
                 </div>
               )}
 
-              <Button type="submit" disabled={processing} className="w-full py-3 text-lg">
+              <button 
+                type="submit" 
+                disabled={processing} 
+                className="w-full py-3 text-lg !bg-blue-600 hover:!bg-blue-700 !text-white font-semibold rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
                 {processing ? 'Processing Payment...' : `Pay $${order?.finalPrice?.toFixed(2)}`}
-              </Button>
+              </button>
             </form>
           </div>
 
