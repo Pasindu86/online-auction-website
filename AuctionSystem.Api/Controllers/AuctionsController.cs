@@ -17,8 +17,29 @@ namespace AuctionSystem.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll() =>
-            Ok(await _db.Auctions.AsNoTracking().ToListAsync());
+        public async Task<IActionResult> GetAll()
+        {
+            var auctions = await _db.Auctions
+                .Select(a => new
+                {
+                    a.Id,
+                    a.Title,
+                    a.Description,
+                    a.StartingPrice,
+                    a.CurrentPrice,
+                    a.OwnerId,
+                    a.ImageUrl,
+                    a.StartTime,
+                    a.EndTime,
+                    a.CreatedAt,
+                    a.IsClosed,
+                    BidCount = _db.Bids.Count(b => b.AuctionId == a.Id)
+                })
+                .AsNoTracking()
+                .ToListAsync();
+            
+            return Ok(auctions);
+        }
 
         [HttpGet("active")]
         public async Task<IActionResult> GetActive()

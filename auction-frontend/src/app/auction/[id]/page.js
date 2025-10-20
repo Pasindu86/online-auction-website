@@ -550,7 +550,7 @@ export default function AuctionDetailPage() {
                         <Button
                           type="submit"
                           disabled={placingBid}
-                          className="w-full bg-indigo-600 hover:bg-red-700 text-white px-6 py-4 rounded-xl font-bold text-base shadow-md hover:shadow-lg transition-all disabled:opacity-50 flex items-center justify-center gap-2"
+                          className="w-full bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-4 rounded-xl font-bold text-base shadow-md hover:shadow-lg transition-all disabled:opacity-50 flex items-center justify-center gap-2"
                         >
                           <Gavel size={20} />
                           {placingBid ? 'Placing Bid...' : 'Submit Bid'}
@@ -602,6 +602,9 @@ export default function AuctionDetailPage() {
                               </div>
                               <div>
                                 <p className="text-sm font-bold text-gray-900">{formatPrice(bid.amount)}</p>
+                                {bid.userName && (
+                                  <p className="text-xs text-gray-500">by {bid.userName}</p>
+                                )}
                               </div>
                             </div>
                             <User size={16} className="text-gray-400" />
