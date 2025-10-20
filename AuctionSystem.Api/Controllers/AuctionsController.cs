@@ -159,22 +159,25 @@ namespace AuctionSystem.Api.Controllers
             if (auction == null) return NotFound();
             if (auction.IsClosed) return BadRequest("Closed auctions cannot be updated");
 
-            // Only allow updates if auction hasn't started yet
             var now = DateTime.UtcNow;
-            if (now >= auction.StartTime)
-                return BadRequest("Cannot update auction that has already started");
 
-            // Validate new timing
-            if (request.StartTime < DateTime.UtcNow)
+            // Validate timing inputs
+            if (request.StartTime < now.AddMinutes(-1))
                 return BadRequest("Start time cannot be in the past");
-            
+
             if (request.EndTime <= request.StartTime)
                 return BadRequest("End time must be after start time");
 
             auction.Title = request.Title;
             auction.Description = request.Description;
             auction.StartingPrice = request.StartingPrice;
-            auction.CurrentPrice = request.StartingPrice; // Reset current price if starting price changes
+
+            // Only reset current price if auction hasn't started yet
+            if (now < auction.StartTime)
+            {
+                auction.CurrentPrice = request.StartingPrice;
+            }
+
             auction.ImageUrl = request.ImageUrl;
             auction.StartTime = request.StartTime;
             auction.EndTime = request.EndTime;
@@ -194,6 +197,12 @@ namespace AuctionSystem.Api.Controllers
 
                 // Close the auction
                 auction.IsClosed = true;
+
+                // If there were no bids, keep current price equal to starting price
+                if (await _db.Bids.AnyAsync(b => b.AuctionId == id) == false)
+                {
+                    auction.CurrentPrice = auction.StartingPrice;
+                }
 
                 // Find the winning bid
                 var topBid = await _db.Bids
