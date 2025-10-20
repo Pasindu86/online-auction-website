@@ -100,15 +100,15 @@ export default function HomePage() {
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <Link href="/main/auctions">
-                <Button className="bg-white hover:bg-slate-50 !text-black px-10 py-4 rounded-xl font-bold text-lg shadow-2xl transform hover:scale-105 transition-all duration-300 border-2 border-white/20">
+                <button className="bg-white hover:bg-blue-50 !text-blue-700 px-10 py-4 rounded-xl font-bold text-lg shadow-2xl transform hover:scale-110 transition-all duration-300 border-2 border-blue-200 hover:border-blue-400 hover:shadow-[0_0_30px_rgba(59,130,246,0.5)] inline-flex items-center justify-center">
   Browse Auctions
-                  <ArrowRight size={22} className="ml-2 !text-black" />
-                </Button>
+                  <ArrowRight size={22} className="ml-2 !text-blue-700" />
+                </button>
               </Link>
               <Link href="/create-auction">
-                <Button className="bg-white hover:bg-slate-50 !text-black px-10 py-4 rounded-xl font-bold text-lg shadow-2xl transform hover:scale-105 transition-all duration-300 border-2 border-white/20">
+                <button className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 !text-white px-10 py-4 rounded-xl font-bold text-lg shadow-2xl transform hover:scale-110 transition-all duration-300 border-2 border-blue-400 hover:shadow-[0_0_30px_rgba(99,102,241,0.6)] inline-flex items-center justify-center">
  Start Selling
-                </Button>
+                </button>
               </Link>
             </div>
           </div>
@@ -309,14 +309,14 @@ export default function HomePage() {
               <p className="text-slate-500 mb-6">There are currently no active auctions. Check back soon or create your own!</p>
               <div className="flex gap-4 justify-center">
                 <Link href="/main/auctions">
-                  <Button className="bg-gradient-to-r from-blue-800 via-indigo-950 to-blue-700 text-white px-8 py-3 rounded-full font-bold shadow-lg">
+                  <button className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 !text-white px-8 py-3 rounded-full font-bold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
                     View All Auctions
-                  </Button>
+                  </button>
                 </Link>
                 <Link href="/create-auction">
-                  <Button className="bg-white border-2 border-slate-300 text-slate-700 hover:bg-slate-50 px-8 py-3 rounded-full font-bold">
+                  <button className="bg-blue-600 hover:bg-blue-700 !text-white px-8 py-3 rounded-full font-bold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 border-2 border-blue-500">
                     Create Auction
-                  </Button>
+                  </button>
                 </Link>
               </div>
             </div>

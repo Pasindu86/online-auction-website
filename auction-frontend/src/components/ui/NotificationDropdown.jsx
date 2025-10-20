@@ -112,13 +112,13 @@ const NotificationDropdown = ({ userId }) => {
       {/* Notification Bell Button */}
       <button
         onClick={toggleDropdown}
-        className="relative p-2 text-gray-600 hover:text-red-800 transition-colors rounded-full hover:bg-gray-100"
+        className="relative p-2 text-white hover:text-blue-200 transition-colors rounded-full hover:bg-white/10"
         suppressHydrationWarning
       >
         {unreadCount > 0 ? (
           <>
-            <BellDot size={20} className="text-red-800" />
-            <span className="absolute top-0 right-0 inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-red-600 rounded-full">
+            <BellDot size={20} className="text-blue-300" />
+            <span className="absolute top-0 right-0 inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-blue-500 rounded-full shadow-lg">
               {unreadCount > 9 ? '9+' : unreadCount}
             </span>
           </>
@@ -129,12 +129,12 @@ const NotificationDropdown = ({ userId }) => {
 
       {/* Dropdown Menu */}
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-xl border border-gray-200 z-50 max-h-96 overflow-hidden flex flex-col">
+        <div className="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-2xl border border-blue-200 z-50 max-h-96 overflow-hidden flex flex-col">
           {/* Header */}
-          <div className="px-4 py-3 border-b border-gray-200 flex justify-between items-center bg-gray-50">
+          <div className="px-4 py-3 border-b border-blue-100 flex justify-between items-center bg-gradient-to-r from-blue-50 to-indigo-50">
             <h3 className="font-semibold text-gray-900">Notifications</h3>
             {unreadCount > 0 && (
-              <span className="text-xs bg-red-100 text-red-800 px-2 py-1 rounded-full">
+              <span className="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full font-semibold">
                 {unreadCount} new
               </span>
             )}
@@ -144,14 +144,14 @@ const NotificationDropdown = ({ userId }) => {
           <div className="overflow-y-auto flex-1">
             {loading ? (
               <div className="p-8 text-center text-gray-500">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-red-800 mx-auto"></div>
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
                 <p className="mt-2 text-sm">Loading...</p>
               </div>
             ) : notifications.length === 0 ? (
               <div className="p-8 text-center text-gray-500">
-                <Bell size={48} className="mx-auto mb-3 text-gray-300" />
-                <p className="text-sm">No notifications yet</p>
-                <p className="text-xs mt-1">You'll be notified when you win an auction</p>
+                <Bell size={48} className="mx-auto mb-3 text-blue-200" />
+                <p className="text-sm font-medium">No notifications yet</p>
+                <p className="text-xs mt-1 text-gray-400">You'll be notified when you win an auction</p>
               </div>
             ) : (
               <div className="divide-y divide-gray-100">
@@ -159,8 +159,8 @@ const NotificationDropdown = ({ userId }) => {
                   <div
                     key={notification.id}
                     onClick={() => handleNotificationClick(notification)}
-                    className={`p-4 hover:bg-gray-50 cursor-pointer transition-colors ${
-                      !notification.isPaid ? 'bg-red-50' : ''
+                    className={`p-4 hover:bg-blue-50 cursor-pointer transition-colors ${
+                      !notification.isPaid ? 'bg-blue-50/50' : ''
                     }`}
                   >
                     <div className="flex items-start space-x-3">
@@ -184,7 +184,7 @@ const NotificationDropdown = ({ userId }) => {
                           {notification.auctionTitle}
                         </p>
                         <p className="text-xs text-gray-600 mt-1">
-                          Final Price: <span className="font-semibold text-red-800">
+                          Final Price: <span className="font-semibold text-blue-600">
                             ${notification.finalPrice.toFixed(2)}
                           </span>
                         </p>
@@ -212,13 +212,13 @@ const NotificationDropdown = ({ userId }) => {
 
           {/* Footer */}
           {notifications.length > 0 && (
-            <div className="px-4 py-3 border-t border-gray-200 bg-gray-50">
+            <div className="px-4 py-3 border-t border-blue-100 bg-gradient-to-r from-blue-50 to-indigo-50">
               <button
                 onClick={() => {
                   setIsOpen(false);
                   router.push('/my-auctions');
                 }}
-                className="text-sm text-red-800 hover:text-red-900 font-medium w-full text-center"
+                className="text-sm text-blue-600 hover:text-blue-700 font-semibold w-full text-center"
               >
                 View all your auctions
               </button>
