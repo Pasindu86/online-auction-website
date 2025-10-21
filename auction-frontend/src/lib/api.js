@@ -148,8 +148,30 @@ export const getAllAuctions = async () => {
 };
 
 export const getActiveAuctions = async () => {
-  const response = await api.get('/auctions/active');
-  return response.data;
+  try {
+    const response = await api.get('/auctions/active');
+    const data = response.data || [];
+    // Normalize property names (handle PascalCase or camelCase from backend)
+    const normalized = data.map((a) => ({
+      id: a.id ?? a.Id ?? a.auctionId ?? a.AuctionId,
+      title: a.title ?? a.Title,
+      description: a.description ?? a.Description,
+      startingPrice: a.startingPrice ?? a.StartingPrice ?? a.starting_price ?? a.Starting_Price,
+      currentPrice: a.currentPrice ?? a.CurrentPrice ?? a.current_price ?? a.Current_Price,
+      ownerId: a.ownerId ?? a.OwnerId,
+      imageUrl: a.imageUrl ?? a.ImageUrl ?? a.image_url ?? a.Image_Url,
+      startTime: a.startTime ?? a.StartTime,
+      endTime: a.endTime ?? a.EndTime,
+      createdAt: a.createdAt ?? a.CreatedAt,
+      isClosed: a.isClosed ?? a.IsClosed,
+      bidCount: a.bidCount ?? a.BidCount ?? 0,
+    }));
+
+    return normalized;
+  } catch (error) {
+    console.error('getActiveAuctions error:', error?.response?.data ?? error.message ?? error);
+    return [];
+  }
 };
 
 export const getBidsForAuction = async (auctionId) => {
