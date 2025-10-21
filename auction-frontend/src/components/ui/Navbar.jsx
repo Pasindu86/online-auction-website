@@ -14,22 +14,27 @@ import NotificationDropdown from './NotificationDropdown';
 const LogoImage = () => {
   const [errored, setErrored] = useState(false);
   return (
-    <div className="relative h-12 w-12">
-      {!errored ? (
-        <Image
-          src="/logo.png"
-          alt="BID logo"
-          fill
-          priority
-          sizes="48px"
-          className="rounded-xl object-cover"
-          onError={() => setErrored(true)}
-        />
-      ) : (
-        <div className="flex h-full w-full items-center justify-center rounded-xl border border-white/30 bg-white/20 text-sm font-bold text-white shadow-lg backdrop-blur-md">
-          BID
+    <div className="flex items-center">
+      {/* Single logo3 with layered 3D-like background */}
+      <div className="relative h-24 w-24" style={{ transform: 'scale(0.98)', transformOrigin: 'center' }}>
+        <div className="relative h-full w-full rounded-xl overflow-hidden">
+          {!errored ? (
+            <Image
+              src="/logo3.png"
+              alt="BID logo"
+              fill
+              priority
+              sizes="96px"
+              className="object-cover"
+              onError={() => setErrored(true)}
+            />
+          ) : (
+            <div className="flex h-full w-full items-center justify-center rounded-xl border border-white/30 bg-white/20 text-sm font-bold text-white shadow-lg backdrop-blur-md">
+              BID
+            </div>
+          )}
         </div>
-      )}
+      </div>
     </div>
   );
 };
@@ -96,8 +101,7 @@ const Navbar = () => {
         <div className="flex justify-between items-center h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-3">
-            <LogoImage />
-            <span className="text-2xl font-bold text-white drop-shadow-lg">AuctionHub</span>
+              <LogoImage />
           </Link>
 
           {/* Desktop Navigation */}
