@@ -91,8 +91,8 @@ export default function CreateAuction() {
       const endDate = new Date(formData.endTime);
       if (endDate <= startDate) {
         newErrors.endTime = 'End time must be after start time';
-      } else if (endDate - startDate < 3600000) {
-        newErrors.endTime = 'Auction must run for at least 1 hour';
+      } else if (endDate - startDate < 600000) {
+        newErrors.endTime = 'Auction must run for at least 10 minutes';
       }
     }
     
@@ -197,26 +197,85 @@ export default function CreateAuction() {
     return (
       <>
         <Navbar />
-        <div className="min-h-screen bg-gray-100 pt-24 pb-12 px-4 sm:px-6 lg:px-8">
-          {/* Success Notification at Top */}
-          <div className="fixed top-20 left-1/2 transform -translate-x-1/2 z-50 animate-slide-down">
-            <div className="bg-white rounded-lg shadow-2xl border-l-4 border-green-500 p-4 flex items-center gap-3 min-w-[320px]">
-              <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0">
-                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                </svg>
-              </div>
-              <div>
-                <h3 className="font-semibold text-gray-900">Success!</h3>
-                <p className="text-sm text-gray-600">Your auction has been created.</p>
+        <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 pt-24 pb-12 px-4 sm:px-6 lg:px-8">
+          <div className="max-w-2xl mx-auto">
+            {/* Main Success Card */}
+            <div className="relative">
+              {/* Animated Background Glow */}
+              <div className="absolute -inset-1 bg-gradient-to-r from-green-600 via-emerald-600 to-teal-600 rounded-3xl blur-2xl opacity-30 animate-pulse"></div>
+              
+              {/* Card Content */}
+              <div className="relative bg-white rounded-3xl shadow-2xl overflow-hidden">
+                {/* Success Header with Gradient */}
+                <div className="bg-gradient-to-r from-green-600 via-emerald-600 to-teal-600 px-8 py-10 text-center">
+                  {/* Animated Checkmark */}
+                  <div className="relative mx-auto w-24 h-24 mb-6">
+                    <div className="absolute inset-0 bg-white/20 rounded-full animate-ping"></div>
+                    <div className="relative w-24 h-24 bg-white rounded-full flex items-center justify-center shadow-xl">
+                      <svg className="w-14 h-14 text-green-600 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                  </div>
+                  
+                  <h2 className="text-3xl font-bold text-white mb-2">Auction Created Successfully!</h2>
+                  <p className="text-green-100 text-lg">Your item is now ready for bidding</p>
+                </div>
+
+                {/* Loading Section */}
+                <div className="px-8 py-12 text-center">
+                  {/* Custom Loading Spinner */}
+                  <div className="relative w-20 h-20 mx-auto mb-6">
+                    <div className="absolute inset-0 border-4 border-blue-200 rounded-full"></div>
+                    <div className="absolute inset-0 border-4 border-transparent border-t-blue-800 border-r-blue-800 rounded-full animate-spin"></div>
+                    <div className="absolute inset-2 border-4 border-transparent border-t-indigo-600 border-r-indigo-600 rounded-full animate-spin" style={{animationDirection: 'reverse', animationDuration: '1s'}}></div>
+                  </div>
+
+                  <p className="text-gray-700 text-lg font-semibold mb-2">Redirecting to auctions page</p>
+                  <p className="text-gray-500 text-sm">Please wait a moment...</p>
+
+                  {/* Progress Dots */}
+                  <div className="flex justify-center gap-2 mt-6">
+                    <div className="w-3 h-3 bg-blue-800 rounded-full animate-bounce" style={{animationDelay: '0ms'}}></div>
+                    <div className="w-3 h-3 bg-blue-800 rounded-full animate-bounce" style={{animationDelay: '150ms'}}></div>
+                    <div className="w-3 h-3 bg-blue-800 rounded-full animate-bounce" style={{animationDelay: '300ms'}}></div>
+                  </div>
+                </div>
+
+                {/* Bottom Gradient Accent */}
+                <div className="h-2 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600"></div>
               </div>
             </div>
-          </div>
 
-          <div className="max-w-4xl mx-auto">
-            <div className="bg-white rounded-2xl shadow-xl p-8 text-center">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-800 mx-auto mb-4"></div>
-              <p className="text-gray-600">Redirecting to auctions page...</p>
+            {/* Additional Info Cards */}
+            <div className="grid md:grid-cols-3 gap-4 mt-8">
+              <div className="bg-white/80 backdrop-blur-sm rounded-xl p-4 text-center shadow-lg border border-gray-100">
+                <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-cyan-600 rounded-lg mx-auto mb-2 flex items-center justify-center">
+                  <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                  </svg>
+                </div>
+                <p className="text-xs font-semibold text-gray-700">Live & Visible</p>
+              </div>
+              
+              <div className="bg-white/80 backdrop-blur-sm rounded-xl p-4 text-center shadow-lg border border-gray-100">
+                <div className="w-10 h-10 bg-gradient-to-br from-green-600 to-emerald-600 rounded-lg mx-auto mb-2 flex items-center justify-center">
+                  <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <p className="text-xs font-semibold text-gray-700">Ready for Bids</p>
+              </div>
+              
+              <div className="bg-white/80 backdrop-blur-sm rounded-xl p-4 text-center shadow-lg border border-gray-100">
+                <div className="w-10 h-10 bg-gradient-to-br from-purple-600 to-pink-600 rounded-lg mx-auto mb-2 flex items-center justify-center">
+                  <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <p className="text-xs font-semibold text-gray-700">Fully Tracked</p>
+              </div>
             </div>
           </div>
         </div>
@@ -327,7 +386,7 @@ export default function CreateAuction() {
                     </label>
                     <div className="relative">
                       <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                        <span className="text-gray-500 font-semibold">$</span>
+                        <span className="text-gray-500 font-semibold">Rs.</span>
                       </div>
                       <input
                         id="startingPrice"
@@ -338,7 +397,7 @@ export default function CreateAuction() {
                         placeholder="0.00"
                         min="0"
                         step="0.01"
-                        className={`w-full pl-8 pr-4 py-3 border rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-800 focus:border-blue-800 transition-all ${
+                        className={`w-full pl-12 pr-4 py-3 border rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-800 focus:border-blue-800 transition-all ${
                           errors.startingPrice ? 'border-red-300 bg-red-50' : 'border-gray-300 hover:border-gray-400'
                         }`}
                         required
@@ -357,61 +416,131 @@ export default function CreateAuction() {
                 {/* Timing Section */}
                 <div className="space-y-6">
                   <div className="flex items-center gap-2 text-gray-700 font-semibold text-lg border-b border-gray-200 pb-2">
-                    <Clock size={20} className="text-purple-600" />
+                    <Clock size={20} className="text-blue-800" />
                     <h2>Auction Schedule</h2>
                   </div>
 
-                  <div className="grid md:grid-cols-2 gap-6">
-                    {/* Start Time */}
-                    <div className="space-y-2">
-                      <label htmlFor="startTime" className="block text-sm font-semibold text-gray-700">
-                        Start Time <span className="text-red-500 ml-1">*</span>
-                      </label>
-                      <input
-                        id="startTime"
-                        name="startTime"
-                        type="datetime-local"
-                        value={formData.startTime}
-                        onChange={handleInputChange}
-                        min={getCurrentDateTime()}
-                        className={`w-full px-4 py-3 border rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-800 focus:border-blue-800 transition-all ${
-                          errors.startTime ? 'border-red-300 bg-red-50' : 'border-gray-300 hover:border-gray-400'
-                        }`}
-                        required
-                      />
-                      {errors.startTime && (
-                        <p className="text-red-600 text-sm flex items-center gap-1">
-                          <ErrorIcon />
-                          {errors.startTime}
-                        </p>
-                      )}
-                      <p className="text-xs text-gray-500">When bidding begins</p>
+                  {/* Redesigned Time Picker Cards */}
+                  <div className="grid md:grid-cols-2 gap-5">
+                    {/* Start Time Card */}
+                    <div className="relative group">
+                      <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-2xl opacity-0 group-hover:opacity-100 transition duration-300 blur"></div>
+                      <div className="relative bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-200">
+                        {/* Card Header */}
+                        <div className="bg-gradient-to-r from-blue-600 to-cyan-600 px-5 py-4">
+                          <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center">
+                              <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                              </svg>
+                            </div>
+                            <div>
+                              <label htmlFor="startTime" className="text-white font-bold text-base">
+                                Start Time <span className="text-yellow-300">*</span>
+                              </label>
+                              <p className="text-blue-100 text-xs font-medium">When bidding begins</p>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        {/* Card Body */}
+                        <div className="p-5 space-y-3">
+                          <div className="relative">
+                            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                              <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                              </svg>
+                            </div>
+                            <input
+                              id="startTime"
+                              name="startTime"
+                              type="datetime-local"
+                              value={formData.startTime}
+                              onChange={handleInputChange}
+                              min={getCurrentDateTime()}
+                              className={`w-full pl-12 pr-4 py-4 border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all text-gray-800 font-semibold text-base ${
+                                errors.startTime ? 'border-red-300 bg-red-50' : 'border-gray-200 hover:border-blue-300 bg-gray-50'
+                              }`}
+                              required
+                            />
+                          </div>
+                          {errors.startTime && (
+                            <div className="flex items-center gap-2 text-red-600 text-sm bg-red-50 rounded-lg px-3 py-2 border border-red-200">
+                              <ErrorIcon />
+                              <span className="font-medium">{errors.startTime}</span>
+                            </div>
+                          )}
+                        </div>
+                      </div>
                     </div>
 
-                    {/* End Time */}
-                    <div className="space-y-2">
-                      <label htmlFor="endTime" className="block text-sm font-semibold text-gray-700">
-                        End Time <span className="text-red-500 ml-1">*</span>
-                      </label>
-                      <input
-                        id="endTime"
-                        name="endTime"
-                        type="datetime-local"
-                        value={formData.endTime}
-                        onChange={handleInputChange}
-                        min={formData.startTime || getCurrentDateTime()}
-                        className={`w-full px-4 py-3 border rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-800 focus:border-blue-800 transition-all ${
-                          errors.endTime ? 'border-red-300 bg-red-50' : 'border-gray-300 hover:border-gray-400'
-                        }`}
-                        required
-                      />
-                      {errors.endTime && (
-                        <p className="text-red-600 text-sm flex items-center gap-1">
-                          <ErrorIcon />
-                          {errors.endTime}
+                    {/* End Time Card */}
+                    <div className="relative group">
+                      <div className="absolute -inset-0.5 bg-gradient-to-r from-orange-600 to-red-600 rounded-2xl opacity-0 group-hover:opacity-100 transition duration-300 blur"></div>
+                      <div className="relative bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-200">
+                        {/* Card Header */}
+                        <div className="bg-gradient-to-r from-orange-600 to-red-600 px-5 py-4">
+                          <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center">
+                              <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                              </svg>
+                            </div>
+                            <div>
+                              <label htmlFor="endTime" className="text-white font-bold text-base">
+                                End Time <span className="text-yellow-300">*</span>
+                              </label>
+                              <p className="text-orange-100 text-xs font-medium">Min. 10 minutes duration</p>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        {/* Card Body */}
+                        <div className="p-5 space-y-3">
+                          <div className="relative">
+                            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                              <svg className="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                              </svg>
+                            </div>
+                            <input
+                              id="endTime"
+                              name="endTime"
+                              type="datetime-local"
+                              value={formData.endTime}
+                              onChange={handleInputChange}
+                              min={formData.startTime || getCurrentDateTime()}
+                              className={`w-full pl-12 pr-4 py-4 border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all text-gray-800 font-semibold text-base ${
+                                errors.endTime ? 'border-red-300 bg-red-50' : 'border-gray-200 hover:border-orange-300 bg-gray-50'
+                              }`}
+                              required
+                            />
+                          </div>
+                          {errors.endTime && (
+                            <div className="flex items-center gap-2 text-red-600 text-sm bg-red-50 rounded-lg px-3 py-2 border border-red-200">
+                              <ErrorIcon />
+                              <span className="font-medium">{errors.endTime}</span>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Duration Info Banner */}
+                  <div className="bg-gradient-to-r from-blue-50 to-purple-50 border-l-4 border-blue-600 rounded-lg p-4 shadow-sm">
+                    <div className="flex items-start gap-3">
+                      <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                      </div>
+                      <div>
+                        <h4 className="font-bold text-gray-800 text-sm mb-1">Auction Duration Requirements</h4>
+                        <p className="text-gray-600 text-xs leading-relaxed">
+                          Your auction must run for at least <span className="font-bold text-blue-800">10 minutes</span>. Choose times that give bidders enough opportunity to participate.
                         </p>
-                      )}
-                      <p className="text-xs text-gray-500">Min. 1 hour duration</p>
+                      </div>
                     </div>
                   </div>
                 </div>

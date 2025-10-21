@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { ArrowLeft, CreditCard, Banknote, Check, X, Truck, Shield } from 'lucide-react';
 import Button from '../../components/ui/Button';
@@ -27,27 +27,7 @@ export default function PaymentPage() {
 
   const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:7001/api';
 
-  useEffect(() => {
-    const currentUser = getCurrentUser();
-    if (!currentUser) {
-      router.push('/login');
-      return;
-    }
-    setUser(currentUser);
-
-    const orderId = searchParams.get('orderId');
-    const auctionId = searchParams.get('auctionId');
-    
-    if (!orderId && !auctionId) {
-      setError('No order or auction specified');
-      setLoading(false);
-      return;
-    }
-
-    fetchOrderDetails(orderId, auctionId);
-  }, [searchParams, router]);
-
-  const fetchOrderDetails = async (orderId, auctionId) => {
+  const fetchOrderDetails = useCallback(async (orderId, auctionId) => {
     try {
       setLoading(true);
       
@@ -72,7 +52,27 @@ export default function PaymentPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [API_URL]);
+
+  useEffect(() => {
+    const currentUser = getCurrentUser();
+    if (!currentUser) {
+      router.push('/login');
+      return;
+    }
+    setUser(currentUser);
+
+    const orderId = searchParams.get('orderId');
+    const auctionId = searchParams.get('auctionId');
+    
+    if (!orderId && !auctionId) {
+      setError('No order or auction specified');
+      setLoading(false);
+      return;
+    }
+
+    fetchOrderDetails(orderId, auctionId);
+  }, [searchParams, router, fetchOrderDetails]);
 
   const validateForm = () => {
     if (!shippingAddress.trim()) return 'Please enter a shipping address';
@@ -339,7 +339,7 @@ export default function PaymentPage() {
                 disabled={processing} 
                 className="w-full py-3 text-lg !bg-blue-600 hover:!bg-blue-700 !text-white font-semibold rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {processing ? 'Processing Payment...' : `Pay $${order?.finalPrice?.toFixed(2)}`}
+                {processing ? 'Processing Payment...' : `Pay Rs. ${order?.finalPrice?.toFixed(2)}`}
               </button>
             </form>
           </div>
@@ -359,7 +359,7 @@ export default function PaymentPage() {
                   <div className="border-t pt-4">
                     <div className="flex justify-between items-center mb-2">
                       <span className="text-gray-600">Winning Bid</span>
-                      <span className="font-medium">${order.finalPrice?.toFixed(2)}</span>
+                      <span className="font-medium">Rs. {order.finalPrice?.toFixed(2)}</span>
                     </div>
                     <div className="flex justify-between items-center mb-2">
                       <span className="text-gray-600">Shipping</span>
@@ -369,7 +369,7 @@ export default function PaymentPage() {
                       <div className="flex justify-between items-center">
                         <span className="text-lg font-semibold">Total</span>
                         <span className="text-lg font-semibold text-blue-600">
-                          ${order.finalPrice?.toFixed(2)}
+                          Rs. {order.finalPrice?.toFixed(2)}
                         </span>
                       </div>
                     </div>

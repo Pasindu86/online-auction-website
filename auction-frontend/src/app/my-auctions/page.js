@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import { Plus, Trash2, Eye, Clock, DollarSign, CreditCard, Package, Gavel, ArrowLeft, TrendingUp } from 'lucide-react';
 import Button from '../../components/ui/Button';
 import Navbar from '../../components/ui/Navbar';
@@ -94,10 +95,7 @@ export default function MyAuctionsPage() {
   };
 
   const formatPrice = (price) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD'
-    }).format(price);
+    return `Rs. ${Number(price).toFixed(2)}`;
   };
 
   const formatDate = (dateString) => {
@@ -158,13 +156,13 @@ export default function MyAuctionsPage() {
                   </h1>
                   <p className="text-blue-100 text-lg">Manage your auction listings and orders</p>
                 </div>
-                <Button 
+                <button 
                   onClick={() => router.push('/create-auction')} 
-                  className="flex items-center gap-2 text-black bg-white font-semibold shadow-lg hover:bg-white transform transition-transform duration-300 hover:scale-105"
->
+                  className="flex items-center gap-2 bg-white text-blue-800 hover:bg-blue-50 hover:text-blue-900 font-bold shadow-lg transition-all duration-300 hover:shadow-xl px-6 py-3 rounded-xl border-2 border-white hover:border-blue-200"
+                >
                   <Plus size={20} />
                   Create New Auction
-                </Button>
+                </button>
               </div>
             </div>
           </div>
@@ -271,7 +269,7 @@ export default function MyAuctionsPage() {
                     <Gavel className="h-10 w-10 text-blue-800" />
                   </div>
                   <h3 className="text-xl font-bold text-gray-900 mb-2">No auctions yet</h3>
-                  <p className="text-gray-600 mb-6">You haven't created any auctions. Start by creating your first auction!</p>
+                  <p className="text-gray-600 mb-6">You haven&apos;t created any auctions. Start by creating your first auction!</p>
                   <Button 
                     onClick={() => router.push('/create-auction')}
                     className="bg-gradient-to-r from-blue-800 via-indigo-950 to-blue-600 hover:from-blue-900 hover:via-indigo-900 hover:to-blue-700"
@@ -287,17 +285,24 @@ export default function MyAuctionsPage() {
                       {/* Auction Image */}
                       <div className="h-48 bg-gray-100 relative overflow-hidden">
                         {auction.imageUrl ? (
-                          <img 
-                            src={getImageUrl(auction.imageUrl)} 
+                          <Image
+                            src={getImageUrl(auction.imageUrl)}
                             alt={auction.title}
-                            className="w-full h-full object-cover"
-                            onError={(e) => {
-                              e.target.style.display = 'none';
-                              e.target.nextSibling.style.display = 'flex';
+                            fill
+                            unoptimized
+                            sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+                            className="object-cover"
+                            onError={(event) => {
+                              const img = event.currentTarget;
+                              img.style.display = 'none';
+                              const fallback = img.parentElement?.querySelector('[data-fallback]');
+                              if (fallback) {
+                                fallback.classList.remove('hidden');
+                              }
                             }}
                           />
                         ) : null}
-                        <div className={`${auction.imageUrl ? 'hidden' : 'flex'} absolute inset-0 items-center justify-center text-gray-400`}>
+                        <div data-fallback className={`${auction.imageUrl ? 'hidden' : 'flex'} absolute inset-0 items-center justify-center text-gray-400`}>
                           <Gavel size={48} />
                         </div>
                         
@@ -411,7 +416,7 @@ export default function MyAuctionsPage() {
                     <Package className="h-10 w-10 text-blue-800" />
                   </div>
                   <h3 className="text-xl font-bold text-gray-900 mb-2">No won auctions yet</h3>
-                  <p className="text-gray-600 mb-6">You haven't won any auctions yet. Start bidding to win some great items!</p>
+                  <p className="text-gray-600 mb-6">You haven&apos;t won any auctions yet. Start bidding to win some great items!</p>
                   <Button 
                     onClick={() => router.push('/main')}
                     className="bg-gradient-to-r from-blue-800 via-indigo-950 to-blue-600 hover:from-blue-900 hover:via-indigo-900 hover:to-blue-700"

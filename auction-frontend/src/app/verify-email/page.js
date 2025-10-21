@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { CheckCircle, XCircle, Loader2, ArrowRight, Shield } from 'lucide-react';
 import Button from '../../components/ui/Button';
@@ -15,16 +15,7 @@ export default function VerifyEmailPage() {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
 
-  useEffect(() => {
-    if (token) {
-      handleVerification();
-    } else {
-      setVerifying(false);
-      setError('Invalid verification link');
-    }
-  }, [token]);
-
-  const handleVerification = async () => {
+  const handleVerification = useCallback(async () => {
     try {
       await verifyEmail(token);
       setSuccess(true);
@@ -36,7 +27,16 @@ export default function VerifyEmailPage() {
       );
       setVerifying(false);
     }
-  };
+  }, [token]);
+
+  useEffect(() => {
+    if (token) {
+      handleVerification();
+    } else {
+      setVerifying(false);
+      setError('Invalid verification link');
+    }
+  }, [token, handleVerification]);
 
   return (
     <div className="min-h-screen bg-white">

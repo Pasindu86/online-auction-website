@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { Search, Clock, Gavel, Plus, TrendingUp, Sparkles, Timer } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import Button from '../../../components/ui/Button';
@@ -53,10 +54,7 @@ export default function AuctionsPage() {
   });
 
   const formatPrice = (price) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD'
-    }).format(price);
+    return `Rs. ${Number(price).toFixed(2)}`;
   };
 
   const getImageUrl = (imageUrl) => {
@@ -187,17 +185,24 @@ export default function AuctionsPage() {
                   {/* Image Container - Slightly Reduced Height */}
                   <div className="relative h-52 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 overflow-hidden">
                     {auction.imageUrl ? (
-                      <img 
-                        src={getImageUrl(auction.imageUrl)} 
+                      <Image
+                        src={getImageUrl(auction.imageUrl)}
                         alt={auction.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        onError={(e) => {
-                          e.target.style.display = 'none';
-                          e.target.nextSibling.style.display = 'flex';
+                        fill
+                        unoptimized
+                        sizes="(max-width: 768px) 100vw, (max-width: 1280px) 33vw, 25vw"
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        onError={(event) => {
+                          const img = event.currentTarget;
+                          img.style.display = 'none';
+                          const fallback = img.parentElement?.querySelector('[data-fallback]');
+                          if (fallback) {
+                            fallback.classList.remove('hidden');
+                          }
                         }}
                       />
                     ) : null}
-                    <div className={`${auction.imageUrl ? 'hidden' : 'flex'} items-center justify-center w-full h-full`}>
+                    <div data-fallback className={`${auction.imageUrl ? 'hidden' : 'flex'} items-center justify-center w-full h-full`}>
                       <Gavel className="text-indigo-200" size={56} />
                     </div>
                     

@@ -21,7 +21,7 @@ export default function AboutPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-12">
             <div className="inline-block px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-white/90 text-sm font-medium mb-6">
-              About AuctionHub
+              About nexBID
             </div>
             <h1 className="text-6xl md:text-7xl font-extrabold mb-6 leading-tight">
               Your Trusted Online
@@ -30,8 +30,7 @@ export default function AboutPage() {
               </span>
             </h1>
             <p className="text-xl md:text-2xl text-white/80 mb-4 max-w-4xl mx-auto leading-relaxed">
-              AuctionHub is a premier online auction platform connecting buyers and sellers from around the world. 
-              We provide a secure, transparent, and exciting marketplace for discovering unique items and rare collectibles.
+              nexBID is a premier online auction platform connecting buyers and sellers from around the world. We provide a secure, transparent, and exciting marketplace for discovering unique items and rare collectibles. All registered users can sell items and place bids on auctions through nexBID.
             </p>
           </div>
         </div>
@@ -51,7 +50,7 @@ export default function AboutPage() {
                 user-friendly design to create an unparalleled bidding experience.
               </p>
               <p className="text-lg text-slate-600 mb-8 leading-relaxed">
-                Whether you're a seasoned collector or a first-time bidder, AuctionHub is your gateway to extraordinary finds. 
+                Whether you&apos;re a seasoned collector or a first-time bidder, nexBID is your gateway to extraordinary finds. 
                 Our platform ensures every transaction is secure, transparent, and fair for all parties involved.
               </p>
               
@@ -122,10 +121,10 @@ export default function AboutPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-5xl font-extrabold text-slate-900 mb-6">
-              Why Choose AuctionHub?
+              Why Choose nexBID?
             </h2>
             <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-              We're committed to providing the best auction experience with top-tier features and support
+              We&apos;re committed to providing the best auction experience with top-tier features and support
             </p>
           </div>
 
@@ -177,7 +176,7 @@ export default function AboutPage() {
       <section className="py-20 bg-gradient-to-br from-blue-800 via-indigo-950 to-blue-600 text-white">
         <div className="max-w-5xl mx-auto text-center px-4 sm:px-6 lg:px-8">
           <h2 className="text-5xl md:text-6xl font-extrabold mb-6">
-            Ready to Join AuctionHub?
+            Ready to Join nexBID?
           </h2>
           <p className="text-xl text-white/90 mb-12 max-w-2xl mx-auto leading-relaxed">
             Start your journey today and discover amazing items or sell your treasures to a global audience

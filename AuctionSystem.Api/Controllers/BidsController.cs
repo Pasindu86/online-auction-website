@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using AuctionSystem.Api.Data;
 using AuctionSystem.Api.Models;
 
+
 namespace AuctionSystem.Api.Controllers
 {
     [ApiController]
@@ -39,11 +40,20 @@ namespace AuctionSystem.Api.Controllers
             if (!await _db.Auctions.AnyAsync(a => a.Id == auctionId))
                 return NotFound();
 
-            var bids = await _db.Bids
-                .Where(b => b.AuctionId == auctionId)
-                .OrderByDescending(b => b.Amount)
-                .ThenByDescending(b => b.PlacedAt)
-                .ToListAsync();
+            var bids = await (from b in _db.Bids
+                             join u in _db.Users on b.UserId equals u.Id
+                             where b.AuctionId == auctionId
+                             orderby b.Amount descending, b.PlacedAt descending
+                             select new
+                             {
+                                 b.Id,
+                                 b.AuctionId,
+                                 b.UserId,
+                                 b.Amount,
+                                 b.PlacedAt,
+                                 UserName = u.Username,
+                                 UserEmail = u.Email
+                             }).ToListAsync();
 
             return Ok(bids);
         }

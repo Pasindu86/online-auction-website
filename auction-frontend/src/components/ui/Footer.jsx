@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { Gavel, Facebook, Twitter, Instagram, Linkedin, Mail, Phone, MapPin } from 'lucide-react';
 
 const Footer = () => {
@@ -8,11 +9,10 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Brand Section */}
           <div className="space-y-4">
-            <Link href="/" className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl flex items-center justify-center shadow-lg shadow-blue-600/30">
-                <Gavel className="text-white" size={24} />
+            <Link href="/" className="flex items-center">
+              <div className="relative h-10 w-36" style={{ transform: 'scale(1.05)', transformOrigin: 'left center' }}>
+                <Image src="/logo3.png" alt="nexBID" fill className="object-contain" priority />
               </div>
-              <span className="text-xl font-bold">AuctionHub</span>
             </Link>
             <p className="text-slate-400 text-sm leading-relaxed">
               Your premier destination for online auctions. Discover unique items, 
@@ -99,17 +99,17 @@ const Footer = () => {
             <div className="space-y-3">
               <div className="flex items-center space-x-3">
                 <Mail size={16} className="text-blue-400" />
-                <span className="text-slate-400 text-sm">support@auctionhub.com</span>
+                <span className="text-slate-400 text-sm">support@nexbid.com</span>
               </div>
               <div className="flex items-center space-x-3">
                 <Phone size={16} className="text-blue-400" />
-                <span className="text-slate-400 text-sm">+1 (555) 123-4567</span>
+                <span className="text-slate-400 text-sm">076-4304391</span>
               </div>
               <div className="flex items-start space-x-3">
                 <MapPin size={16} className="text-blue-400 mt-1" />
                 <span className="text-slate-400 text-sm">
-                  123 Auction Street<br />
-                  New York, NY 10001
+                  123 New Street<br />
+                  Colombo 3, Sri Lanka
                 </span>
               </div>
             </div>
@@ -143,7 +143,7 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="border-t border-slate-700 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-slate-400 text-sm">
-            © 2024 AuctionHub. All rights reserved.
+            © 2024 nexBID. All rights reserved.
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0">
             <Link href="/privacy" className="text-slate-400 hover:text-blue-300 text-sm transition-colors">

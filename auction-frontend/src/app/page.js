@@ -19,35 +19,20 @@ export default function HomePage() {
 
   const fetchLiveAuctions = async () => {
     try {
+      // Fetch ALL auctions (not just active ones)
       const auctions = await getAllAuctions();
-      console.log('📦 All fetched auctions:', auctions);
-      
-      const now = new Date();
-      
-      // Filter ONLY live/active auctions (not ended, not closed)
-      const liveAuctionsFiltered = auctions.filter(auction => {
-        const endTime = new Date(auction.endTime);
-        const isLive = endTime > now;
-        const isNotClosed = !auction.isClosed;
-        
-        const auctionId = auction.id || auction.auctionId;
-        console.log(`Auction ${auctionId}: endTime=${endTime}, now=${now}, isLive=${isLive}, isClosed=${auction.isClosed}`);
-        
-        return isLive && isNotClosed;
-      });
-      
-      console.log('🔴 Filtered LIVE auctions:', liveAuctionsFiltered);
-      
-      // Sort by most recent and get top 3
-      const recentLiveAuctions = liveAuctionsFiltered
+      console.log('📦 All auctions:', auctions);
+
+      // Sort by createdAt date (most recent first) and take the last 3 created
+      const recentLiveAuctions = auctions
         .sort((a, b) => {
-          const dateA = new Date(a.createdAt || a.startTime || a.endTime);
-          const dateB = new Date(b.createdAt || b.startTime || b.endTime);
-          return dateB - dateA;
+          const dateA = new Date(a.createdAt || a.startTime);
+          const dateB = new Date(b.createdAt || b.startTime);
+          return dateB - dateA; // Newest first
         })
-        .slice(0, 3);
+        .slice(0, 3); // Take only the last 3 created auctions
       
-      console.log('✅ Top 3 recent live auctions to display:', recentLiveAuctions);
+      console.log('✅ Last 3 created auctions to display:', recentLiveAuctions);
       setLiveAuctions(recentLiveAuctions);
       setError(null);
     } catch (error) {
@@ -64,7 +49,7 @@ export default function HomePage() {
     const end = new Date(endTime);
     const diff = end - now;
 
-    if (diff <= 0) return 'Ended';
+    if (diff <= 0) return null;
 
     const days = Math.floor(diff / (1000 * 60 * 60 * 24));
     const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -94,21 +79,21 @@ export default function HomePage() {
               </span>
             </h1>
             <p className="text-xl md:text-2xl text-white/80 mb-12 max-w-3xl mx-auto leading-relaxed">
-              Discover unique treasures, rare collectibles, and exclusive items from verified sellers worldwide.
+              Discover unique treasures, rare collectibles, and exclusive items from verified sellers worldwide. All registered users can sell items and place bids on auctions through nexBID.
             </p>
             
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <Link href="/main/auctions">
-                <Button className="bg-white hover:bg-slate-50 !text-black px-10 py-4 rounded-xl font-bold text-lg shadow-2xl transform hover:scale-105 transition-all duration-300 border-2 border-white/20">
+                <button className="bg-white hover:bg-blue-50 !text-blue-700 px-10 py-4 rounded-xl font-bold text-lg shadow-2xl transform hover:scale-110 transition-all duration-300 border-2 border-blue-200 hover:border-blue-400 hover:shadow-[0_0_30px_rgba(59,130,246,0.5)] inline-flex items-center justify-center">
   Browse Auctions
-                  <ArrowRight size={22} className="ml-2 !text-black" />
-                </Button>
+                  <ArrowRight size={22} className="ml-2 !text-blue-700" />
+                </button>
               </Link>
               <Link href="/create-auction">
-                <Button className="bg-white hover:bg-slate-50 !text-black px-10 py-4 rounded-xl font-bold text-lg shadow-2xl transform hover:scale-105 transition-all duration-300 border-2 border-white/20">
+                <button className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 !text-white px-10 py-4 rounded-xl font-bold text-lg shadow-2xl transform hover:scale-110 transition-all duration-300 border-2 border-blue-400 hover:shadow-[0_0_30px_rgba(99,102,241,0.6)] inline-flex items-center justify-center">
  Start Selling
-                </Button>
+                </button>
               </Link>
             </div>
           </div>
@@ -145,7 +130,7 @@ export default function HomePage() {
               </div>
               <h3 className="text-2xl font-bold text-slate-900 mb-4">Create Account</h3>
               <p className="text-slate-600 text-lg leading-relaxed">
-                Sign up in seconds with your email. Verify your account and you're ready to start bidding on amazing items.
+                Sign up in seconds with your email. Verify your account and you&apos;re ready to start bidding on amazing items.
               </p>
             </div>
             
@@ -221,36 +206,52 @@ export default function HomePage() {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-10">
                 {liveAuctions.map((auction) => {
                   const auctionId = auction.id || auction.auctionId;
+                  const timeRemaining = getTimeRemaining(auction.endTime);
                   return (
                   <div key={auctionId} className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-slate-200 hover:border-indigo-400 transform hover:-translate-y-2">
                     <Link href={`/auction/${auctionId}`} className="block">
                       {/* Auction Image */}
-                      <div className="relative h-64 bg-gradient-to-br from-blue-100 via-indigo-100 to-purple-100 overflow-hidden">
+                      <div
+                        className="relative h-64 bg-gradient-to-br from-blue-100 via-indigo-100 to-purple-100 overflow-hidden"
+                        data-image-container
+                      >
                         {auction.imageUrl ? (
-                          <img
+                          <Image
                             src={auction.imageUrl.startsWith('http') ? auction.imageUrl : `http://localhost:7001${auction.imageUrl}`}
-                            alt={auction.title}
-                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                            onError={(e) => {
-                              e.target.style.display = 'none';
-                              e.target.parentElement.innerHTML = '<div class="w-full h-full flex items-center justify-center"><svg class="text-indigo-300" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 6.5l11 11m-11 0l11-11M21 3l-6 6m-10 4l4 4m-7 4l6-6"/></svg></div>';
+                            alt={auction.title || 'Auction image'}
+                            fill
+                            unoptimized
+                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                            className="object-cover group-hover:scale-110 transition-transform duration-300"
+                            onError={(event) => {
+                              const img = event.currentTarget;
+                              img.style.display = 'none';
+                              const container = img.closest('[data-image-container]');
+                              const fallback = container?.querySelector('[data-fallback]');
+                              if (fallback) {
+                                fallback.classList.remove('hidden');
+                              }
                             }}
                           />
-                        ) : (
-                          <div className="w-full h-full flex items-center justify-center">
-                            <Gavel className="text-indigo-300" size={80} />
-                          </div>
-                        )}
+                        ) : null}
+                        <div
+                          data-fallback
+                          className={`flex w-full h-full items-center justify-center ${auction.imageUrl ? 'hidden' : ''}`}
+                        >
+                          <Gavel className="text-indigo-300" size={80} />
+                        </div>
                         {/* Status Badge */}
                         <div className="absolute top-4 right-4 px-3 py-1 bg-gradient-to-r from-green-500 to-emerald-600 text-white text-xs font-bold rounded-full flex items-center gap-1 shadow-lg">
                           <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
                           LIVE
                         </div>
                         {/* Time Remaining */}
-                        <div className="absolute bottom-4 left-4 px-3 py-1 bg-black/70 backdrop-blur-sm text-white text-sm font-semibold rounded-lg flex items-center gap-2">
-                          <Clock size={16} />
-                          {getTimeRemaining(auction.endTime)}
-                        </div>
+                        {timeRemaining && (
+                          <div className="absolute bottom-4 left-4 px-3 py-1 bg-black/70 backdrop-blur-sm text-white text-sm font-semibold rounded-lg flex items-center gap-2">
+                            <Clock size={16} />
+                            {timeRemaining}
+                          </div>
+                        )}
                       </div>
 
                       {/* Auction Details */}
@@ -266,13 +267,13 @@ export default function HomePage() {
                           <div>
                             <p className="text-xs text-slate-500 mb-1">Current Price</p>
                             <p className="text-2xl font-bold bg-gradient-to-r from-blue-800 to-indigo-700 bg-clip-text text-transparent">
-                              ${(auction.currentPrice || auction.startingPrice || 0).toFixed(2)}
+                              Rs. {(auction.currentPrice || auction.startingPrice || 0).toFixed(2)}
                             </p>
                           </div>
                           <div className="text-right">
                             <p className="text-xs text-slate-500 mb-1">Starting Price</p>
                             <p className="text-lg font-semibold text-slate-700">
-                              ${(auction.startingPrice || 0).toFixed(2)}
+                              Rs. {(auction.startingPrice || 0).toFixed(2)}
                             </p>
                           </div>
                         </div>
@@ -309,14 +310,14 @@ export default function HomePage() {
               <p className="text-slate-500 mb-6">There are currently no active auctions. Check back soon or create your own!</p>
               <div className="flex gap-4 justify-center">
                 <Link href="/main/auctions">
-                  <Button className="bg-gradient-to-r from-blue-800 via-indigo-950 to-blue-700 text-white px-8 py-3 rounded-full font-bold shadow-lg">
+                  <button className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 !text-white px-8 py-3 rounded-full font-bold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
                     View All Auctions
-                  </Button>
+                  </button>
                 </Link>
                 <Link href="/create-auction">
-                  <Button className="bg-white border-2 border-slate-300 text-slate-700 hover:bg-slate-50 px-8 py-3 rounded-full font-bold">
+                  <button className="bg-blue-600 hover:bg-blue-700 !text-white px-8 py-3 rounded-full font-bold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 border-2 border-blue-500">
                     Create Auction
-                  </Button>
+                  </button>
                 </Link>
               </div>
             </div>
