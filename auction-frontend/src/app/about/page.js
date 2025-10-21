@@ -30,8 +30,7 @@ export default function AboutPage() {
               </span>
             </h1>
             <p className="text-xl md:text-2xl text-white/80 mb-4 max-w-4xl mx-auto leading-relaxed">
-              nexBID is a premier online auction platform connecting buyers and sellers from around the world. 
-              We provide a secure, transparent, and exciting marketplace for discovering unique items and rare collectibles.
+              nexBID is a premier online auction platform connecting buyers and sellers from around the world. We provide a secure, transparent, and exciting marketplace for discovering unique items and rare collectibles. All registered users can sell items and place bids on auctions through nexBID.
             </p>
           </div>
         </div>

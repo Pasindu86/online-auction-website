@@ -6,7 +6,7 @@ import { ArrowRight, Shield, Zap, Users, Trophy, Search, Clock, Award, Target, H
 import Navbar from '../components/ui/Navbar';
 import Footer from '../components/ui/Footer';
 import Button from '../components/ui/Button';
-import { getActiveAuctions } from '../lib/api';
+import { getAllAuctions } from '../lib/api';
 
 export default function HomePage() {
   const [liveAuctions, setLiveAuctions] = useState([]);
@@ -19,18 +19,20 @@ export default function HomePage() {
 
   const fetchLiveAuctions = async () => {
     try {
-      const auctions = await getActiveAuctions();
-      console.log('📦 Active auctions:', auctions);
+      // Fetch ALL auctions (not just active ones)
+      const auctions = await getAllAuctions();
+      console.log('📦 All auctions:', auctions);
 
+      // Sort by createdAt date (most recent first) and take the last 3 created
       const recentLiveAuctions = auctions
         .sort((a, b) => {
-          const dateA = new Date(a.createdAt || a.startTime || a.endTime);
-          const dateB = new Date(b.createdAt || b.startTime || b.endTime);
-          return dateB - dateA;
+          const dateA = new Date(a.createdAt || a.startTime);
+          const dateB = new Date(b.createdAt || b.startTime);
+          return dateB - dateA; // Newest first
         })
-        .slice(0, 3);
+        .slice(0, 3); // Take only the last 3 created auctions
       
-      console.log('✅ Top 3 recent live auctions to display:', recentLiveAuctions);
+      console.log('✅ Last 3 created auctions to display:', recentLiveAuctions);
       setLiveAuctions(recentLiveAuctions);
       setError(null);
     } catch (error) {
@@ -77,7 +79,7 @@ export default function HomePage() {
               </span>
             </h1>
             <p className="text-xl md:text-2xl text-white/80 mb-12 max-w-3xl mx-auto leading-relaxed">
-              Discover unique treasures, rare collectibles, and exclusive items from verified sellers worldwide.
+              Discover unique treasures, rare collectibles, and exclusive items from verified sellers worldwide. All registered users can sell items and place bids on auctions through nexBID.
             </p>
             
             {/* CTA Buttons */}
