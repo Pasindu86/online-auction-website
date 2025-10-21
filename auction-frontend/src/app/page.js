@@ -44,6 +44,10 @@ export default function HomePage() {
     }
   };
 
+  const formatPrice = (price) => {
+    return `Rs. ${Number(price).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+  };
+
   const getTimeRemaining = (endTime) => {
     const now = new Date();
     const end = new Date(endTime);
@@ -263,17 +267,11 @@ export default function HomePage() {
                           {auction.description}
                         </p>
 
-                        <div className="flex items-center justify-between mb-4 pb-4 border-b border-slate-200">
-                          <div>
-                            <p className="text-xs text-slate-500 mb-1">Current Price</p>
-                            <p className="text-2xl font-bold bg-gradient-to-r from-blue-800 to-indigo-700 bg-clip-text text-transparent">
-                              Rs. {(auction.currentPrice || auction.startingPrice || 0).toFixed(2)}
-                            </p>
-                          </div>
-                          <div className="text-right">
-                            <p className="text-xs text-slate-500 mb-1">Starting Price</p>
-                            <p className="text-lg font-semibold text-slate-700">
-                              Rs. {(auction.startingPrice || 0).toFixed(2)}
+                        <div className="flex items-center justify-center mb-4 pb-4 border-b border-slate-200">
+                          <div className="text-center">
+                            <p className="text-sm text-slate-500 mb-1.5 font-semibold">Current Price</p>
+                            <p className="text-3xl font-bold bg-gradient-to-r from-blue-800 to-indigo-700 bg-clip-text text-transparent">
+                              {formatPrice(auction.currentPrice || auction.startingPrice || 0)}
                             </p>
                           </div>
                         </div>

@@ -54,7 +54,7 @@ export default function AuctionsPage() {
   });
 
   const formatPrice = (price) => {
-    return `Rs. ${Number(price).toFixed(2)}`;
+    return `Rs. ${Number(price).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
   };
 
   const getImageUrl = (imageUrl) => {
@@ -233,18 +233,12 @@ export default function AuctionsPage() {
                     </p>
                     
                     {/* Price Section - Compact but Clear */}
-                    <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-3 mb-3">
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <p className="text-[10px] font-semibold text-gray-500 uppercase tracking-wide mb-1">Current Bid</p>
-                          <p className="text-2xl font-black bg-gradient-to-r from-blue-700 to-indigo-600 bg-clip-text text-transparent">
+                    <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-4 mb-3">
+                      <div className="flex items-center justify-center">
+                        <div className="text-center">
+                          <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">Current Bid</p>
+                          <p className="text-3xl font-black bg-gradient-to-r from-blue-700 to-indigo-600 bg-clip-text text-transparent">
                             {formatPrice(auction.currentPrice)}
-                          </p>
-                        </div>
-                        <div className="text-right">
-                          <p className="text-[10px] font-semibold text-gray-500 uppercase tracking-wide mb-1">Starting</p>
-                          <p className="text-base font-bold text-gray-700">
-                            {formatPrice(auction.startingPrice)}
                           </p>
                         </div>
                       </div>

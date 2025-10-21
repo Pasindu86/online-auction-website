@@ -95,7 +95,7 @@ export default function MyAuctionsPage() {
   };
 
   const formatPrice = (price) => {
-    return `Rs. ${Number(price).toFixed(2)}`;
+    return `Rs. ${Number(price).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
   };
 
   const formatDate = (dateString) => {
