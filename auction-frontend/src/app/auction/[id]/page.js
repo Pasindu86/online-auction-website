@@ -162,10 +162,7 @@ export default function AuctionDetailPage() {
   }, [user, auction, recentBids, params.id]);
 
   const formatPrice = (price) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD'
-    }).format(price);
+    return `Rs. ${Number(price).toFixed(2)}`;
   };
 
   const formatDate = (dateString) => {
@@ -521,7 +518,7 @@ export default function AuctionDetailPage() {
                             Bid Amount (Min: {formatPrice(auction.currentPrice + 1)})
                           </label>
                           <div className="relative">
-                            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 font-semibold text-lg">$</span>
+                            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 font-semibold text-lg">Rs. </span>
                             <input
                               type="number"
                               value={bidAmount}

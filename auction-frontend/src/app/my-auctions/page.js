@@ -95,10 +95,7 @@ export default function MyAuctionsPage() {
   };
 
   const formatPrice = (price) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD'
-    }).format(price);
+    return `Rs. ${Number(price).toFixed(2)}`;
   };
 
   const formatDate = (dateString) => {
