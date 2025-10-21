@@ -44,7 +44,7 @@ namespace AuctionSystem.Api.Controllers
         [HttpGet("active")]
         public async Task<IActionResult> GetActive()
         {
-            // First update any expired auctions
+            // Update any expired auctions before returning active ones
             await UpdateExpiredAuctionsAsync();
             
             var now = DateTime.UtcNow;
@@ -55,6 +55,13 @@ namespace AuctionSystem.Api.Controllers
                 .ToListAsync();
             
             return Ok(activeAuctions);
+        }
+
+        [HttpPost("check-expired")]
+        public async Task<IActionResult> CheckExpiredAuctions()
+        {
+            await UpdateExpiredAuctionsAsync();
+            return Ok(new { message = "Expired auctions checked and updated" });
         }
 
         [HttpGet("upcoming")]

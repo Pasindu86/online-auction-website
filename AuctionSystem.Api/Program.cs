@@ -2,6 +2,7 @@ using AuctionSystem.Api.Data;
 using Microsoft.EntityFrameworkCore;
 
 using online_auction_website.Services; // ADD THIS
+using AuctionSystem.Api.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +17,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 // ADD THIS: Register Email Service
 builder.Services.AddScoped<IEmailService, EmailService>();
+
+// Register the Auction Timer Background Service
+builder.Services.AddHostedService<AuctionTimerService>();
 
 // CORS configuration
 builder.Services.AddCors(options =>
