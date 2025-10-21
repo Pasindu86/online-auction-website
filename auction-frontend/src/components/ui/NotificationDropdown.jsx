@@ -185,7 +185,7 @@ const NotificationDropdown = ({ userId }) => {
                         </p>
                         <p className="text-xs text-gray-600 mt-1">
                           Final Price: <span className="font-semibold text-blue-600">
-                            ${notification.finalPrice.toFixed(2)}
+                            Rs. {notification.finalPrice.toFixed(2)}
                           </span>
                         </p>
                         <div className="flex items-center justify-between mt-2">

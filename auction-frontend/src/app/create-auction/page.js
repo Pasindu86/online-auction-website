@@ -386,7 +386,7 @@ export default function CreateAuction() {
                     </label>
                     <div className="relative">
                       <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                        <span className="text-gray-500 font-semibold">$</span>
+                        <span className="text-gray-500 font-semibold">Rs.</span>
                       </div>
                       <input
                         id="startingPrice"
@@ -397,7 +397,7 @@ export default function CreateAuction() {
                         placeholder="0.00"
                         min="0"
                         step="0.01"
-                        className={`w-full pl-8 pr-4 py-3 border rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-800 focus:border-blue-800 transition-all ${
+                        className={`w-full pl-12 pr-4 py-3 border rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-800 focus:border-blue-800 transition-all ${
                           errors.startingPrice ? 'border-red-300 bg-red-50' : 'border-gray-300 hover:border-gray-400'
                         }`}
                         required

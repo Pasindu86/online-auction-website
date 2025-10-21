@@ -265,13 +265,13 @@ export default function HomePage() {
                           <div>
                             <p className="text-xs text-slate-500 mb-1">Current Price</p>
                             <p className="text-2xl font-bold bg-gradient-to-r from-blue-800 to-indigo-700 bg-clip-text text-transparent">
-                              ${(auction.currentPrice || auction.startingPrice || 0).toFixed(2)}
+                              Rs. {(auction.currentPrice || auction.startingPrice || 0).toFixed(2)}
                             </p>
                           </div>
                           <div className="text-right">
                             <p className="text-xs text-slate-500 mb-1">Starting Price</p>
                             <p className="text-lg font-semibold text-slate-700">
-                              ${(auction.startingPrice || 0).toFixed(2)}
+                              Rs. {(auction.startingPrice || 0).toFixed(2)}
                             </p>
                           </div>
                         </div>
