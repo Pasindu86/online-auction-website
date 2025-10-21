@@ -1,4 +1,6 @@
-﻿namespace AuctionSystem.Api.Models
+﻿using online_auction_website.Models;
+
+namespace AuctionSystem.Api.Models
 {
     public class Bid
     {
@@ -8,5 +10,7 @@
         public decimal Amount { get; set; }
         public DateTime PlacedAt { get; set; }
 
+        // Navigation properties
+        public User? User { get; set; }
     }
 }

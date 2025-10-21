@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import Image from 'next/image';
+import { useRouter, usePathname } from 'next/navigation';
 import { Menu, X, Gavel, Search, Home, Hammer, LayoutDashboard, PlusCircle, Package, ChevronDown, LogOut } from 'lucide-react';
 import { logoutUser } from '../../lib/api';
 import Button from './Button';
@@ -13,20 +14,23 @@ import NotificationDropdown from './NotificationDropdown';
 const LogoImage = () => {
   const [errored, setErrored] = useState(false);
   return (
-    <>
+    <div className="relative h-12 w-12">
       {!errored ? (
-        <img
+        <Image
           src="/logo.png"
           alt="BID logo"
+          fill
+          priority
+          sizes="48px"
+          className="rounded-xl object-cover"
           onError={() => setErrored(true)}
-          className="w-12 h-12 object-cover rounded-xl"
         />
       ) : (
-        <div className="w-10 h-10 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center border border-white/30 shadow-lg text-white font-bold">
+        <div className="flex h-full w-full items-center justify-center rounded-xl border border-white/30 bg-white/20 text-sm font-bold text-white shadow-lg backdrop-blur-md">
           BID
         </div>
       )}
-    </>
+    </div>
   );
 };
 
@@ -35,6 +39,7 @@ const Navbar = () => {
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [user, setUser] = useState(null);
   const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
     const userData = localStorage.getItem('user');
@@ -62,12 +67,28 @@ const Navbar = () => {
     router.push('/');
   };
 
-  const NavLink = ({ href, icon: Icon, children, onClick }) => (
-    <Link href={href} onClick={onClick} className="flex items-center gap-2 text-white hover:text-white/80 font-medium transition-colors">
-      {Icon && <Icon size={18} />}
-      {children}
-    </Link>
-  );
+  const isActive = (path) => {
+    if (path === '/') return pathname === '/';
+    return pathname.startsWith(path);
+  };
+
+  const NavLink = ({ href, icon: Icon, children, onClick }) => {
+    const active = isActive(href);
+    return (
+      <Link 
+        href={href} 
+        onClick={onClick} 
+        className={`flex items-center gap-2 font-medium transition-all duration-200 ${
+          active 
+            ? 'text-blue-300 drop-shadow-[0_0_8px_rgba(147,197,253,0.8)]' 
+            : 'text-white hover:text-blue-200'
+        }`}
+      >
+        {Icon && <Icon size={18} className={active ? 'stroke-[2.5]' : ''} />}
+        {children}
+      </Link>
+    );
+  };
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-slate-900/70 via-slate-800/60 to-slate-900/70 backdrop-blur-md backdrop-saturate-150 border-b border-white/10 shadow-2xl">
@@ -110,7 +131,7 @@ const Navbar = () => {
             ) : (
               <>
                 <Button variant="ghost" size="small" onClick={() => router.push('/login')} className="text-white hover:text-white/80 border-white/30 hover:border-white/50 hover:bg-white/10">Sign In</Button>
-                <Button variant="primary" size="small" onClick={() => router.push('/register')} className="bg-gradient-to-r from-rose-600 to-red-600 hover:from-rose-700 hover:to-red-700 text-white shadow-lg rounded-full px-6 font-bold">GET STARTED</Button>
+                <Button variant="primary" size="small" onClick={() => router.push('/register')} className="!bg-blue-600 hover:!bg-blue-700 !text-white shadow-lg rounded-full px-6 font-bold">Register</Button>
               </>
             )}
           </div>
@@ -127,28 +148,76 @@ const Navbar = () => {
         {isMenuOpen && (
           <div className="md:hidden border-t border-white/20 bg-slate-900/80 backdrop-blur-md backdrop-saturate-150 rounded-b-2xl">
             <div className="px-2 pt-2 pb-3 space-y-1">
-              <Link href="/" onClick={() => setIsMenuOpen(false)} className="flex items-center gap-2 px-3 py-2 text-white hover:text-white/80 hover:bg-white/10 rounded-xl">
-                <Home size={18} />Home
+              <Link 
+                href="/" 
+                onClick={() => setIsMenuOpen(false)} 
+                className={`flex items-center gap-2 px-3 py-2 rounded-xl transition-all ${
+                  isActive('/') 
+                    ? 'text-blue-300 bg-blue-500/20 border border-blue-400/30' 
+                    : 'text-white hover:text-white/80 hover:bg-white/10'
+                }`}
+              >
+                <Home size={18} className={isActive('/') ? 'stroke-[2.5]' : ''} />Home
               </Link>
-              <Link href="/about" onClick={() => setIsMenuOpen(false)} className="flex items-center gap-2 px-3 py-2 text-white hover:text-white/80 hover:bg-white/10 rounded-xl">
+              <Link 
+                href="/about" 
+                onClick={() => setIsMenuOpen(false)} 
+                className={`flex items-center gap-2 px-3 py-2 rounded-xl transition-all ${
+                  isActive('/about') 
+                    ? 'text-blue-300 bg-blue-500/20 border border-blue-400/30' 
+                    : 'text-white hover:text-white/80 hover:bg-white/10'
+                }`}
+              >
                 About
               </Link>
-              <Link href="/main/auctions" onClick={() => setIsMenuOpen(false)} className="flex items-center gap-2 px-3 py-2 text-white hover:text-white/80 hover:bg-white/10 rounded-xl">
-                <Hammer size={18} />Auctions
+              <Link 
+                href="/main/auctions" 
+                onClick={() => setIsMenuOpen(false)} 
+                className={`flex items-center gap-2 px-3 py-2 rounded-xl transition-all ${
+                  isActive('/main/auctions') 
+                    ? 'text-blue-300 bg-blue-500/20 border border-blue-400/30' 
+                    : 'text-white hover:text-white/80 hover:bg-white/10'
+                }`}
+              >
+                <Hammer size={18} className={isActive('/main/auctions') ? 'stroke-[2.5]' : ''} />Auctions
               </Link>
               {user && (
                 <>
-                  <Link href="/my-auctions" onClick={() => setIsMenuOpen(false)} className="flex items-center gap-2 px-3 py-2 text-white hover:text-white/80 hover:bg-white/10 rounded-xl">
-                    <LayoutDashboard size={18} />My Listings
+                  <Link 
+                    href="/my-auctions" 
+                    onClick={() => setIsMenuOpen(false)} 
+                    className={`flex items-center gap-2 px-3 py-2 rounded-xl transition-all ${
+                      isActive('/my-auctions') 
+                        ? 'text-blue-300 bg-blue-500/20 border border-blue-400/30' 
+                        : 'text-white hover:text-white/80 hover:bg-white/10'
+                    }`}
+                  >
+                    <LayoutDashboard size={18} className={isActive('/my-auctions') ? 'stroke-[2.5]' : ''} />My Listings
                   </Link>
-                  <Link href="/create-auction" onClick={() => setIsMenuOpen(false)} className="flex items-center gap-2 px-3 py-2 text-white hover:text-white/80 hover:bg-white/10 rounded-xl">
-                    <PlusCircle size={18} />Sell Item
+                  <Link 
+                    href="/create-auction" 
+                    onClick={() => setIsMenuOpen(false)} 
+                    className={`flex items-center gap-2 px-3 py-2 rounded-xl transition-all ${
+                      isActive('/create-auction') 
+                        ? 'text-blue-300 bg-blue-500/20 border border-blue-400/30' 
+                        : 'text-white hover:text-white/80 hover:bg-white/10'
+                    }`}
+                  >
+                    <PlusCircle size={18} className={isActive('/create-auction') ? 'stroke-[2.5]' : ''} />Sell Item
                   </Link>
                 </>
               )}
               {user?.role === 'admin' && (
-                <Link href="/admin/dashboard" onClick={() => setIsMenuOpen(false)} className="flex items-center gap-2 px-3 py-2 text-white hover:text-white/80 hover:bg-white/10 rounded-xl">
-                  <Package size={18} />Admin
+                <Link 
+                  href="/admin/dashboard" 
+                  onClick={() => setIsMenuOpen(false)} 
+                  className={`flex items-center gap-2 px-3 py-2 rounded-xl transition-all ${
+                    isActive('/admin/dashboard') 
+                      ? 'text-blue-300 bg-blue-500/20 border border-blue-400/30' 
+                      : 'text-white hover:text-white/80 hover:bg-white/10'
+                  }`}
+                >
+                  <Package size={18} className={isActive('/admin/dashboard') ? 'stroke-[2.5]' : ''} />Admin
                 </Link>
               )}
               <div className="border-t border-white/20 pt-4 mt-4 space-y-3">
@@ -162,7 +231,7 @@ const Navbar = () => {
                 ) : (
                   <>
                     <Button variant="ghost" size="small" onClick={() => { router.push('/login'); setIsMenuOpen(false); }} className="w-full justify-center text-white hover:text-white/80 border-white/30 hover:border-white/50 hover:bg-white/10">Sign In</Button>
-                    <Button variant="primary" size="small" onClick={() => { router.push('/register'); setIsMenuOpen(false); }} className="w-full justify-center bg-gradient-to-r from-rose-600 to-red-600 hover:from-rose-700 hover:to-red-700 text-white rounded-full font-bold">GET STARTED</Button>
+                    <Button variant="primary" size="small" onClick={() => { router.push('/register'); setIsMenuOpen(false); }} className="w-full justify-center !bg-blue-600 hover:!bg-blue-700 !text-white rounded-full font-bold">Register</Button>
                   </>
                 )}
               </div>

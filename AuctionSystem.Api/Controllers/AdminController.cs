@@ -180,6 +180,13 @@ namespace AuctionSystem.Api.Controllers
             var auction = await _db.Auctions.FindAsync(id);
             if (auction == null) return NotFound();
 
+            // Prevent deleting auctions that already created downstream records (orders/payments)
+            var hasOrders = await _db.Orders.AnyAsync(o => o.AuctionId == id);
+            if (hasOrders)
+            {
+                return BadRequest("Cannot delete an auction that has orders. Please cancel orders first or keep the auction record for audit.");
+            }
+
             // Delete related bids first to avoid foreign key constraints
             var bids = _db.Bids.Where(b => b.AuctionId == id);
             _db.Bids.RemoveRange(bids);

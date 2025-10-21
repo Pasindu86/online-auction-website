@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { ArrowLeft, CreditCard, Banknote, Check, X, Truck, Shield } from 'lucide-react';
 import Button from '../../components/ui/Button';
@@ -27,27 +27,7 @@ export default function PaymentPage() {
 
   const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:7001/api';
 
-  useEffect(() => {
-    const currentUser = getCurrentUser();
-    if (!currentUser) {
-      router.push('/login');
-      return;
-    }
-    setUser(currentUser);
-
-    const orderId = searchParams.get('orderId');
-    const auctionId = searchParams.get('auctionId');
-    
-    if (!orderId && !auctionId) {
-      setError('No order or auction specified');
-      setLoading(false);
-      return;
-    }
-
-    fetchOrderDetails(orderId, auctionId);
-  }, [searchParams, router]);
-
-  const fetchOrderDetails = async (orderId, auctionId) => {
+  const fetchOrderDetails = useCallback(async (orderId, auctionId) => {
     try {
       setLoading(true);
       
@@ -72,7 +52,27 @@ export default function PaymentPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [API_URL]);
+
+  useEffect(() => {
+    const currentUser = getCurrentUser();
+    if (!currentUser) {
+      router.push('/login');
+      return;
+    }
+    setUser(currentUser);
+
+    const orderId = searchParams.get('orderId');
+    const auctionId = searchParams.get('auctionId');
+    
+    if (!orderId && !auctionId) {
+      setError('No order or auction specified');
+      setLoading(false);
+      return;
+    }
+
+    fetchOrderDetails(orderId, auctionId);
+  }, [searchParams, router, fetchOrderDetails]);
 
   const validateForm = () => {
     if (!shippingAddress.trim()) return 'Please enter a shipping address';
