@@ -1,4 +1,5 @@
 ﻿using online_auction_website.Models;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AuctionSystem.Api.Models
 {
@@ -11,6 +12,7 @@ namespace AuctionSystem.Api.Models
         public DateTime PlacedAt { get; set; }
 
         // Navigation properties
+        [ForeignKey("UserId")]
         public User? User { get; set; }
     }
 }
