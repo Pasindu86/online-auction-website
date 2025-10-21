@@ -182,8 +182,8 @@ export default function AuctionsPage() {
                   onClick={() => router.push(`/auction/${auction.id}`)}
                   className="group bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer border border-gray-200 hover:border-indigo-400 transform hover:-translate-y-2 overflow-hidden relative"
                 >
-                  {/* Image Container - Slightly Reduced Height */}
-                  <div className="relative h-52 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 overflow-hidden">
+                  {/* Image Container - Increased Height */}
+                  <div className="relative h-64 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 overflow-hidden">
                     {auction.imageUrl ? (
                       <Image
                         src={getImageUrl(auction.imageUrl)}
@@ -220,25 +220,24 @@ export default function AuctionsPage() {
                     )}
                   </div>
                   
-                  {/* Content Container - Slightly Reduced Padding */}
-                  <div className="p-4">
+                  {/* Content Container - Reduced Padding */}
+                  <div className="p-3">
                     {/* Title */}
-                    <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-indigo-700 transition-colors leading-snug min-h-[3rem]">
+                    <h3 className="text-base font-bold text-gray-900 mb-1.5 line-clamp-2 group-hover:text-indigo-700 transition-colors leading-snug">
                       {auction.title}
                     </h3>
                     
                     {/* Description */}
-                    <p className="text-gray-600 text-sm mb-3 line-clamp-2 leading-relaxed">
+                    <p className="text-gray-600 text-xs mb-2 line-clamp-2 leading-relaxed">
                       {auction.description}
                     </p>
                     
                     {/* Price Section - Compact but Clear */}
-                    <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-4 mb-3">
+                    <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-3 mb-2">
                       <div className="flex items-center justify-center">
-                        <div className="text-center">
-                          <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">Current Bid</p>
-                          <p className="text-3xl font-black bg-gradient-to-r from-blue-700 to-indigo-600 bg-clip-text text-transparent">
-                            {formatPrice(auction.currentPrice)}
+                        <div className="text-center min-w-full">
+                          <p className="text-[10px] font-semibold text-gray-500 uppercase tracking-wide mb-1">Current Bid</p>
+                          <p className="text-[1.5rem] font-black bg-gradient-to-r from-blue-700 to-indigo-600 bg-clip-text text-transparent whitespace-nowrap overflow-x-auto"> {formatPrice(auction.currentPrice)}
                           </p>
                         </div>
                       </div>
@@ -262,7 +261,7 @@ export default function AuctionsPage() {
                           className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-4 py-2 rounded-full font-bold text-sm shadow-md hover:shadow-lg transition-all duration-300 flex items-center gap-1.5 transform hover:scale-105"
                         >
                           <Gavel size={14} /> 
-                          Bid
+                          Place Bid
                         </button>
                       ) : (
                         <button 
