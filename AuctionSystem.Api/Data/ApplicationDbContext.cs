@@ -60,7 +60,7 @@ namespace AuctionSystem.Api.Data
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Bid>()
-                .HasOne<User>()
+                .HasOne(b => b.User)
                 .WithMany()
                 .HasForeignKey(b => b.UserId)
                 .OnDelete(DeleteBehavior.NoAction);
