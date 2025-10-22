@@ -162,7 +162,7 @@ export default function AuctionDetailPage() {
   }, [user, auction, recentBids, params.id]);
 
   const formatPrice = (price) => {
-    return `Rs. ${Number(price).toFixed(2)}`;
+    return `Rs. ${Number(price).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
   };
 
   const formatDate = (dateString) => {
@@ -360,12 +360,12 @@ export default function AuctionDetailPage() {
                   {/* Price Section */}
                   <div className="flex items-center justify-between mb-6 pb-4 border-b border-gray-100">
                     <div>
-                      <p className="text-xs text-gray-500 mb-1">Current Price</p>
-                      <p className="text-3xl font-black text-blue-600">{formatPrice(auction.currentPrice)}</p>
+                      <p className="text-sm text-gray-500 mb-2 font-semibold uppercase tracking-wide">Current Price</p>
+                      <p className="text-4xl font-black text-blue-600">{formatPrice(auction.currentPrice)}</p>
                     </div>
                     <div className="text-right">
-                      <p className="text-xs text-gray-500 mb-1">Starting Price</p>
-                      <p className="text-lg font-semibold text-gray-700">{formatPrice(auction.startingPrice)}</p>
+                      <p className="text-sm text-gray-500 mb-2 font-semibold uppercase tracking-wide">Starting Price</p>
+                      <p className="text-2xl font-semibold text-gray-700">{formatPrice(auction.startingPrice)}</p>
                     </div>
                   </div>
 

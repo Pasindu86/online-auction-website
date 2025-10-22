@@ -23,16 +23,16 @@ export default function HomePage() {
       const auctions = await getAllAuctions();
       console.log('📦 All auctions:', auctions);
 
-      // Sort by createdAt date (most recent first) and take the last 3 created
+      // Sort by createdAt date (most recent first) and take the last 4 created
       const recentLiveAuctions = auctions
         .sort((a, b) => {
           const dateA = new Date(a.createdAt || a.startTime);
           const dateB = new Date(b.createdAt || b.startTime);
           return dateB - dateA; // Newest first
         })
-        .slice(0, 3); // Take only the last 3 created auctions
+        .slice(0, 4); // Take only the last 4 created auctions
       
-      console.log('✅ Last 3 created auctions to display:', recentLiveAuctions);
+      console.log('✅ Last 4 created auctions to display:', recentLiveAuctions);
       setLiveAuctions(recentLiveAuctions);
       setError(null);
     } catch (error) {
@@ -42,6 +42,10 @@ export default function HomePage() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const formatPrice = (price) => {
+    return `Rs. ${Number(price).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
   };
 
   const getTimeRemaining = (endTime) => {
@@ -203,16 +207,16 @@ export default function HomePage() {
             </div>
           ) : liveAuctions.length > 0 ? (
             <>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-10">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-10">
                 {liveAuctions.map((auction) => {
                   const auctionId = auction.id || auction.auctionId;
                   const timeRemaining = getTimeRemaining(auction.endTime);
                   return (
-                  <div key={auctionId} className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-slate-200 hover:border-indigo-400 transform hover:-translate-y-2">
-                    <Link href={`/auction/${auctionId}`} className="block">
+                  <div key={auctionId} className="group bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-200 hover:border-indigo-400 transform hover:-translate-y-2 cursor-pointer">
+                    <Link href={`/auction/${auctionId}`}>
                       {/* Auction Image */}
                       <div
-                        className="relative h-64 bg-gradient-to-br from-blue-100 via-indigo-100 to-purple-100 overflow-hidden"
+                        className="relative h-64 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 overflow-hidden"
                         data-image-container
                       >
                         {auction.imageUrl ? (
@@ -221,8 +225,8 @@ export default function HomePage() {
                             alt={auction.title || 'Auction image'}
                             fill
                             unoptimized
-                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                            className="object-cover group-hover:scale-110 transition-transform duration-300"
+                            sizes="(max-width: 768px) 100vw, (max-width: 1280px) 33vw, 25vw"
+                            className="object-cover group-hover:scale-105 transition-transform duration-500"
                             onError={(event) => {
                               const img = event.currentTarget;
                               img.style.display = 'none';
@@ -238,11 +242,11 @@ export default function HomePage() {
                           data-fallback
                           className={`flex w-full h-full items-center justify-center ${auction.imageUrl ? 'hidden' : ''}`}
                         >
-                          <Gavel className="text-indigo-300" size={80} />
+                          <Gavel className="text-indigo-200" size={56} />
                         </div>
                         {/* Status Badge */}
-                        <div className="absolute top-4 right-4 px-3 py-1 bg-gradient-to-r from-green-500 to-emerald-600 text-white text-xs font-bold rounded-full flex items-center gap-1 shadow-lg">
-                          <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                        <div className="absolute top-3 right-3 px-3 py-1.5 bg-gradient-to-r from-green-500 to-emerald-600 text-white text-xs font-bold rounded-full flex items-center gap-1.5 shadow-lg">
+                          <span className="w-2 h-2 bg-white rounded-full animate-pulse"></span>
                           LIVE
                         </div>
                         {/* Time Remaining */}
@@ -255,37 +259,47 @@ export default function HomePage() {
                       </div>
 
                       {/* Auction Details */}
-                      <div className="p-6">
-                        <h3 className="text-xl font-bold text-slate-900 mb-2 line-clamp-2 group-hover:text-indigo-800 transition-colors">
+                      <div className="p-3">
+                        {/* Title */}
+                        <h3 className="text-base font-bold text-gray-900 mb-1.5 line-clamp-2 group-hover:text-indigo-700 transition-colors leading-snug">
                           {auction.title}
                         </h3>
-                        <p className="text-slate-600 text-sm mb-4 line-clamp-2">
+                        
+                        {/* Description */}
+                        <p className="text-gray-600 text-xs mb-2 line-clamp-2 leading-relaxed">
                           {auction.description}
                         </p>
 
-                        <div className="flex items-center justify-between mb-4 pb-4 border-b border-slate-200">
-                          <div>
-                            <p className="text-xs text-slate-500 mb-1">Current Price</p>
-                            <p className="text-2xl font-bold bg-gradient-to-r from-blue-800 to-indigo-700 bg-clip-text text-transparent">
-                              Rs. {(auction.currentPrice || auction.startingPrice || 0).toFixed(2)}
-                            </p>
-                          </div>
-                          <div className="text-right">
-                            <p className="text-xs text-slate-500 mb-1">Starting Price</p>
-                            <p className="text-lg font-semibold text-slate-700">
-                              Rs. {(auction.startingPrice || 0).toFixed(2)}
-                            </p>
+                        {/* Price Section - Compact but Clear */}
+                        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-3 mb-2">
+                          <div className="flex items-center justify-center">
+                            <div className="text-center min-w-full">
+                              <p className="text-[10px] font-semibold text-gray-500 uppercase tracking-wide mb-1">Current Bid</p>
+                              <p className="text-xl font-black bg-gradient-to-r from-blue-700 to-indigo-600 bg-clip-text text-transparent whitespace-nowrap overflow-x-auto">
+                                {formatPrice(auction.currentPrice || auction.startingPrice || 0)}
+                              </p>
+                            </div>
                           </div>
                         </div>
 
-                        <div className="flex items-center justify-between">
-                          <span className="text-sm text-slate-500">
-                            {auction.bidCount || 0} bid{(auction.bidCount || 0) !== 1 ? 's' : ''}
-                          </span>
-                          <Button className="bg-gradient-to-r from-blue-800 via-indigo-900 to-blue-700 hover:from-blue-900 hover:via-indigo-950 hover:to-blue-800 text-white px-5 py-2 rounded-full font-semibold text-sm shadow-lg">
-                            Place Bid
-                            <ArrowRight size={16} className="ml-1" />
-                          </Button>
+                        {/* Footer - Bids and Action Button */}
+                        <div className="flex items-center justify-between pt-3 border-t border-gray-100">
+                          <div className="flex items-center gap-1.5">
+                            <TrendingUp size={16} className="text-gray-400" />
+                            <span className="text-sm font-semibold text-gray-600">
+                              {auction.bidCount || 0} {(auction.bidCount || 0) === 1 ? 'Bid' : 'Bids'}
+                            </span>
+                          </div>
+                          
+                          <button 
+                            onClick={(e) => {
+                              e.preventDefault();
+                            }}
+                            className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-4 py-2 rounded-full font-bold text-sm shadow-md hover:shadow-lg transition-all duration-300 flex items-center gap-1.5 transform hover:scale-105"
+                          >
+                            <Gavel size={14} /> 
+                           Place Your  Bid
+                          </button>
                         </div>
                       </div>
                     </Link>
