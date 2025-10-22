@@ -95,7 +95,17 @@ const AdminDashboardPage = () => {
 
   const formatDateTime = (value) => {
     if (!value) return '—';
-    return new Date(value).toLocaleString();
+    // Ensure we're working with UTC time from the backend
+    const date = new Date(value + (value.endsWith('Z') ? '' : 'Z'));
+    return date.toLocaleString('en-US', {
+      timeZone: 'Asia/Colombo',
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true
+    });
   };
 
   const handleCloseAuction = async (auctionId) => {

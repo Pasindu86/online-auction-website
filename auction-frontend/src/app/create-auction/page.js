@@ -80,8 +80,14 @@ export default function CreateAuction() {
 
     if (!formData.startTime) {
       newErrors.startTime = 'Start time is required';
-    } else if (new Date(formData.startTime) <= new Date()) {
-      newErrors.startTime = 'Start time must be in the future';
+    } else {
+      const now = new Date();
+      const minStartTime = new Date(now.getTime() + 60000); // 1 minute from now
+      const startDate = new Date(formData.startTime);
+      
+      if (startDate < minStartTime) {
+        newErrors.startTime = 'Start time must be at least 1 minute from now';
+      }
     }
 
     if (!formData.endTime) {
@@ -91,8 +97,8 @@ export default function CreateAuction() {
       const endDate = new Date(formData.endTime);
       if (endDate <= startDate) {
         newErrors.endTime = 'End time must be after start time';
-      } else if (endDate - startDate < 600000) {
-        newErrors.endTime = 'Auction must run for at least 10 minutes';
+      } else if (endDate - startDate < 300000) {
+        newErrors.endTime = 'Auction must run for at least 5 minutes';
       }
     }
     
@@ -180,10 +186,10 @@ export default function CreateAuction() {
     }
   };
 
-  // Get current date-time in local timezone for min attribute
+  // Get current date-time + 1 minute in local timezone for min attribute
   const getCurrentDateTime = () => {
     const now = new Date();
-    now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+    now.setMinutes(now.getMinutes() - now.getTimezoneOffset() + 1); // Add 1 minute
     return now.toISOString().slice(0, 16);
   };
 

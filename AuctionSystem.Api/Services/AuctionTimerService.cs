@@ -23,11 +23,11 @@ namespace AuctionSystem.Api.Services
             {
                 try
                 {
-                    await CheckAndCloseExpiredAuctions();
+                    await CheckAuctionStatuses();
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogError(ex, "Error occurred while checking expired auctions.");
+                    _logger.LogError(ex, "Error occurred while checking auction statuses.");
                 }
 
                 // Check every 30 seconds
@@ -35,6 +35,32 @@ namespace AuctionSystem.Api.Services
             }
 
             _logger.LogInformation("Auction Timer Service stopped.");
+        }
+
+        private async Task CheckAuctionStatuses()
+        {
+            await CheckStartingAuctions();
+            await CheckAndCloseExpiredAuctions();
+        }
+
+        private async Task CheckStartingAuctions()
+        {
+            using var scope = _serviceProvider.CreateScope();
+            var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+
+            var now = DateTime.UtcNow;
+            var startingAuctions = await dbContext.Auctions
+                .Where(a => a.StartTime <= now && a.StartTime > now.AddSeconds(-30) && !a.IsClosed)
+                .ToListAsync();
+
+            if (startingAuctions.Any())
+            {
+                _logger.LogInformation($"Found {startingAuctions.Count} auction(s) that just started.");
+                foreach (var auction in startingAuctions)
+                {
+                    _logger.LogInformation($"Auction {auction.Id} ({auction.Title}) is now active and accepting bids.");
+                }
+            }
         }
 
         private async Task CheckAndCloseExpiredAuctions()
