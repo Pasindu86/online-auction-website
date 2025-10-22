@@ -17,8 +17,20 @@ namespace AuctionSystem.Api.Controllers
         public async Task<IActionResult> PlaceBid([FromBody] Bid bid)
         {
             var auction = await _db.Auctions.FindAsync(bid.AuctionId);
-            if (auction == null || auction.IsClosed)
-                return BadRequest("Auction not found or is closed");
+            if (auction == null)
+                return BadRequest("Auction not found");
+            
+            if (auction.IsClosed)
+                return BadRequest("Auction is closed");
+
+            // Check if auction has started
+            var now = DateTime.UtcNow;
+            if (now < auction.StartTime)
+                return BadRequest("Auction has not started yet");
+
+            // Check if auction has ended
+            if (now > auction.EndTime)
+                return BadRequest("Auction has already ended");
 
             if (!await _db.Users.AnyAsync(u => u.Id == bid.UserId))
                 return BadRequest("User not found");

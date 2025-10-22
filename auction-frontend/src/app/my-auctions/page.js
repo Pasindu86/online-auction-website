@@ -99,10 +99,16 @@ export default function MyAuctionsPage() {
   };
 
   const formatDate = (dateString) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
+    // Ensure we're working with UTC time from the backend
+    const date = new Date(dateString + (dateString.endsWith('Z') ? '' : 'Z'));
+    return date.toLocaleString('en-US', {
+      timeZone: 'Asia/Colombo',
       year: 'numeric',
       month: 'short',
       day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true
     });
   };
 
