@@ -166,12 +166,16 @@ export default function AuctionDetailPage() {
   };
 
   const formatDate = (dateString) => {
-    const date = new Date(dateString);
+    // Ensure we're working with UTC time from the backend
+    const date = new Date(dateString + (dateString.endsWith('Z') ? '' : 'Z'));
     return date.toLocaleString('en-US', {
+      timeZone: 'Asia/Colombo',
+      year: 'numeric',
       month: 'short',
       day: 'numeric',
       hour: '2-digit',
-      minute: '2-digit'
+      minute: '2-digit',
+      hour12: true
     });
   };
 
@@ -333,16 +337,33 @@ export default function AuctionDetailPage() {
                   
                   {/* Status Badge - Top Right */}
                   <div className="absolute top-4 right-4">
-                    {auction.isClosed ? (
-                      <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold bg-gray-800 text-white shadow-lg">
-                        CLOSED
-                      </span>
-                    ) : (
-                      <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold bg-green-500 text-white shadow-lg">
-                        <span className="w-1.5 h-1.5 bg-white rounded-full animate-pulse"></span>
-                        LIVE
-                      </span>
-                    )}
+                    {(() => {
+                      const now = new Date();
+                      const startTime = new Date(auction.startTime + (auction.startTime.endsWith('Z') ? '' : 'Z'));
+                      const endTime = new Date(auction.endTime + (auction.endTime.endsWith('Z') ? '' : 'Z'));
+                      
+                      if (auction.isClosed || endTime <= now) {
+                        return (
+                          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold bg-gray-800 text-white shadow-lg">
+                            CLOSED
+                          </span>
+                        );
+                      } else if (startTime > now) {
+                        return (
+                          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold bg-yellow-500 text-white shadow-lg">
+                            <Clock size={14} />
+                            UPCOMING
+                          </span>
+                        );
+                      } else {
+                        return (
+                          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold bg-green-500 text-white shadow-lg">
+                            <span className="w-1.5 h-1.5 bg-white rounded-full animate-pulse"></span>
+                            LIVE
+                          </span>
+                        );
+                      }
+                    })()}
                   </div>
                 </div>
 
@@ -375,8 +396,26 @@ export default function AuctionDetailPage() {
                     <span className="text-xs text-gray-500">Auction ID: #{auction.id}</span>
                   </div>
 
+                  {/* Upcoming Auction Message */}
+                  {(() => {
+                    const now = new Date();
+                    const startTime = new Date(auction.startTime + (auction.startTime.endsWith('Z') ? '' : 'Z'));
+                    return !auction.isClosed && startTime > now;
+                  })() && (
+                    <div className="text-center py-4 bg-yellow-50 border border-yellow-200 rounded-xl">
+                      <Clock className="mx-auto text-yellow-600 mb-2" size={32} />
+                      <p className="text-gray-900 font-bold text-sm">Auction Not Started Yet</p>
+                      <p className="text-xs text-gray-600 mt-1">Starts: <span className="font-bold">{formatDate(auction.startTime)}</span></p>
+                    </div>
+                  )}
+
                   {/* Login CTA */}
-                  {!auction.isClosed && !user && (
+                  {(() => {
+                    const now = new Date();
+                    const startTime = new Date(auction.startTime + (auction.startTime.endsWith('Z') ? '' : 'Z'));
+                    const endTime = new Date(auction.endTime + (auction.endTime.endsWith('Z') ? '' : 'Z'));
+                    return !auction.isClosed && startTime <= now && endTime > now && !user;
+                  })() && (
                     <Button 
                       onClick={() => router.push('/login')}
                       className="w-full bg-blue-600 hover:bg-blue-700 text-white px-6 py-4 rounded-xl font-bold text-base shadow-md hover:shadow-lg transition-all"
@@ -386,7 +425,11 @@ export default function AuctionDetailPage() {
                   )}
 
                   {/* Closed Auction Message */}
-                  {auction.isClosed && !isWinner && (
+                  {(() => {
+                    const now = new Date();
+                    const endTime = new Date(auction.endTime + (auction.endTime.endsWith('Z') ? '' : 'Z'));
+                    return (auction.isClosed || endTime <= now) && !isWinner;
+                  })() && (
                     <div className="text-center py-4 bg-gray-50 rounded-xl">
                       <Clock className="mx-auto text-gray-400 mb-2" size={32} />
                       <p className="text-gray-700 font-bold text-sm">Auction Ended</p>
@@ -508,11 +551,30 @@ export default function AuctionDetailPage() {
                   )}
 
                   {/* Bid Form Section */}
-                  {!auction.isClosed && user && !isWinner && (
+                  {(() => {
+                    const now = new Date();
+                    const endTime = new Date(auction.endTime + (auction.endTime.endsWith('Z') ? '' : 'Z'));
+                    return !auction.isClosed && endTime > now && user && !isWinner;
+                  })() && (
                     <div className="p-6 border-b border-gray-100">
-                      <h3 className="text-lg font-bold text-gray-900 mb-4">Place Your Bid</h3>
-                      
-                      <form onSubmit={handleBidSubmit} className="space-y-4">
+                      {(() => {
+                        const now = new Date();
+                        const startTime = new Date(auction.startTime + (auction.startTime.endsWith('Z') ? '' : 'Z'));
+                        return startTime > now;
+                      })() ? (
+                        <div className="text-center py-6">
+                          <Clock className="mx-auto text-yellow-500 mb-3" size={40} />
+                          <h3 className="text-lg font-bold text-gray-900 mb-2">Auction Starts Soon</h3>
+                          <p className="text-sm text-gray-600">
+                            This auction will begin accepting bids on<br />
+                            <span className="font-bold text-gray-900">{formatDate(auction.startTime)}</span>
+                          </p>
+                        </div>
+                      ) : (
+                        <>
+                          <h3 className="text-lg font-bold text-gray-900 mb-4">Place Your Bid</h3>
+                          
+                          <form onSubmit={handleBidSubmit} className="space-y-4">
                         <div>
                           <label className="block text-sm font-medium text-gray-700 mb-2">
                             Bid Amount (Min: {formatPrice(auction.currentPrice + 1)})
@@ -553,6 +615,8 @@ export default function AuctionDetailPage() {
                           {placingBid ? 'Placing Bid...' : 'Submit Bid'}
                         </Button>
                       </form>
+                        </>
+                      )}
                     </div>
                   )}
 
@@ -568,10 +632,44 @@ export default function AuctionDetailPage() {
                         <span className="text-gray-600">Total Bids</span>
                         <span className="font-bold text-gray-900">{totalBidsCount}</span>
                       </div>
+                      <div className="flex justify-between items-center py-2 border-b border-gray-100">
+                        <span className="text-gray-600">Start Time</span>
+                        <span className="font-bold text-gray-900">{formatDate(auction.startTime)}</span>
+                      </div>
+                      <div className="flex justify-between items-center py-2 border-b border-gray-100">
+                        <span className="text-gray-600">End Time</span>
+                        <span className="font-bold text-gray-900">{formatDate(auction.endTime)}</span>
+                      </div>
                       <div className="flex justify-between items-center py-2">
                         <span className="text-gray-600">Status</span>
-                        <span className={`font-bold ${auction.isClosed ? 'text-red-600' : 'text-green-600'}`}>
-                          {auction.isClosed ? 'Closed' : 'Active'}
+                        <span className={`font-bold ${
+                          (() => {
+                            const now = new Date();
+                            const startTime = new Date(auction.startTime + (auction.startTime.endsWith('Z') ? '' : 'Z'));
+                            const endTime = new Date(auction.endTime + (auction.endTime.endsWith('Z') ? '' : 'Z'));
+                            
+                            if (auction.isClosed || endTime <= now) {
+                              return 'text-red-600';
+                            } else if (startTime > now) {
+                              return 'text-yellow-600';
+                            } else {
+                              return 'text-green-600';
+                            }
+                          })()
+                        }`}>
+                          {(() => {
+                            const now = new Date();
+                            const startTime = new Date(auction.startTime + (auction.startTime.endsWith('Z') ? '' : 'Z'));
+                            const endTime = new Date(auction.endTime + (auction.endTime.endsWith('Z') ? '' : 'Z'));
+                            
+                            if (auction.isClosed || endTime <= now) {
+                              return 'Closed';
+                            } else if (startTime > now) {
+                              return 'Upcoming';
+                            } else {
+                              return 'Active';
+                            }
+                          })()}
                         </span>
                       </div>
                     </div>
